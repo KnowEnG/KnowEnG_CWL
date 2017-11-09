@@ -32,13 +32,7 @@ The sample runs for GenePrioritization can be run as follows:
 
 ```
 $ cd GenePrioritization/CWL
-```
-
-```
 $ cwltool gp_workflow.cwl gp_workflow_job.yml 
-```
-
-```
 $ cwltool gp_workflow.cwl gp_workflow_job.nonet.yml 
 ```
 
@@ -46,8 +40,5 @@ The sample runs for GeneSetCharacterization can be run as follows:
 
 ```
 $ cd GeneSetCharacterization/CWL
-```
-
-```
 $ cwltool gsc_workflow.cwl gsc_workflow_job.yml 
 ```
