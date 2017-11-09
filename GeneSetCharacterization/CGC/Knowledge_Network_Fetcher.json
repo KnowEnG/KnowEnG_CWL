@@ -1,0 +1,286 @@
+{
+  "sbg:id": "mepstein/genesetcharacterization/kn-fetcher-cb/9",
+  "successCodes": [],
+  "label": "Knowledge Network Fetcher",
+  "baseCommand": [
+    "sh",
+    "run_fetch.cmd"
+  ],
+  "sbg:image_url": null,
+  "arguments": [],
+  "id": "https://cgc-api.sbgenomics.com/v2/apps/mepstein/genesetcharacterization/kn-fetcher-cb/9/raw/",
+  "sbg:job": {
+    "allocatedResources": {
+      "mem": 1000,
+      "cpu": 1
+    },
+    "inputs": {}
+  },
+  "hints": [
+    {
+      "class": "DockerRequirement",
+      "dockerPull": "quay.io/cblatti3/kn_fetcher:latest"
+    },
+    {
+      "ramMin": 2000,
+      "outdirMin": 512000,
+      "class": "ResourceRequirement",
+      "coresMin": 1
+    },
+    {
+      "value": 1,
+      "class": "sbg:CPURequirement"
+    },
+    {
+      "value": 1000,
+      "class": "sbg:MemRequirement"
+    }
+  ],
+  "sbg:projectName": "GeneSetCharacterization",
+  "sbg:appVersion": [
+    "sbg:draft-2"
+  ],
+  "sbg:createdOn": 1503605037,
+  "sbg:publisher": "sbg",
+  "sbg:createdBy": "mepstein",
+  "sbg:sbgMaintained": false,
+  "sbg:revisionsInfo": [
+    {
+      "sbg:modifiedBy": "mepstein",
+      "sbg:revision": 0,
+      "sbg:revisionNotes": "Copy of mepstein/genesetcharacterization/kn-fetcher/4",
+      "sbg:modifiedOn": 1503605037
+    },
+    {
+      "sbg:modifiedBy": "mepstein",
+      "sbg:revision": 1,
+      "sbg:revisionNotes": null,
+      "sbg:modifiedOn": 1503605463
+    },
+    {
+      "sbg:modifiedBy": "mepstein",
+      "sbg:revision": 2,
+      "sbg:revisionNotes": null,
+      "sbg:modifiedOn": 1503607843
+    },
+    {
+      "sbg:modifiedBy": "mepstein",
+      "sbg:revision": 3,
+      "sbg:revisionNotes": null,
+      "sbg:modifiedOn": 1504905229
+    },
+    {
+      "sbg:modifiedBy": "mepstein",
+      "sbg:revision": 4,
+      "sbg:revisionNotes": null,
+      "sbg:modifiedOn": 1505406350
+    },
+    {
+      "sbg:modifiedBy": "mepstein",
+      "sbg:revision": 5,
+      "sbg:revisionNotes": null,
+      "sbg:modifiedOn": 1505764060
+    },
+    {
+      "sbg:modifiedBy": "mepstein",
+      "sbg:revision": 6,
+      "sbg:revisionNotes": null,
+      "sbg:modifiedOn": 1506534405
+    },
+    {
+      "sbg:modifiedBy": "mepstein",
+      "sbg:revision": 7,
+      "sbg:revisionNotes": null,
+      "sbg:modifiedOn": 1506553436
+    },
+    {
+      "sbg:modifiedBy": "mepstein",
+      "sbg:revision": 8,
+      "sbg:revisionNotes": null,
+      "sbg:modifiedOn": 1506622490
+    },
+    {
+      "sbg:modifiedBy": "mepstein",
+      "sbg:revision": 9,
+      "sbg:revisionNotes": null,
+      "sbg:modifiedOn": 1508944394
+    }
+  ],
+  "description": "Fetch a knowledge network from an AWS S3 bucket, given a network type, an edge type, and a species taxon ID.",
+  "inputs": [
+    {
+      "id": "#get_network",
+      "sbg:toolDefaultValue": "true",
+      "label": "Get Network Flag",
+      "type": [
+        "null",
+        "boolean"
+      ],
+      "doc": "whether or not to get the network",
+      "default": true,
+      "description": "Whether to get the network (or create a dummy/empty network file)"
+    },
+    {
+      "id": "#bucket",
+      "sbg:toolDefaultValue": "KnowNets/KN-20rep-1706/userKN-20rep-1706",
+      "label": "AWS S3 Bucket Name",
+      "type": [
+        "null",
+        "string"
+      ],
+      "doc": "the aws s3 bucket",
+      "default": "KnowNets/KN-20rep-1706/userKN-20rep-1706",
+      "description": "The AWS S3 bucket to fetch the network from"
+    },
+    {
+      "id": "#network_type",
+      "sbg:toolDefaultValue": "Gene",
+      "label": "Network Type",
+      "type": [
+        "null",
+        "string"
+      ],
+      "doc": "the type of subnetwork",
+      "default": "Gene",
+      "description": "The network type (e.g., Gene, Property)"
+    },
+    {
+      "id": "#taxonid",
+      "sbg:toolDefaultValue": "9606",
+      "label": "Network Species Taxon ID",
+      "type": [
+        "null",
+        "string"
+      ],
+      "doc": "the taxonomic id for the species of interest",
+      "default": "9606",
+      "description": "The network species taxon ID (e.g., 9606 for human)"
+    },
+    {
+      "id": "#edge_type",
+      "sbg:toolDefaultValue": "STRING_experimental",
+      "label": "Network Edge Type",
+      "type": [
+        "null",
+        "string"
+      ],
+      "doc": "the edge type keyword for the subnetwork of interest",
+      "default": "PPI_physical_association",
+      "description": "The network edge type (e.g., STRING_experimental, gene_ontology)"
+    }
+  ],
+  "sbg:validationErrors": [],
+  "sbg:project": "mepstein/genesetcharacterization",
+  "outputs": [
+    {
+      "id": "#network_edge_file",
+      "label": "Network Edge File",
+      "type": [
+        "null",
+        "File"
+      ],
+      "outputBinding": {
+        "glob": "*.edge"
+      },
+      "description": "The network edge file",
+      "doc": "4 column format for subnetwork for single edge type and species"
+    },
+    {
+      "id": "#cmd_log_file",
+      "label": "Command Log File",
+      "type": [
+        "null",
+        "File"
+      ],
+      "outputBinding": {
+        "glob": "run_fetch.cmd"
+      },
+      "description": "The log of the fetch command",
+      "doc": "log of fetch command"
+    },
+    {
+      "id": "#node_map_file",
+      "label": "Node Map File",
+      "type": [
+        "null",
+        "File"
+      ],
+      "outputBinding": {
+        "glob": "*.node_map"
+      },
+      "description": "The node map file",
+      "doc": "5 column node map with [original_node_id, mapped_node_id, node_type, node_alias, node_description]"
+    },
+    {
+      "id": "#pnode_map_file",
+      "label": "PNode Map File",
+      "type": [
+        "null",
+        "File"
+      ],
+      "outputBinding": {
+        "glob": "*.pnode_map"
+      },
+      "description": "The pnode map file",
+      "doc": "5 column node map with [original_node_id, mapped_node_id, node_type, node_alias, node_description]"
+    },
+    {
+      "id": "#network_metadata_file",
+      "label": "Network Metadata File",
+      "type": [
+        "null",
+        "File"
+      ],
+      "outputBinding": {
+        "glob": "*.metadata"
+      },
+      "description": "The network metadata file",
+      "doc": "yaml format describing network contents"
+    }
+  ],
+  "cwlVersion": "sbg:draft-2",
+  "temporaryFailCodes": [],
+  "sbg:cmdPreview": "sh run_fetch.cmd",
+  "sbg:revision": 9,
+  "class": "CommandLineTool",
+  "stdout": "",
+  "sbg:modifiedBy": "mepstein",
+  "sbg:modifiedOn": 1508944394,
+  "sbg:contributors": [
+    "mepstein"
+  ],
+  "sbg:latestRevision": 9,
+  "requirements": [
+    {
+      "class": "InlineJavascriptRequirement"
+    },
+    {
+      "class": "ShellCommandRequirement"
+    },
+    {
+      "fileDef": [
+        {
+          "filename": "run_fetch.cmd",
+          "fileContent": {
+            "engine": "#cwl-js-engine",
+            "script": "//MYCMD=\"date && if [ \" + $job.inputs.get_network + ' = \"true\" ]; then /home/kn_fetcher.sh '+$job.inputs.bucket+' '+$job.inputs.network_type+' '+$job.inputs.taxonid+' '+$job.inputs.edge_type+'; else touch empty.edge; fi && date'\n\nstr = \"\";\n\nstr += \"date\";\nif ($job.inputs.get_network) {\n//if ($job.inputs.get_network == \"true\") {\n    str += \" && /home/kn_fetcher.sh \" + $job.inputs.bucket + \" \" + $job.inputs.network_type + \n\" \" + $job.inputs.taxonid + \" \" + $job.inputs.edge_type;\n}\nelse {\n    //str += \" && touch empty.edge\";\n}\nstr += \" && date\";\n\nstr;\n",
+            "class": "Expression"
+          }
+        }
+      ],
+      "class": "CreateFileRequirement"
+    },
+    {
+      "id": "#cwl-js-engine",
+      "class": "ExpressionEngineRequirement",
+      "requirements": [
+        {
+          "class": "DockerRequirement",
+          "dockerPull": "rabix/js-engine"
+        }
+      ]
+    }
+  ],
+  "stdin": "",
+  "doc": "Retrieve appropriate subnetwork from KnowEnG Knowledge Network from AWS S3 storage"
+}

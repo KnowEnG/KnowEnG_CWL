@@ -1,0 +1,351 @@
+{
+  "sbg:id": "mepstein/genesetcharacterization/gsc-runner-copy/16",
+  "successCodes": [],
+  "label": "Gene Set Characterization",
+  "baseCommand": [
+    "sh",
+    "run_gr.cmd",
+    "&&",
+    "sh",
+    "file_renamer.cmd"
+  ],
+  "sbg:image_url": null,
+  "arguments": [],
+  "id": "https://cgc-api.sbgenomics.com/v2/apps/mepstein/genesetcharacterization/gsc-runner-copy/16/raw/",
+  "sbg:job": {
+    "allocatedResources": {
+      "mem": 1000,
+      "cpu": 1
+    },
+    "inputs": {
+      "gene_map_file": {
+        "secondaryFiles": [],
+        "size": 0,
+        "class": "File",
+        "path": "/path/to/gene_map_file.ext"
+      },
+      "network_smoothing_percent": 9
+    }
+  },
+  "hints": [
+    {
+      "class": "DockerRequirement",
+      "dockerPull": "knowengdev/geneset_characterization_pipeline:07_26_2017"
+    },
+    {
+      "value": 1,
+      "class": "sbg:CPURequirement"
+    },
+    {
+      "value": 1000,
+      "class": "sbg:MemRequirement"
+    }
+  ],
+  "doc": "Network-guided gene set characterization method implementation by KnowEnG that relates public gene sets to user gene sets",
+  "sbg:projectName": "GeneSetCharacterization",
+  "sbg:appVersion": [
+    "sbg:draft-2"
+  ],
+  "sbg:createdOn": 1505406378,
+  "sbg:publisher": "sbg",
+  "sbg:createdBy": "mepstein",
+  "sbg:sbgMaintained": false,
+  "sbg:revisionsInfo": [
+    {
+      "sbg:modifiedBy": "mepstein",
+      "sbg:revision": 0,
+      "sbg:revisionNotes": "Copy of mepstein/genesetcharacterization/gsc-runner/1",
+      "sbg:modifiedOn": 1505406378
+    },
+    {
+      "sbg:modifiedBy": "mepstein",
+      "sbg:revision": 1,
+      "sbg:revisionNotes": null,
+      "sbg:modifiedOn": 1505406402
+    },
+    {
+      "sbg:modifiedBy": "mepstein",
+      "sbg:revision": 2,
+      "sbg:revisionNotes": null,
+      "sbg:modifiedOn": 1505414680
+    },
+    {
+      "sbg:modifiedBy": "mepstein",
+      "sbg:revision": 3,
+      "sbg:revisionNotes": null,
+      "sbg:modifiedOn": 1505768631
+    },
+    {
+      "sbg:modifiedBy": "mepstein",
+      "sbg:revision": 4,
+      "sbg:revisionNotes": null,
+      "sbg:modifiedOn": 1506019861
+    },
+    {
+      "sbg:modifiedBy": "mepstein",
+      "sbg:revision": 5,
+      "sbg:revisionNotes": null,
+      "sbg:modifiedOn": 1506547484
+    },
+    {
+      "sbg:modifiedBy": "mepstein",
+      "sbg:revision": 6,
+      "sbg:revisionNotes": null,
+      "sbg:modifiedOn": 1506572577
+    },
+    {
+      "sbg:modifiedBy": "mepstein",
+      "sbg:revision": 7,
+      "sbg:revisionNotes": null,
+      "sbg:modifiedOn": 1506623681
+    },
+    {
+      "sbg:modifiedBy": "mepstein",
+      "sbg:revision": 8,
+      "sbg:revisionNotes": null,
+      "sbg:modifiedOn": 1507220508
+    },
+    {
+      "sbg:modifiedBy": "mepstein",
+      "sbg:revision": 9,
+      "sbg:revisionNotes": null,
+      "sbg:modifiedOn": 1507224080
+    },
+    {
+      "sbg:modifiedBy": "mepstein",
+      "sbg:revision": 10,
+      "sbg:revisionNotes": null,
+      "sbg:modifiedOn": 1508281282
+    },
+    {
+      "sbg:modifiedBy": "mepstein",
+      "sbg:revision": 11,
+      "sbg:revisionNotes": null,
+      "sbg:modifiedOn": 1508284440
+    },
+    {
+      "sbg:modifiedBy": "mepstein",
+      "sbg:revision": 12,
+      "sbg:revisionNotes": null,
+      "sbg:modifiedOn": 1508351170
+    },
+    {
+      "sbg:modifiedBy": "mepstein",
+      "sbg:revision": 13,
+      "sbg:revisionNotes": null,
+      "sbg:modifiedOn": 1508351634
+    },
+    {
+      "sbg:modifiedBy": "mepstein",
+      "sbg:revision": 14,
+      "sbg:revisionNotes": null,
+      "sbg:modifiedOn": 1508948417
+    },
+    {
+      "sbg:modifiedBy": "mepstein",
+      "sbg:revision": 15,
+      "sbg:revisionNotes": null,
+      "sbg:modifiedOn": 1509502379
+    },
+    {
+      "sbg:modifiedBy": "mepstein",
+      "sbg:revision": 16,
+      "sbg:revisionNotes": null,
+      "sbg:modifiedOn": 1509652270
+    }
+  ],
+  "description": "Test a gene set for enrichment against a large compendium of annotations.",
+  "inputs": [
+    {
+      "id": "#pg_network_file",
+      "description": "The gene set property network file",
+      "label": "Gene Set Property Network File",
+      "type": [
+        "File"
+      ],
+      "doc": "property-gene network of interactions in edge format"
+    },
+    {
+      "id": "#gg_network_file",
+      "description": "The knowledge network file",
+      "label": "Knowledge Network File",
+      "type": [
+        "null",
+        "File"
+      ],
+      "doc": "gene-gene network of interactions in edge format"
+    },
+    {
+      "id": "#genomic_file",
+      "description": "The genomic spreadsheet file",
+      "label": "Genomic Spreadsheet File",
+      "type": [
+        "File"
+      ],
+      "doc": "spreadsheet of genomic data with samples as columns and genes as rows"
+    },
+    {
+      "id": "#gsc_method",
+      "description": "The GSC method to use (e.g., DRaWR, fisher)",
+      "label": "GSC Method",
+      "type": [
+        "null",
+        "string"
+      ],
+      "doc": "which method to use for GSC, i.e. DRaWR, fisher"
+    },
+    {
+      "id": "#gene_map_file",
+      "description": "The gene map file",
+      "label": "Gene Map File",
+      "type": [
+        "null",
+        "File"
+      ]
+    },
+    {
+      "id": "#network_smoothing_percent",
+      "sbg:toolDefaultValue": "50",
+      "description": "The amount of network smoothing (as a percent; default 50%); a greater value means greater contribution from the network interactions",
+      "label": "Amount of Network Smoothing",
+      "type": [
+        "null",
+        "int"
+      ]
+    }
+  ],
+  "sbg:validationErrors": [],
+  "sbg:project": "mepstein/genesetcharacterization",
+  "outputs": [
+    {
+      "id": "#enrichment_scores",
+      "label": "GSC Enrichment Scores",
+      "type": [
+        "null",
+        "File"
+      ],
+      "outputBinding": {
+        "glob": "*_sorted_by_property_score_*"
+      },
+      "description": "GSC enrichment scores",
+      "doc": "Edge format file with first three columns (user gene set, public gene set, score)"
+    },
+    {
+      "id": "#run_params_yml",
+      "label": "Configuration Parameters File",
+      "type": [
+        "null",
+        "File"
+      ],
+      "outputBinding": {
+        "glob": "run_params.yml"
+      },
+      "description": "The configuration parameters specified for the GSC run",
+      "doc": "contains the values used in analysis"
+    },
+    {
+      "id": "#cmd_log_file",
+      "description": "The log of the GSC run command",
+      "label": "Command Log File",
+      "type": [
+        "null",
+        "File"
+      ],
+      "outputBinding": {
+        "glob": "run_gr.cmd"
+      }
+    },
+    {
+      "id": "#readme",
+      "description": "The README file that describes the output files",
+      "label": "The README file",
+      "type": [
+        "null",
+        "File"
+      ],
+      "outputBinding": {
+        "glob": "README-GSC.txt"
+      }
+    },
+    {
+      "id": "#gene_map_file_out",
+      "description": "The gene map file",
+      "label": "Gene Map File",
+      "type": [
+        "null",
+        "File"
+      ],
+      "outputBinding": {
+        "glob": "gene_map.txt"
+      }
+    },
+    {
+      "id": "#genomic_file_out",
+      "description": "The clean genomic spreadsheet",
+      "label": "Genomic Spreadsheet File",
+      "type": [
+        "null",
+        "File"
+      ],
+      "outputBinding": {
+        "glob": "clean_gene_set_matrix.txt"
+      }
+    }
+  ],
+  "cwlVersion": "sbg:draft-2",
+  "temporaryFailCodes": [],
+  "sbg:cmdPreview": "sh run_gr.cmd && sh file_renamer.cmd",
+  "sbg:revision": 16,
+  "class": "CommandLineTool",
+  "stdout": "",
+  "sbg:modifiedBy": "mepstein",
+  "sbg:modifiedOn": 1509652270,
+  "sbg:contributors": [
+    "mepstein"
+  ],
+  "sbg:latestRevision": 16,
+  "stdin": "",
+  "requirements": [
+    {
+      "class": "ShellCommandRequirement"
+    },
+    {
+      "class": "InlineJavascriptRequirement"
+    },
+    {
+      "fileDef": [
+        {
+          "filename": "run_gr.cmd",
+          "fileContent": {
+            "engine": "#cwl-js-engine",
+            "script": "str = \"\";\n\nstr += \"spreadsheet_name_full_path: \" + $job.inputs.genomic_file.path + \"\\n\";\nstr += \"pg_network_name_full_path: \" + $job.inputs.pg_network_file.path + \"\\n\";\n//str += \"gene_names_map: dummy.map\\n\";\nif ($job.inputs.gene_map_file) {\n    str += \"gene_names_map: \" + $job.inputs.gene_map_file.path + \"\\n\";\n}\nelse {\n    str += \"gene_names_map: dummy.map\\n\";\n}\nstr += \"results_directory: ./\\n\";\nstr += \"method: \" + $job.inputs.gsc_method + \"\\n\";\n//str += \"gg_network_name_full_path: \" + $job.inputs.gg_network_file.path + \"\\n\";\nif ($job.inputs.gg_network_file) {\n    str += \"gg_network_name_full_path: \" + $job.inputs.gg_network_file.path + \"\\n\";\n    str += \"rwr_convergence_tolerence: 0.0001\\n\";\n    str += \"rwr_max_iterations: 500\\n\";\n    //str += \"rwr_restart_probability: 0.5\\n\";\n    if ($job.inputs.network_smoothing_percent &&\n        $job.inputs.network_smoothing_percent >= 0 && $job.inputs.network_smoothing_percent <= 100) {\n        restart_prob = 1 - ($job.inputs.network_smoothing_percent/100);\n        str += \"rwr_restart_probability: \" + restart_prob + \"\\n\";\n    }\n    else {\n        str += \"rwr_restart_probability: 0.5\\n\";\n    }\n}\n\nstr2 = \"echo \\\"\" + str + \"\\\" > run_params.yml && tail -n+2 \" + $job.inputs.genomic_file.path + \" | awk '{print \\$1\\\"\\\\t\\\"\\$1}' > dummy.map && python3 /home/src/geneset_characterization.py -run_directory ./ -run_file run_params.yml\";\n\nstr2;\n",
+            "class": "Expression"
+          }
+        },
+        {
+          "filename": "README-GSC.txt",
+          "fileContent": "This file contains a description of the different output files of the gene set characterization (GSC) pipeline. The downloaded zip file will contain one directory for each public gene set collection that was selected during the analysis configuration as well as up to three other reference files. The format of some output files will vary depending on the parameter options selected.\n\nFiles in Gene Set Collection Directory:\n  A) gsc_results.txt - Gene Set Characterization Results File\n  B) gene_set_name_map.txt - Public Gene Set Mapping File\n  C) run_params.yml - Run Parameters File\n  D) *.metadata - Gene Set Collection Metadata\n\nOther Reference Files:\n  E) clean_gene_set_matrix.txt - Mapped Genomic Spreadsheet File\n  F) gene_map.txt - Gene ID Mapping File\n  G) interaction_network.metadata - Knowledge Network Metadata (if KN guided analysis)\n\n(if KN guided analysis)a \"*.edge\" file that describes the gene set membership in the public collection and\n  B) a \"*.df\" file that contains the results of the analysis\n\nBelow are descriptions for the contents of each of these files:\n\nA) gsc_results.txt - Gene Set Characterization Results File\nThe columns of this file will depend on the choice you made whether to \"Use the Knowledge Network\"\n  If \"Yes\" Option (DRaWR):\n    1) user_gene_set: the names of the gene sets that you submitted\n    2) property_gene_set: the internal KnowEnG ids for public gene sets from one public gene set collection\n    3) difference_score: difference of query_score (col4) and baseline_score(col5) divided by the largest difference in the file. This value is between 0 and 1 and reported when it is greater than 0.5\n    4) query_score: converged stationary probability of being at the property_gene_set node in the chosen heterogenous network given that you restart at any only gene node from the user gene set. This value is between 0 and 1.\n    5) baseline_score: converged stationary probability of being at the property_gene_set node in the chosen heterogenous network given that you restart at any gene node. This value is between 0 and 1.\n  If \"No\" Option (Fisher Exact):\n    1) user_gene_set: the names of the gene sets that you submitted\n    2) property_gene_set: the internal KnowEnG ids for public gene sets from one public gene set collection\n    3) pvalue: the -1 * log10 pvalue of the one sided (alternative = 'greater') Fisher Exact Test using the contingency table corresponding to the user set and property gene set of the row. This value is reported when it is greater than 2.\n        NOTE1: You can take 10^-x to convert these values back into the original pvalues.\n        NOTE2: These pvalues (-1*log10) have not been corrected for multiple hypothesis testing.\n    4) universe_count: total number of genes annotated by the public gene set collection and listed in your spreadsheet (or known for the species of your submitted gene list).\n    5) user_count: size of your gene set in the universe\n    6) property_count: size of the public gene set in the universe\n    7) overlap_count: size of the overlap between the two in the universe\n\nB) gene_set_name_map.txt - Public Gene Set Mapping File\nThe columns of this file are defined as follows:\n  1) property_gene_set_id: the internal KnowEnG id for a the public gene set\n  2) property_gene_set_id2: the internal KnowEnG id for a the public gene set\n  3) gene_set_type: will always be \u201cProperty\u201d\n  4) property_gene_set_alias: alias for gene set from original data source\n  5) property_gene_set_desc: description for gene set from original data source\n\nC) run_params.yml - Run Parameters File\nThis yaml file contains the run parameters file that was used by the computation container that ran the KnowEnG pipeline (implementation available on GitHub) on the input data.\n\nD) *.metadata - Gene Set Collection Metadata\nThis yaml file contains information about the gene set collection used for the results in this directory.  Its keys include summarizations about the network size (\u201cdata\u201d), its public data source details (\u201cdatasets\u201d), information about the meaning of its edges (\u201cedge_type\u201d), and some commands and configurations used in its construction (\u201cexport\u201d).\n\nE) clean_gene_set_matrix.txt - Mapped Genomic Spreadsheet File\nThis file contains a modified version of the user\u2019s input genomic matrix where the original gene identifiers provided have been mapped to stable Ensembl gene_ids where possible.  Rows with original gene names that are unable to be mapped or are not unique are discarded from this clean output.  Only the remaining genes are used for the gene universe for the gene set characterization method.\n\nF) gene_map.txt - Gene ID Mapping File\nThe columns of this file are defined as follows:\n    1) KN_gene_id: the stable Ensembl gene ID that KnowEnG uses internally\n    2) user_gene_id: the corresponding gene/transcript/protein identifier supplied by the user in the original genomic spreadsheet.\n\nG) interaction_network.metadata - Knowledge Network Metadata (if KN guided analysis)\nThis yaml file contains information about the interaction network if used in the analysis.  Its keys include summarizations about the network size (\u201cdata\u201d), its public data source details (\u201cdatasets\u201d), information about the meaning of its edges (\u201cedge_type\u201d), and some commands and configurations used in its construction (\u201cexport\u201d)."
+        },
+        {
+          "filename": "file_renamer.cmd",
+          "fileContent": {
+            "engine": "#cwl-js-engine",
+            "script": "str = \"\"\n\nif ($job.inputs.gene_map_file) {\n    str += \"cp -p \" + $job.inputs.gene_map_file.path + \" gene_map.txt\\n\";\n}\n\nif ($job.inputs.genomic_file) {\n    str += \"cp -p \" + $job.inputs.genomic_file.path + \" clean_gene_set_matrix.txt\\n\";\n}\n\nstr;\n",
+            "class": "Expression"
+          }
+        }
+      ],
+      "class": "CreateFileRequirement"
+    },
+    {
+      "id": "#cwl-js-engine",
+      "class": "ExpressionEngineRequirement",
+      "requirements": [
+        {
+          "class": "DockerRequirement",
+          "dockerPull": "rabix/js-engine"
+        }
+      ]
+    }
+  ]
+}

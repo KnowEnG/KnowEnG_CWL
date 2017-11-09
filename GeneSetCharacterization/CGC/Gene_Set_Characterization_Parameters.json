@@ -1,0 +1,170 @@
+{
+  "sbg:id": "mepstein/genesetcharacterization/gene-set-characterization-parameters/5",
+  "successCodes": [],
+  "label": "Gene Set Characterization Parameters",
+  "baseCommand": [
+    ""
+  ],
+  "sbg:image_url": null,
+  "arguments": [],
+  "id": "https://cgc-api.sbgenomics.com/v2/apps/mepstein/genesetcharacterization/gene-set-characterization-parameters/5/raw/",
+  "sbg:job": {
+    "allocatedResources": {
+      "mem": 1000,
+      "cpu": 1
+    },
+    "inputs": {
+      "knowledge_network_edge_type": "knowlege_network_edge_type-string-value"
+    }
+  },
+  "hints": [
+    {
+      "value": 1,
+      "class": "sbg:CPURequirement"
+    },
+    {
+      "value": 1000,
+      "class": "sbg:MemRequirement"
+    },
+    {
+      "dockerImageId": "",
+      "class": "DockerRequirement",
+      "dockerPull": "ubuntu"
+    }
+  ],
+  "sbg:projectName": "GeneSetCharacterization",
+  "sbg:appVersion": [
+    "sbg:draft-2"
+  ],
+  "sbg:createdOn": 1508907200,
+  "sbg:publisher": "sbg",
+  "sbg:createdBy": "mepstein",
+  "sbg:sbgMaintained": false,
+  "sbg:revisionsInfo": [
+    {
+      "sbg:modifiedBy": "mepstein",
+      "sbg:revision": 0,
+      "sbg:revisionNotes": null,
+      "sbg:modifiedOn": 1508907200
+    },
+    {
+      "sbg:modifiedBy": "mepstein",
+      "sbg:revision": 1,
+      "sbg:revisionNotes": null,
+      "sbg:modifiedOn": 1508908202
+    },
+    {
+      "sbg:modifiedBy": "mepstein",
+      "sbg:revision": 2,
+      "sbg:revisionNotes": null,
+      "sbg:modifiedOn": 1508908332
+    },
+    {
+      "sbg:modifiedBy": "mepstein",
+      "sbg:revision": 3,
+      "sbg:revisionNotes": null,
+      "sbg:modifiedOn": 1508947441
+    },
+    {
+      "sbg:modifiedBy": "mepstein",
+      "sbg:revision": 4,
+      "sbg:revisionNotes": null,
+      "sbg:modifiedOn": 1508949007
+    },
+    {
+      "sbg:modifiedBy": "mepstein",
+      "sbg:revision": 5,
+      "sbg:revisionNotes": null,
+      "sbg:modifiedOn": 1508950175
+    }
+  ],
+  "description": "Sets the input parameters of some of the intermediate apps in the GSC workflow based on some of the input parameters to the workflow itself.",
+  "inputs": [
+    {
+      "id": "#knowledge_network_edge_type",
+      "description": "The knowledge network edge type (not required)",
+      "label": "Knowledge Network Edge Type",
+      "type": [
+        "null",
+        "string"
+      ]
+    }
+  ],
+  "sbg:validationErrors": [],
+  "sbg:project": "mepstein/genesetcharacterization",
+  "outputs": [
+    {
+      "id": "#get_network",
+      "description": "Whether to get the network",
+      "label": "Get Network Flag",
+      "type": [
+        "null",
+        "boolean"
+      ],
+      "outputBinding": {
+        "outputEval": {
+          "engine": "#cwl-js-engine",
+          "script": "if ($job.inputs.knowledge_network_edge_type) {\n    get_network = true;\n}\nelse {\n    get_network = false;\n}\n\nget_network;\n",
+          "class": "Expression"
+        }
+      }
+    },
+    {
+      "id": "#edge_type",
+      "description": "The network edge type",
+      "label": "Network Edge Type",
+      "type": [
+        "null",
+        "string"
+      ],
+      "outputBinding": {
+        "outputEval": {
+          "engine": "#cwl-js-engine",
+          "script": "$job.inputs.knowledge_network_edge_type;\n",
+          "class": "Expression"
+        }
+      }
+    },
+    {
+      "id": "#gsc_method",
+      "description": "The GSC method to use (e.g., DRaWR, fisher)",
+      "label": "GSC Method",
+      "type": [
+        "null",
+        "string"
+      ],
+      "outputBinding": {
+        "outputEval": {
+          "engine": "#cwl-js-engine",
+          "script": "if ($job.inputs.knowledge_network_edge_type) {\n    gsc_method = \"DRaWR\";\n}\nelse {\n    gsc_method = \"fisher\";\n}\n\ngsc_method;\n",
+          "class": "Expression"
+        }
+      }
+    }
+  ],
+  "cwlVersion": "sbg:draft-2",
+  "temporaryFailCodes": [],
+  "sbg:cmdPreview": "",
+  "sbg:revision": 5,
+  "class": "CommandLineTool",
+  "stdout": "",
+  "sbg:modifiedBy": "mepstein",
+  "sbg:modifiedOn": 1508950175,
+  "sbg:contributors": [
+    "mepstein"
+  ],
+  "sbg:latestRevision": 5,
+  "stdin": "",
+  "requirements": [
+    {
+      "id": "#cwl-js-engine",
+      "class": "ExpressionEngineRequirement",
+      "requirements": [
+        {
+          "class": "DockerRequirement",
+          "dockerPull": "rabix/js-engine"
+        }
+      ]
+    }
+  ]
+}

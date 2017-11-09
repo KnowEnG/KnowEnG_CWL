@@ -1,0 +1,421 @@
+{
+  "sbg:id": "mepstein/genesetcharacterization/data-cleaning-copy/18",
+  "successCodes": [],
+  "label": "Data Cleaning/Preprocessing",
+  "baseCommand": [
+    "sh",
+    "run_dc.cmd"
+  ],
+  "sbg:image_url": null,
+  "arguments": [],
+  "id": "https://cgc-api.sbgenomics.com/v2/apps/mepstein/genesetcharacterization/data-cleaning-copy/18/raw/",
+  "sbg:job": {
+    "allocatedResources": {
+      "mem": 1000,
+      "cpu": 1
+    },
+    "inputs": {}
+  },
+  "hints": [
+    {
+      "class": "DockerRequirement",
+      "dockerPull": "knowengdev/data_cleanup_pipeline:07_26_2017"
+    },
+    {
+      "ramMin": 5000,
+      "coresMin": 1,
+      "class": "ResourceRequirement",
+      "outdirMin": 512000
+    },
+    {
+      "value": 1,
+      "class": "sbg:CPURequirement"
+    },
+    {
+      "value": 1000,
+      "class": "sbg:MemRequirement"
+    }
+  ],
+  "doc": "checks the inputs of a pipeline for potential sources of errors",
+  "sbg:projectName": "GeneSetCharacterization",
+  "sbg:appVersion": [
+    "sbg:draft-2"
+  ],
+  "sbg:createdOn": 1505406239,
+  "sbg:publisher": "sbg",
+  "sbg:createdBy": "mepstein",
+  "sbg:sbgMaintained": false,
+  "sbg:revisionsInfo": [
+    {
+      "sbg:modifiedBy": "mepstein",
+      "sbg:revision": 0,
+      "sbg:revisionNotes": "Copy of mepstein/genesetcharacterization/data-cleaning/1",
+      "sbg:modifiedOn": 1505406239
+    },
+    {
+      "sbg:modifiedBy": "mepstein",
+      "sbg:revision": 1,
+      "sbg:revisionNotes": null,
+      "sbg:modifiedOn": 1505406320
+    },
+    {
+      "sbg:modifiedBy": "mepstein",
+      "sbg:revision": 2,
+      "sbg:revisionNotes": null,
+      "sbg:modifiedOn": 1505413786
+    },
+    {
+      "sbg:modifiedBy": "mepstein",
+      "sbg:revision": 3,
+      "sbg:revisionNotes": null,
+      "sbg:modifiedOn": 1505422802
+    },
+    {
+      "sbg:modifiedBy": "mepstein",
+      "sbg:revision": 4,
+      "sbg:revisionNotes": null,
+      "sbg:modifiedOn": 1505425456
+    },
+    {
+      "sbg:modifiedBy": "mepstein",
+      "sbg:revision": 5,
+      "sbg:revisionNotes": null,
+      "sbg:modifiedOn": 1505488133
+    },
+    {
+      "sbg:modifiedBy": "mepstein",
+      "sbg:revision": 6,
+      "sbg:revisionNotes": null,
+      "sbg:modifiedOn": 1505492945
+    },
+    {
+      "sbg:modifiedBy": "mepstein",
+      "sbg:revision": 7,
+      "sbg:revisionNotes": null,
+      "sbg:modifiedOn": 1505493684
+    },
+    {
+      "sbg:modifiedBy": "mepstein",
+      "sbg:revision": 8,
+      "sbg:revisionNotes": null,
+      "sbg:modifiedOn": 1505513593
+    },
+    {
+      "sbg:modifiedBy": "mepstein",
+      "sbg:revision": 9,
+      "sbg:revisionNotes": null,
+      "sbg:modifiedOn": 1505520805
+    },
+    {
+      "sbg:modifiedBy": "mepstein",
+      "sbg:revision": 10,
+      "sbg:revisionNotes": null,
+      "sbg:modifiedOn": 1505756420
+    },
+    {
+      "sbg:modifiedBy": "mepstein",
+      "sbg:revision": 11,
+      "sbg:revisionNotes": null,
+      "sbg:modifiedOn": 1505757869
+    },
+    {
+      "sbg:modifiedBy": "mepstein",
+      "sbg:revision": 12,
+      "sbg:revisionNotes": null,
+      "sbg:modifiedOn": 1506022304
+    },
+    {
+      "sbg:modifiedBy": "mepstein",
+      "sbg:revision": 13,
+      "sbg:revisionNotes": null,
+      "sbg:modifiedOn": 1506554378
+    },
+    {
+      "sbg:modifiedBy": "mepstein",
+      "sbg:revision": 14,
+      "sbg:revisionNotes": null,
+      "sbg:modifiedOn": 1506570023
+    },
+    {
+      "sbg:modifiedBy": "mepstein",
+      "sbg:revision": 15,
+      "sbg:revisionNotes": null,
+      "sbg:modifiedOn": 1506622701
+    },
+    {
+      "sbg:modifiedBy": "mepstein",
+      "sbg:revision": 16,
+      "sbg:revisionNotes": null,
+      "sbg:modifiedOn": 1506625592
+    },
+    {
+      "sbg:modifiedBy": "mepstein",
+      "sbg:revision": 17,
+      "sbg:revisionNotes": null,
+      "sbg:modifiedOn": 1506718068
+    },
+    {
+      "sbg:modifiedBy": "mepstein",
+      "sbg:revision": 18,
+      "sbg:revisionNotes": null,
+      "sbg:modifiedOn": 1507221156
+    }
+  ],
+  "description": "Clean/preprocess input data (genomic and optionally phenotypic) for use with other tools/pipelines.",
+  "sbg:cmdPreview": "sh run_dc.cmd",
+  "sbg:validationErrors": [],
+  "sbg:project": "mepstein/genesetcharacterization",
+  "outputs": [
+    {
+      "id": "#cleaning_log_file",
+      "label": "Cleaning Log File",
+      "type": [
+        "null",
+        "File"
+      ],
+      "outputBinding": {
+        "glob": "log_*_pipeline.yml"
+      },
+      "description": "The log of the data cleaning run",
+      "doc": "information on souce of errors for cleaning pipeline"
+    },
+    {
+      "id": "#clean_genomic_file",
+      "label": "Clean Genomic Spreadsheet",
+      "type": [
+        "null",
+        "File"
+      ],
+      "outputBinding": {
+        "glob": {
+          "engine": "#cwl-js-engine",
+          "class": "Expression",
+          "script": "function basename(path) {\n    var basename;\n\n    var ix = path.lastIndexOf('.');\n    if (ix == -1) {\n        basename = path;\n    }\n    else {\n        basename = path.substr(0, ix);\n    }\n\n    ix = basename.lastIndexOf('/')\n    if (ix != -1) {\n        basename = basename.substr(ix + 1);\n    }\n\n    return basename;\n}\n\nbasename($job.inputs.genomic_spreadsheet_file.name) + \"_ETL.tsv\";\n"
+        }
+      },
+      "description": "The clean genomic spreadsheet",
+      "doc": "matrix with gene names mapped and data cleaned"
+    },
+    {
+      "id": "#clean_phenotypic_file",
+      "label": "Clean Phenotypic Spreadsheet",
+      "type": [
+        "null",
+        "File"
+      ],
+      "outputBinding": {
+        "glob": {
+          "engine": "#cwl-js-engine",
+          "class": "Expression",
+          "script": "function basename(path) {\n    var basename;\n\n    var ix = path.lastIndexOf('.');\n    if (ix == -1) {\n        basename = path;\n    }\n    else {\n        basename = path.substr(0, ix);\n    }\n\n    ix = basename.lastIndexOf('/')\n    if (ix != -1) {\n        basename = basename.substr(ix + 1);\n    }\n\n    return basename;\n}\n\nif ($job.inputs.phenotypic_spreadsheet_file) {\n    basename($job.inputs.phenotypic_spreadsheet_file.name) + \"_ETL.tsv\";\n}\nelse {\n    \"NONE_ETL.tsv\";\n}\n"
+        }
+      },
+      "description": "The clean phenotypic spreadsheet",
+      "doc": "phenotype file prepared for pipeline"
+    },
+    {
+      "id": "#gene_map_file",
+      "label": "Gene Map File",
+      "type": [
+        "null",
+        "File"
+      ],
+      "outputBinding": {
+        "glob": "*_MAP.tsv"
+      },
+      "description": "The gene map file",
+      "doc": "two columns for internal gene ids and original gene ids"
+    },
+    {
+      "id": "#gene_unmap_file",
+      "label": "Gene Unmapped File",
+      "type": [
+        "null",
+        "File"
+      ],
+      "outputBinding": {
+        "glob": "*_UNMAPPED.tsv"
+      },
+      "description": "The genes that were not mapped",
+      "doc": "two columns for original gene ids and unmapped reason code"
+    },
+    {
+      "id": "#cleaning_parameters_yml",
+      "label": "Cleaning Parameters File",
+      "type": [
+        "null",
+        "File"
+      ],
+      "outputBinding": {
+        "glob": "run_cleanup.yml"
+      },
+      "description": "The configuration parameters specified for the data cleaning run",
+      "doc": "data cleaning parameters in yaml format"
+    },
+    {
+      "id": "#cmd_log_file",
+      "description": "The log of the data cleaning command",
+      "label": "Command Log File",
+      "type": [
+        "null",
+        "File"
+      ],
+      "outputBinding": {
+        "glob": "run_dc.cmd"
+      }
+    }
+  ],
+  "cwlVersion": "sbg:draft-2",
+  "temporaryFailCodes": [],
+  "inputs": [
+    {
+      "id": "#pipeline_type",
+      "description": "The name of the pipeline that will be run (i.e., data cleaning is pipeline-specific)",
+      "label": "Name of Pipeline",
+      "type": [
+        "string"
+      ],
+      "doc": "keywork name of pipeline from following list ['gene_prioritization_pipeline', 'samples_clustering_pipeline', 'geneset_characterization_pipeline']"
+    },
+    {
+      "id": "#genomic_spreadsheet_file",
+      "description": "The genomic spreadsheet file",
+      "label": "Genomic Spreadsheet File",
+      "type": [
+        "File"
+      ],
+      "doc": "the genomic spreadsheet input for the pipeline"
+    },
+    {
+      "id": "#taxonid",
+      "sbg:toolDefaultValue": "9606",
+      "label": "Species Taxon ID",
+      "type": [
+        "null",
+        "string"
+      ],
+      "doc": "taxon id of species related to genomic spreadsheet",
+      "default": "9606",
+      "description": "The species taxon ID (e.g., 9606 for human)"
+    },
+    {
+      "id": "#phenotypic_spreadsheet_file",
+      "sbg:toolDefaultValue": {
+        "location": "/bin/sh",
+        "class": "File"
+      },
+      "label": "Phenotypic Spreadsheet File (optional)",
+      "type": [
+        "null",
+        "File"
+      ],
+      "doc": "the phenotypic spreadsheet input for the pipeline [may be optional]",
+      "default": {
+        "location": "/bin/sh",
+        "class": "File"
+      },
+      "description": "The phenotypic spreadsheet file (optional)"
+    },
+    {
+      "id": "#gene_prioritization_corr_measure",
+      "sbg:toolDefaultValue": "missing",
+      "label": "GP Correlation Measure",
+      "type": [
+        "null",
+        "string"
+      ],
+      "doc": "if pipeline_type=='gene_prioritization_pipeline', then must be one of either ['t_test', 'pearson']",
+      "default": "missing",
+      "description": "The correlation measure to be used for GP (e.g., t_test or pearson)"
+    },
+    {
+      "id": "#redis_host",
+      "sbg:toolDefaultValue": "knowredis.knoweng.org",
+      "label": "RedisDB Host",
+      "type": [
+        "null",
+        "string"
+      ],
+      "doc": "url of Redis db",
+      "default": "knowredis.knoweng.org",
+      "description": "The redis DB host name"
+    },
+    {
+      "id": "#redis_port",
+      "sbg:toolDefaultValue": 6379,
+      "label": "RedisDB Port",
+      "type": [
+        "null",
+        "int"
+      ],
+      "doc": "port for Redis db",
+      "default": 6379,
+      "description": "The redis DB port"
+    },
+    {
+      "id": "#redis_pass",
+      "sbg:toolDefaultValue": "KnowEnG",
+      "label": "RedisDB Password",
+      "type": [
+        "null",
+        "string"
+      ],
+      "doc": "password for Redis db",
+      "default": "KnowEnG",
+      "description": "The redis DB password"
+    },
+    {
+      "id": "#source_hint",
+      "sbg:toolDefaultValue": "''",
+      "label": "ID Source Hint",
+      "type": [
+        "null",
+        "string"
+      ],
+      "doc": "suggestion for ID source database used to resolve ambiguities in mapping",
+      "default": "\\'\\'",
+      "description": "The source hint for the redis queries (can be '')"
+    }
+  ],
+  "sbg:revision": 18,
+  "class": "CommandLineTool",
+  "stdout": "",
+  "sbg:modifiedBy": "mepstein",
+  "sbg:modifiedOn": 1507221156,
+  "sbg:contributors": [
+    "mepstein"
+  ],
+  "sbg:latestRevision": 18,
+  "stdin": "",
+  "requirements": [
+    {
+      "id": "#cwl-js-engine",
+      "class": "ExpressionEngineRequirement",
+      "requirements": [
+        {
+          "class": "DockerRequirement",
+          "dockerPull": "rabix/js-engine"
+        }
+      ]
+    },
+    {
+      "class": "InlineJavascriptRequirement"
+    },
+    {
+      "class": "ShellCommandRequirement"
+    },
+    {
+      "fileDef": [
+        {
+          "filename": "run_dc.cmd",
+          "fileContent": {
+            "engine": "#cwl-js-engine",
+            "class": "Expression",
+            "script": "str = \"\"\n\nstr += \"pipeline_type: \" + $job.inputs.pipeline_type + \"\\n\";\nstr += \"spreadsheet_name_full_path: \" + $job.inputs.genomic_spreadsheet_file.path + \"\\n\";\nstr += \"taxonid: \" + $job.inputs.taxonid + \"\\n\";\nstr += \"redis_credential:\\n\";\nstr += \"  host: \" + $job.inputs.redis_host + \"\\n\";\nstr += \"  password: \" + $job.inputs.redis_pass + \"\\n\";\nstr += \"  port: \" + $job.inputs.redis_port + \"\\n\";\nstr += \"source_hint: \" + $job.inputs.source_hint + \"\\n\";\nstr += \"results_directory: ./\\n\";\n\nif ($job.inputs.phenotypic_spreadsheet_file && $job.inputs.phenotypic_spreadsheet_file.name != \"sh\") {\n    str += \"phenotype_name_full_path: \" + $job.inputs.phenotypic_spreadsheet_file.path + \"\\n\";\n}\nif ($job.inputs.pipeline_type == \"gene_prioritization_pipeline\") {\n    str += \"correlation_measure: \" + $job.inputs.gene_prioritization_corr_measure + \"\\n\";\n}\n\n//str2 = \"echo \\\"\" + str + \"\\\" > run_cleanup.yml\"\n//str2 = \"echo \\\"\" + str + \"\\\" > run_cleanup.yml && touch log_X_pipeline.yml && touch GX_ETL.tsv && touch PX_ETL.tsv && touch X_MAP.tsv && touch X_UNMAPPED.tsv\"\nstr2 = \"echo \\\"\" + str + \"\\\" > run_cleanup.yml && date && python3 /home/src/data_cleanup.py -run_directory ./ -run_file run_cleanup.yml && date\"\n\nstr2;\n"
+          }
+        }
+      ],
+      "class": "CreateFileRequirement"
+    }
+  ]
+}

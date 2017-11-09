@@ -1,0 +1,235 @@
+{
+  "sbg:id": "mepstein/genesetcharacterization/join-names/4",
+  "successCodes": [],
+  "label": "Join Names",
+  "baseCommand": [
+    "sh",
+    "file_renamer.cmd",
+    "&&",
+    "python3",
+    "join_names.py"
+  ],
+  "sbg:image_url": null,
+  "arguments": [],
+  "id": "https://cgc-api.sbgenomics.com/v2/apps/mepstein/genesetcharacterization/join-names/4/raw/",
+  "sbg:job": {
+    "allocatedResources": {
+      "mem": 1000,
+      "cpu": 1
+    },
+    "inputs": {
+      "interaction_network_metadata_file": {
+        "secondaryFiles": [],
+        "size": 0,
+        "class": "File",
+        "path": "/path/to/interaction_network_metadata_file.ext"
+      },
+      "data_file": {
+        "secondaryFiles": [],
+        "size": 0,
+        "class": "File",
+        "path": "/path/to/data_file.ext"
+      },
+      "name_map_file": {
+        "secondaryFiles": [],
+        "size": 0,
+        "class": "File",
+        "path": "/path/to/name_map_file.ext"
+      },
+      "output_file_name": "output_file_name-string-value"
+    }
+  },
+  "hints": [
+    {
+      "value": 1,
+      "class": "sbg:CPURequirement"
+    },
+    {
+      "value": 1000,
+      "class": "sbg:MemRequirement"
+    },
+    {
+      "dockerImageId": "",
+      "class": "DockerRequirement",
+      "dockerPull": "cblatti3/py3_slim:0.1"
+    }
+  ],
+  "sbg:projectName": "GeneSetCharacterization",
+  "sbg:appVersion": [
+    "sbg:draft-2"
+  ],
+  "sbg:createdOn": 1507143851,
+  "sbg:publisher": "sbg",
+  "sbg:createdBy": "mepstein",
+  "sbg:sbgMaintained": false,
+  "sbg:revisionsInfo": [
+    {
+      "sbg:modifiedBy": "mepstein",
+      "sbg:revision": 0,
+      "sbg:revisionNotes": null,
+      "sbg:modifiedOn": 1507143851
+    },
+    {
+      "sbg:modifiedBy": "mepstein",
+      "sbg:revision": 1,
+      "sbg:revisionNotes": null,
+      "sbg:modifiedOn": 1507145416
+    },
+    {
+      "sbg:modifiedBy": "mepstein",
+      "sbg:revision": 2,
+      "sbg:revisionNotes": null,
+      "sbg:modifiedOn": 1508281996
+    },
+    {
+      "sbg:modifiedBy": "mepstein",
+      "sbg:revision": 3,
+      "sbg:revisionNotes": null,
+      "sbg:modifiedOn": 1508282519
+    },
+    {
+      "sbg:modifiedBy": "mepstein",
+      "sbg:revision": 4,
+      "sbg:revisionNotes": null,
+      "sbg:modifiedOn": 1508283936
+    }
+  ],
+  "description": "This program adds columns to a file by matching keys in a designated column of that file to keys/lines in another file.",
+  "sbg:cmdPreview": "sh file_renamer.cmd && python3 join_names.py -f /path/to/data_file.ext -m /path/to/name_map_file.ext > output_file_name-string-value",
+  "sbg:validationErrors": [],
+  "sbg:project": "mepstein/genesetcharacterization",
+  "outputs": [
+    {
+      "id": "#new_data_file",
+      "description": "The new data file",
+      "label": "New Data File",
+      "type": [
+        "null",
+        "File"
+      ],
+      "outputBinding": {
+        "glob": {
+          "engine": "#cwl-js-engine",
+          "class": "Expression",
+          "script": "$job.inputs.output_file_name"
+        }
+      }
+    },
+    {
+      "id": "#interaction_network_metadata_file_out",
+      "description": "The interaction network metadata file",
+      "label": "Interaction Network Metadata File",
+      "type": [
+        "null",
+        "File"
+      ],
+      "outputBinding": {
+        "glob": "interaction_network.metadata"
+      }
+    },
+    {
+      "id": "#name_map_file_out",
+      "description": "The name map file",
+      "label": "Name Map File",
+      "type": [
+        "null",
+        "File"
+      ],
+      "outputBinding": {
+        "glob": "gene_set_name_map.txt"
+      }
+    }
+  ],
+  "cwlVersion": "sbg:draft-2",
+  "temporaryFailCodes": [],
+  "inputs": [
+    {
+      "id": "#data_file",
+      "type": [
+        "File"
+      ],
+      "sbg:fileTypes": "TSV",
+      "description": "The data file",
+      "inputBinding": {
+        "prefix": "-f",
+        "sbg:cmdInclude": true,
+        "separate": true
+      },
+      "label": "Data File"
+    },
+    {
+      "id": "#name_map_file",
+      "type": [
+        "File"
+      ],
+      "sbg:fileTypes": "TSV",
+      "description": "The name map file",
+      "inputBinding": {
+        "prefix": "-m",
+        "sbg:cmdInclude": true,
+        "separate": true
+      },
+      "label": "Name Map File"
+    },
+    {
+      "id": "#output_file_name",
+      "description": "The output file name",
+      "label": "Output File Name",
+      "type": [
+        "string"
+      ]
+    },
+    {
+      "id": "#interaction_network_metadata_file",
+      "description": "The interaction network metadata file",
+      "label": "Interaction Network Metadata File",
+      "type": [
+        "null",
+        "File"
+      ]
+    }
+  ],
+  "sbg:revision": 4,
+  "class": "CommandLineTool",
+  "stdout": {
+    "engine": "#cwl-js-engine",
+    "class": "Expression",
+    "script": "$job.inputs.output_file_name"
+  },
+  "sbg:modifiedBy": "mepstein",
+  "sbg:modifiedOn": 1508283936,
+  "sbg:contributors": [
+    "mepstein"
+  ],
+  "sbg:latestRevision": 4,
+  "stdin": "",
+  "requirements": [
+    {
+      "fileDef": [
+        {
+          "filename": "join_names.py",
+          "fileContent": "#!/usr/bin/env python3\n\n\n\"\"\"\nThis program adds columns to a file by matching keys in a designated\ncolumn of that file to keys/lines in another file.\n\nMore specifically:\nThis program takes two required arguments, a data_file (-f) and a name_map_file (-m).\nEach of these are delimiter-separated files (-d, default '\\t').\n\nFor the data_file, one column is designated as the data_column (-c, default 1).\n\nFor the name_map_file, one column is designated as the key_column (-k, default 1).\n\nThe program loops through the lines of the data_file, uses the data in\nthe data_column as a key, finds that key in the name_map_file, and\nadds columns from that line of the name_map_file (starting at the\nadd_column, -a, default 3) to the end of that line of the data_file.\nIf the key is not found, columns of empty strings are added.\n\nIt outputs (to stdout) this modified version of the data_file.\n\"\"\"\n\n\nimport argparse\n\n\nDEFAULT_KEY_COLUMN = 1\n\nDEFAULT_DATA_COLUMN = 1\n\nDEFAULT_ADD_COLUMN = 3\n\nDEFAULT_DELIMITER = '\\t'\n\nDATA_FILE_HAS_HEADERS = True\n\nNAME_MAP_FILE_HAS_HEADERS = False\n\nNEW_HEADERS = ['alias', 'description']\n\n\ndef parse_args():\n    parser = argparse.ArgumentParser()\n\n    parser.add_argument('-f', '--data_file', required=True)\n    parser.add_argument('-m', '--name_map_file', required=True)\n    parser.add_argument('-k', '--key_column', default=DEFAULT_KEY_COLUMN)\n    parser.add_argument('-c', '--data_column', default=DEFAULT_DATA_COLUMN)\n    parser.add_argument('-a', '--add_column', default=DEFAULT_ADD_COLUMN)\n    parser.add_argument('-d', '--delimiter', default=DEFAULT_DELIMITER)\n    parser.add_argument('-e', '--empty_headers', action='store_true')\n\n    args = parser.parse_args()\n\n    return args\n\n\ndef read_name_map_file(name_map_file, key_column, delimiter):\n    name_data = {}\n\n    with open(name_map_file, 'r') as f:\n        if NAME_MAP_FILE_HAS_HEADERS:\n            line = next(f)\n            headers = line.rstrip().split(sep=delimiter)\n        else:\n            headers = []\n        for line in f:\n            fields = line.rstrip().split(sep=delimiter)\n            key = fields[key_column]\n            name_data[key] = fields\n            length = len(fields)\n\n    return name_data, headers, length\n\n\ndef main():\n    args = parse_args()\n\n    name_data, name_data_headers, name_data_length = \\\n      read_name_map_file(args.name_map_file, args.key_column, args.delimiter)\n    added_length = name_data_length - args.add_column\n\n    keys_not_found = {}\n\n    with open(args.data_file, 'r') as f:\n        if DATA_FILE_HAS_HEADERS:\n            line = next(f)\n            fields = line.rstrip().split(sep=args.delimiter)\n            if NAME_MAP_FILE_HAS_HEADERS:\n                fields.extend(name_data_headers[args.add_column:])\n            else:\n                if args.empty_headers:\n                    new_headers = [''] * added_length\n                else:\n                    if added_length > len(NEW_HEADERS):\n                        new_headers = NEW_HEADERS +  [''] * (added_length - len(NEW_HEADERS))\n                    elif added_length == len(NEW_HEADERS):\n                        new_headers = NEW_HEADERS\n                    else:\n                        new_headers = NEW_HEADERS[:added_length]\n                fields.extend(new_headers)\n            print(args.delimiter.join(fields))\n        for line in f:\n            fields = line.rstrip().split(sep=args.delimiter)\n            key = fields[args.data_column]\n            if key in name_data:\n                fields.extend(name_data[key][args.add_column:])\n            else:\n                if key in keys_not_found:\n                    keys_not_found[key] += 1\n                else:\n                    keys_not_found[key] = 1\n                fields.extend([''] * added_length)\n            print(args.delimiter.join(fields))\n\n\nif __name__ == \"__main__\":\n    main()"
+        },
+        {
+          "filename": "file_renamer.cmd",
+          "fileContent": {
+            "engine": "#cwl-js-engine",
+            "class": "Expression",
+            "script": "str = \"\"\n\nif ($job.inputs.interaction_network_metadata_file) {\n    str += \"cp -p \" + $job.inputs.interaction_network_metadata_file.path + \" interaction_network.metadata\\n\";\n}\n\nif ($job.inputs.name_map_file) {\n    str += \"cp -p \" + $job.inputs.name_map_file.path + \" gene_set_name_map.txt\\n\";\n}\n\nstr;\n"
+          }
+        }
+      ],
+      "class": "CreateFileRequirement"
+    },
+    {
+      "id": "#cwl-js-engine",
+      "class": "ExpressionEngineRequirement",
+      "requirements": [
+        {
+          "class": "DockerRequirement",
+          "dockerPull": "rabix/js-engine"
+        }
+      ]
+    }
+  ]
+}
