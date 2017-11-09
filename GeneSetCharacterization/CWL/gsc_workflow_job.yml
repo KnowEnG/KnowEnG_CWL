@@ -1,0 +1,10 @@
+taxonid: '9606'
+gg_edge_type: STRING_experimental
+gg_network_type: Gene
+pg_edge_type: gene_ontology
+pg_network_type: Property
+genomic_file:
+  class: File
+  location: ../../data/demo_GSC.spreadsheet.txt
+redis_host: knowredis.knoweng.org
+redis_port: 6379

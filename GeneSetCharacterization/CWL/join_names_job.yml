@@ -1,0 +1,7 @@
+data_file: 
+  class: File
+  location: J1
+name_map_file: 
+  class: File
+  location: 9606.gene_ontology.pnode_map
+output_file_name: Jtest
