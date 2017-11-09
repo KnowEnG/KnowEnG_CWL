@@ -1,11 +1,11 @@
 # KnowEnG_CWL
 
-This repo (KnowEnG_CWL) contains CWL to run various KnowEnG pipelines.
-It is organized as one directory per pipeline.  Each pipeline
-directory has a CWL directory that has all the CWL files needed for
-the pipeline (typically one for the overall workflow and one for each
-tool in the workflow), as well as YML files with parameters for
-sample job runs of the pipeline.
+This repo contains CWL to run various KnowEnG pipelines.  It is
+organized as one directory per pipeline.  Each pipeline directory has
+a CWL directory that has all the CWL files needed for the pipeline
+(typically one for the overall workflow and one for each tool in the
+workflow), as well as YML files with parameters for sample job runs
+of the pipeline.
 
 The top level also has a data directory containing the files needed
 for the sample runs.
