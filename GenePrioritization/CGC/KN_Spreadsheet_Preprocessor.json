@@ -1,0 +1,283 @@
+{
+  "sbg:id": "mepstein/geneprioritization/sp-pp-interface/9",
+  "successCodes": [],
+  "label": "KN Spreadsheet Preprocessor",
+  "baseCommand": [
+    "sh",
+    "sp_ymler.sh"
+  ],
+  "sbg:image_url": null,
+  "arguments": [
+    {
+      "position": 1,
+      "separate": true,
+      "valueFrom": {
+        "engine": "#cwl-js-engine",
+        "class": "Expression",
+        "script": "$job.inputs.input_file.name"
+      }
+    },
+    {
+      "position": 2,
+      "separate": true,
+      "valueFrom": {
+        "engine": "#cwl-js-engine",
+        "class": "Expression",
+        "script": "$job.inputs.taxon"
+      }
+    },
+    {
+      "position": 3,
+      "separate": true,
+      "valueFrom": {
+        "engine": "#cwl-js-engine",
+        "class": "Expression",
+        "script": "$job.inputs.spreadsheet_format"
+      }
+    },
+    {
+      "position": 5,
+      "separate": true,
+      "valueFrom": "run_params.yml"
+    },
+    {
+      "position": 6,
+      "separate": true,
+      "valueFrom": "&& python3 /home/src/preprocess/spreadsheet_preprocess.py"
+    },
+    {
+      "prefix": "-run_directory",
+      "position": 7,
+      "separate": true,
+      "valueFrom": "./"
+    },
+    {
+      "prefix": "-run_file",
+      "position": 8,
+      "separate": true,
+      "valueFrom": "run_params.yml"
+    },
+    {
+      "position": 4,
+      "separate": true,
+      "valueFrom": {
+        "engine": "#cwl-js-engine",
+        "class": "Expression",
+        "script": "$job.inputs.output_name"
+      }
+    }
+  ],
+  "id": "https://cgc-api.sbgenomics.com/v2/apps/mepstein/geneprioritization/sp-pp-interface/9/raw/",
+  "sbg:job": {
+    "allocatedResources": {
+      "mem": 1000,
+      "cpu": 1
+    },
+    "inputs": {
+      "input_file": {
+        "secondaryFiles": [],
+        "path": "/path/to/input_file.ext",
+        "class": "File",
+        "size": 0
+      },
+      "output_name": "output_name-string-value",
+      "spreadsheet_format": "spreadsheet_format-string-value",
+      "taxon": "taxon-string-value"
+    }
+  },
+  "hints": [
+    {
+      "value": 1,
+      "class": "sbg:CPURequirement"
+    },
+    {
+      "value": 1000,
+      "class": "sbg:MemRequirement"
+    },
+    {
+      "dockerImageId": "",
+      "class": "DockerRequirement",
+      "dockerPull": "mepsteindr/spreadsheet_preprocess:20170331"
+    }
+  ],
+  "sbg:revisionNotes": "Fixed redis host name:port (knowredis.knowhub.org:6380).",
+  "sbg:projectName": "GenePrioritization",
+  "sbg:appVersion": [
+    "sbg:draft-2"
+  ],
+  "sbg:createdOn": 1484243324,
+  "sbg:publisher": "sbg",
+  "sbg:createdBy": "mepstein",
+  "sbg:sbgMaintained": false,
+  "sbg:revisionsInfo": [
+    {
+      "sbg:modifiedBy": "mepstein",
+      "sbg:revision": 0,
+      "sbg:revisionNotes": "Copy of charles_blatti/geneprioritizationdemo/sp-pp-interface/7",
+      "sbg:modifiedOn": 1484243324
+    },
+    {
+      "sbg:modifiedBy": "mepstein",
+      "sbg:revision": 1,
+      "sbg:revisionNotes": "Modified app name",
+      "sbg:modifiedOn": 1484243709
+    },
+    {
+      "sbg:modifiedBy": "mepstein",
+      "sbg:revision": 2,
+      "sbg:revisionNotes": null,
+      "sbg:modifiedOn": 1484243889
+    },
+    {
+      "sbg:modifiedBy": "charles_blatti",
+      "sbg:revision": 3,
+      "sbg:revisionNotes": "change desc",
+      "sbg:modifiedOn": 1484244183
+    },
+    {
+      "sbg:modifiedBy": "mepstein",
+      "sbg:revision": 4,
+      "sbg:revisionNotes": "Added input_delimiter to ymler",
+      "sbg:modifiedOn": 1484255231
+    },
+    {
+      "sbg:modifiedBy": "mepstein",
+      "sbg:revision": 5,
+      "sbg:revisionNotes": "Modified redis host",
+      "sbg:modifiedOn": 1484256105
+    },
+    {
+      "sbg:modifiedBy": "mepstein",
+      "sbg:revision": 6,
+      "sbg:revisionNotes": "Updated docker tag (from 20170111 to 20170216).",
+      "sbg:modifiedOn": 1489182258
+    },
+    {
+      "sbg:modifiedBy": "mepstein",
+      "sbg:revision": 7,
+      "sbg:revisionNotes": "Updated redis host/port info (knowredis.knowhub.org/6379).",
+      "sbg:modifiedOn": 1490818241
+    },
+    {
+      "sbg:modifiedBy": "mepstein",
+      "sbg:revision": 8,
+      "sbg:revisionNotes": "Updated to use faster redis library/server.",
+      "sbg:modifiedOn": 1490989894
+    },
+    {
+      "sbg:modifiedBy": "mepstein",
+      "sbg:revision": 9,
+      "sbg:revisionNotes": "Fixed redis host name:port (knowredis.knowhub.org:6380).",
+      "sbg:modifiedOn": 1490991595
+    }
+  ],
+  "description": "Transforms user spreadsheet in preparation for KN analytics by removing noise, mapping gene names, and extracting metadata statistics",
+  "sbg:cmdPreview": "sh sp_ymler.sh    taxon-string-value  spreadsheet_format-string-value  output_name-string-value  run_params.yml  && python3 /home/src/preprocess/spreadsheet_preprocess.py -run_directory ./ -run_file run_params.yml",
+  "sbg:validationErrors": [],
+  "sbg:project": "mepstein/geneprioritization",
+  "outputs": [
+    {
+      "id": "#output_matrix",
+      "description": "Spreadsheet with columns and row headers",
+      "label": "Spreadsheet File",
+      "type": [
+        "null",
+        "File"
+      ],
+      "outputBinding": {
+        "glob": {
+          "engine": "#cwl-js-engine",
+          "class": "Expression",
+          "script": "$job.inputs.output_name + '.df'"
+        }
+      }
+    },
+    {
+      "id": "#params_yml",
+      "description": "contains the values used in analysis",
+      "label": "Configuration Parameter File",
+      "type": [
+        "null",
+        "File"
+      ],
+      "outputBinding": {
+        "glob": "run_params.yml"
+      }
+    }
+  ],
+  "cwlVersion": "sbg:draft-2",
+  "sbg:toolAuthor": "KnowEnG",
+  "temporaryFailCodes": [],
+  "inputs": [
+    {
+      "id": "#input_file",
+      "description": "spreadsheet with row and column names",
+      "label": "Original Spreadsheet",
+      "type": [
+        "null",
+        "File"
+      ],
+      "sbg:stageInput": "link"
+    },
+    {
+      "sbg:toolDefaultValue": "9606",
+      "id": "#taxon",
+      "description": "the taxonomic id for the species of interest",
+      "label": "Species Taxon ID",
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    {
+      "id": "#spreadsheet_format",
+      "description": "the keyword for different types of preprocessing, i.e genes_x_samples, genes_x_samples_check, or samples_x_phenotypes",
+      "label": "Spreadsheet Format Type",
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    {
+      "id": "#output_name",
+      "description": "the output file name of the processes data frame",
+      "label": "Output Filename Prefix",
+      "type": [
+        "null",
+        "string"
+      ]
+    }
+  ],
+  "sbg:revision": 9,
+  "class": "CommandLineTool",
+  "stdout": "",
+  "sbg:modifiedBy": "mepstein",
+  "sbg:modifiedOn": 1490991595,
+  "sbg:contributors": [
+    "mepstein",
+    "charles_blatti"
+  ],
+  "sbg:latestRevision": 9,
+  "stdin": "",
+  "requirements": [
+    {
+      "fileDef": [
+        {
+          "filename": "sp_ymler.sh",
+          "fileContent": "INFILE=$1\nTAXON=$2\nSPTYPE=$3\nOUTNAME=$4\nYMLNAME=$5\necho \"\nspreadsheet_file_full_path: $INFILE\ntaxon: '$TAXON'\nspreadsheet_format: $SPTYPE\noutput_file_dataframe: $OUTNAME.df\noutput_file_gene_map: $OUTNAME.genes.name_map\noutput_file_metadata: $OUTNAME.metadata\nresults_directory: ./\ninput_delimiter: \\\",\\\"\noutput_delimiter: \\\"\\t\\\"\nredis_host: knowredis.knowhub.org\nredis_port: 6380\nredis_pass: KnowEnG\ngene_map_two_columns: False\ncheck_data: numeric_drop\ngene_map_first_column_orig: True\noutput_orig_names: True\nsource_hint: ''\n\" > $YMLNAME"
+        }
+      ],
+      "class": "CreateFileRequirement"
+    },
+    {
+      "id": "#cwl-js-engine",
+      "class": "ExpressionEngineRequirement",
+      "requirements": [
+        {
+          "class": "DockerRequirement",
+          "dockerPull": "rabix/js-engine"
+        }
+      ]
+    }
+  ]
+}

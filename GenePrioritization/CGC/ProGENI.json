@@ -1,0 +1,250 @@
+{
+  "sbg:id": "mepstein/geneprioritization/gene-prioritization/2",
+  "successCodes": [],
+  "label": "ProGENI",
+  "baseCommand": [
+    "sh",
+    "gp_ymler.sh"
+  ],
+  "sbg:image_url": null,
+  "arguments": [
+    {
+      "separate": true,
+      "valueFrom": {
+        "engine": "#cwl-js-engine",
+        "script": "$job.inputs.network_file.name",
+        "class": "Expression"
+      }
+    },
+    {
+      "separate": true,
+      "valueFrom": {
+        "engine": "#cwl-js-engine",
+        "script": "$job.inputs.spreadsheet_file.name",
+        "class": "Expression"
+      }
+    },
+    {
+      "separate": true,
+      "valueFrom": {
+        "engine": "#cwl-js-engine",
+        "script": "$job.inputs.drug_response_file.name",
+        "class": "Expression"
+      }
+    },
+    {
+      "separate": true,
+      "valueFrom": {
+        "engine": "#cwl-js-engine",
+        "script": "$job.inputs.correlation_method",
+        "class": "Expression"
+      }
+    },
+    {
+      "separate": true,
+      "valueFrom": {
+        "engine": "#cwl-js-engine",
+        "script": "$job.inputs.num_bootstraps",
+        "class": "Expression"
+      }
+    },
+    {
+      "separate": true,
+      "valueFrom": "run_params.yml"
+    },
+    {
+      "separate": true,
+      "valueFrom": "&&"
+    },
+    {
+      "separate": true,
+      "valueFrom": "python3"
+    },
+    {
+      "separate": true,
+      "valueFrom": "/home/src/gene_prioritization.py"
+    },
+    {
+      "prefix": "-run_directory",
+      "separate": true,
+      "valueFrom": "./"
+    },
+    {
+      "prefix": "-run_file",
+      "separate": true,
+      "valueFrom": "run_params.yml"
+    }
+  ],
+  "id": "https://cgc-api.sbgenomics.com/v2/apps/mepstein/geneprioritization/gene-prioritization/2/raw/",
+  "sbg:job": {
+    "allocatedResources": {
+      "mem": 1000,
+      "cpu": 1
+    },
+    "inputs": {
+      "spreadsheet_file": {
+        "secondaryFiles": [],
+        "path": "/path/to/spreadsheet_file.ext",
+        "class": "File",
+        "size": 0
+      },
+      "correlation_method": "correlation_method-string-value",
+      "drug_response_file": {
+        "secondaryFiles": [],
+        "path": "/path/to/drug_response_file.ext",
+        "class": "File",
+        "size": 0
+      },
+      "network_file": {
+        "secondaryFiles": [],
+        "path": "/path/to/network_file.ext",
+        "class": "File",
+        "size": 0
+      },
+      "num_bootstraps": 10
+    }
+  },
+  "hints": [
+    {
+      "value": 1,
+      "class": "sbg:CPURequirement"
+    },
+    {
+      "value": 1000,
+      "class": "sbg:MemRequirement"
+    },
+    {
+      "dockerImageId": "",
+      "class": "DockerRequirement",
+      "dockerPull": "knowengdev/gene_prioritization_pipeline:01_05_2017"
+    }
+  ],
+  "sbg:revisionNotes": "change desc",
+  "sbg:projectName": "GenePrioritization",
+  "sbg:appVersion": [
+    "sbg:draft-2"
+  ],
+  "sbg:createdOn": 1484243338,
+  "sbg:publisher": "sbg",
+  "sbg:createdBy": "mepstein",
+  "sbg:sbgMaintained": false,
+  "sbg:revisionsInfo": [
+    {
+      "sbg:modifiedBy": "mepstein",
+      "sbg:revision": 0,
+      "sbg:revisionNotes": "Copy of charles_blatti/geneprioritizationdemo/gene-prioritization/2",
+      "sbg:modifiedOn": 1484243338
+    },
+    {
+      "sbg:modifiedBy": "mepstein",
+      "sbg:revision": 1,
+      "sbg:revisionNotes": "Added description",
+      "sbg:modifiedOn": 1484243648
+    },
+    {
+      "sbg:modifiedBy": "charles_blatti",
+      "sbg:revision": 2,
+      "sbg:revisionNotes": "change desc",
+      "sbg:modifiedOn": 1484244101
+    }
+  ],
+  "description": "Network-guided gene prioritization method implementation by KnowEnG that ranks gene measurements by their correlation to observed phenotypes.",
+  "inputs": [
+    {
+      "id": "#network_file",
+      "sbg:stageInput": "link",
+      "type": [
+        "null",
+        "File"
+      ],
+      "label": "Network File"
+    },
+    {
+      "id": "#spreadsheet_file",
+      "sbg:stageInput": "link",
+      "type": [
+        "null",
+        "File"
+      ],
+      "label": "Spreadsheet File"
+    },
+    {
+      "id": "#drug_response_file",
+      "sbg:stageInput": "link",
+      "type": [
+        "null",
+        "File"
+      ],
+      "label": "Drug Response File"
+    },
+    {
+      "id": "#correlation_method",
+      "label": "Correlation Method",
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    {
+      "id": "#num_bootstraps",
+      "sbg:stageInput": null,
+      "type": [
+        "null",
+        "int"
+      ],
+      "label": "Number of bootstraps"
+    }
+  ],
+  "sbg:validationErrors": [],
+  "sbg:project": "mepstein/geneprioritization",
+  "outputs": [
+    {
+      "id": "#output_name",
+      "type": [
+        "null",
+        {
+          "items": "File",
+          "type": "array"
+        }
+      ],
+      "outputBinding": {
+        "glob": "*bootstrap_net_correlation*"
+      }
+    }
+  ],
+  "cwlVersion": "sbg:draft-2",
+  "temporaryFailCodes": [],
+  "sbg:cmdPreview": "sh gp_ymler.sh        correlation_method-string-value  10  run_params.yml  &&  python3  /home/src/gene_prioritization.py -run_directory ./ -run_file run_params.yml",
+  "sbg:revision": 2,
+  "class": "CommandLineTool",
+  "stdout": "",
+  "sbg:modifiedBy": "charles_blatti",
+  "sbg:modifiedOn": 1484244101,
+  "sbg:contributors": [
+    "mepstein",
+    "charles_blatti"
+  ],
+  "sbg:latestRevision": 2,
+  "stdin": "",
+  "requirements": [
+    {
+      "fileDef": [
+        {
+          "filename": "gp_ymler.sh",
+          "fileContent": "NETWORK_FILE=$1\nSPREADSHEET_FILE=$2\nDRUG_RESPONSE_FILE=$3\nCORRELATION_METHOD=$4\nNUM_BOOTSTRAPS=$5\nYMLNAME=$6\necho \"\nmethod: bootstrap_net_correlation\ncorrelation_method: $CORRELATION_METHOD\ngg_network_name_full_path: $NETWORK_FILE\nspreadsheet_name_full_path: $SPREADSHEET_FILE\ndrug_response_full_path: $DRUG_RESPONSE_FILE\nresults_directory: ./\nnumber_of_bootstraps: $NUM_BOOTSTRAPS\nrows_sampling_fraction: 1.0       \ncols_sampling_fraction: 0.9       \nrwr_max_iterations: 100\nrwr_convergence_tolerence: 1.0e-2\nrwr_restart_probability: 0.5       \ntop_beta_of_sort: 100\ndrop_method: drop_NA\nout_filename: bootstrap_net_correlation\n\" > $YMLNAME"
+        }
+      ],
+      "class": "CreateFileRequirement"
+    },
+    {
+      "id": "#cwl-js-engine",
+      "class": "ExpressionEngineRequirement",
+      "requirements": [
+        {
+          "class": "DockerRequirement",
+          "dockerPull": "rabix/js-engine"
+        }
+      ]
+    }
+  ]
+}

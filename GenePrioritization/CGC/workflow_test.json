@@ -1,0 +1,39 @@
+{
+  "sbg:validationErrors": [
+    "Error validating graph for app, because: Null graph."
+  ],
+  "sbg:id": "mepstein/geneprioritization/workflow-test/0",
+  "label": "workflow_test",
+  "sbg:project": "mepstein/geneprioritization",
+  "sbg:publisher": "sbg",
+  "sbg:image_url": null,
+  "outputs": [],
+  "cwlVersion": "sbg:draft-2",
+  "steps": [],
+  "id": "https://cgc-api.sbgenomics.com/v2/apps/mepstein/geneprioritization/workflow-test/0/raw/",
+  "hints": [],
+  "inputs": [],
+  "sbg:revision": 0,
+  "sbg:projectName": "GenePrioritization",
+  "sbg:appVersion": [
+    "sbg:draft-2"
+  ],
+  "class": "Workflow",
+  "sbg:modifiedBy": "charles_blatti",
+  "sbg:createdOn": 1486756576,
+  "sbg:modifiedOn": 1486756576,
+  "sbg:createdBy": "charles_blatti",
+  "sbg:contributors": [
+    "charles_blatti"
+  ],
+  "sbg:latestRevision": 0,
+  "sbg:sbgMaintained": false,
+  "sbg:revisionsInfo": [
+    {
+      "sbg:modifiedBy": "charles_blatti",
+      "sbg:revision": 0,
+      "sbg:revisionNotes": null,
+      "sbg:modifiedOn": 1486756576
+    }
+  ]
+}

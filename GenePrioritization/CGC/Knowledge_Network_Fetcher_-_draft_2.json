@@ -1,0 +1,221 @@
+{
+  "sbg:id": "mepstein/geneprioritization/knowledge-network-fetcher/3",
+  "successCodes": [],
+  "label": "Knowledge Network Fetcher - draft 2",
+  "baseCommand": [
+    "s3cmd"
+  ],
+  "sbg:image_url": null,
+  "arguments": [
+    {
+      "prefix": "--access_key",
+      "separate": true,
+      "valueFrom": {
+        "engine": "#cwl-js-engine",
+        "script": "$job.inputs.aws_access_key_id",
+        "class": "Expression"
+      }
+    },
+    {
+      "prefix": "--secret_key",
+      "separate": true,
+      "valueFrom": {
+        "engine": "#cwl-js-engine",
+        "script": "$job.inputs.aws_secret_access_key",
+        "class": "Expression"
+      }
+    },
+    {
+      "valueFrom": "get"
+    },
+    {
+      "valueFrom": {
+        "engine": "#cwl-js-engine",
+        "script": "'s3://' + $job.inputs.bucket + '/' + $job.inputs.network_type + '/' + $job.inputs.taxon + '/' + $job.inputs.edge_type + '/' + $job.inputs.taxon + '.' + $job.inputs.edge_type + '.edge'",
+        "class": "Expression"
+      }
+    },
+    {
+      "valueFrom": {
+        "engine": "#cwl-js-engine",
+        "script": "$job.inputs.output_name",
+        "class": "Expression"
+      }
+    }
+  ],
+  "id": "https://cgc-api.sbgenomics.com/v2/apps/mepstein/geneprioritization/knowledge-network-fetcher/3/raw/",
+  "sbg:job": {
+    "allocatedResources": {
+      "mem": 1000,
+      "cpu": 1
+    },
+    "inputs": {}
+  },
+  "hints": [
+    {
+      "class": "DockerRequirement",
+      "dockerPull": "cblatti3/aws:0.1"
+    },
+    {
+      "value": 1,
+      "class": "sbg:CPURequirement"
+    },
+    {
+      "value": 1000,
+      "class": "sbg:MemRequirement"
+    },
+    {
+      "class": "DockerRequirement",
+      "dockerPull": "cblatti3/aws:0.1"
+    }
+  ],
+  "sbg:projectName": "GenePrioritization",
+  "sbg:appVersion": [
+    "sbg:draft-2"
+  ],
+  "sbg:createdOn": 1490213114,
+  "sbg:publisher": "sbg",
+  "sbg:createdBy": "elehnert",
+  "sbg:sbgMaintained": false,
+  "sbg:revisionsInfo": [
+    {
+      "sbg:modifiedBy": "elehnert",
+      "sbg:revision": 0,
+      "sbg:revisionNotes": null,
+      "sbg:modifiedOn": 1490213114
+    },
+    {
+      "sbg:modifiedBy": "elehnert",
+      "sbg:revision": 1,
+      "sbg:revisionNotes": null,
+      "sbg:modifiedOn": 1490213129
+    },
+    {
+      "sbg:modifiedBy": "elehnert",
+      "sbg:revision": 2,
+      "sbg:revisionNotes": null,
+      "sbg:modifiedOn": 1490213152
+    },
+    {
+      "sbg:modifiedBy": "elehnert",
+      "sbg:revision": 3,
+      "sbg:revisionNotes": null,
+      "sbg:modifiedOn": 1490213586
+    }
+  ],
+  "description": "Retrieve appropriate subnetwork from KnowEnG Knowledge Network from AWS S3 storage",
+  "inputs": [
+    {
+      "id": "#aws_access_key_id",
+      "description": "the aws access key id",
+      "label": "AWS Access Key ID",
+      "type": [
+        "string"
+      ]
+    },
+    {
+      "id": "#aws_secret_access_key",
+      "description": "the aws secrety access key",
+      "label": "AWS Secret Access Key",
+      "type": [
+        "string"
+      ]
+    },
+    {
+      "id": "#bucket",
+      "default": "KNsample",
+      "description": "the aws s3 bucket",
+      "label": "AWS S3 Bucket Name",
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    {
+      "id": "#network_type",
+      "default": "Gene",
+      "description": "the type of subnetwork",
+      "label": "Subnetwork Class",
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    {
+      "id": "#taxon",
+      "default": "9606",
+      "description": "the taxonomic id for the species of interest",
+      "label": "Subnetwork Species ID",
+      "type": [
+        "string"
+      ]
+    },
+    {
+      "id": "#edge_type",
+      "default": "PPI_physical_association",
+      "description": "the edge type keyword for the subnetwork of interest",
+      "label": "Subnetwork Edge Type",
+      "type": [
+        "string"
+      ]
+    },
+    {
+      "id": "#output_name",
+      "default": "KN.4col.edge",
+      "description": "the output file name to save the contents of the key to",
+      "label": "Output Filename",
+      "type": [
+        "null",
+        "string"
+      ]
+    }
+  ],
+  "sbg:validationErrors": [],
+  "sbg:project": "mepstein/geneprioritization",
+  "outputs": [
+    {
+      "id": "#output_file",
+      "description": "4 column format for subnetwork for single edge type and species",
+      "label": "Subnetwork Edge File",
+      "type": [
+        "File"
+      ],
+      "outputBinding": {
+        "glob": {
+          "engine": "#cwl-js-engine",
+          "script": "$job.inputs.output_name",
+          "class": "Expression"
+        }
+      }
+    }
+  ],
+  "cwlVersion": "sbg:draft-2",
+  "sbg:toolAuthor": "KnowEnG",
+  "temporaryFailCodes": [],
+  "sbg:cmdPreview": "s3cmd --access_key  --secret_key  get s3://undefined/undefined/undefined/undefined/undefined.undefined.edge",
+  "sbg:revision": 3,
+  "class": "CommandLineTool",
+  "stdout": "",
+  "sbg:modifiedBy": "elehnert",
+  "sbg:modifiedOn": 1490213586,
+  "sbg:contributors": [
+    "elehnert"
+  ],
+  "sbg:latestRevision": 3,
+  "stdin": "",
+  "requirements": [
+    {
+      "class": "InlineJavascriptRequirement"
+    },
+    {
+      "id": "#cwl-js-engine",
+      "class": "ExpressionEngineRequirement",
+      "requirements": [
+        {
+          "class": "DockerRequirement",
+          "dockerPull": "rabix/js-engine"
+        }
+      ]
+    }
+  ]
+}

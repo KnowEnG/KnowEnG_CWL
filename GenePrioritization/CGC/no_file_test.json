@@ -1,0 +1,91 @@
+{
+  "sbg:id": "mepstein/geneprioritization/no-file-test/1",
+  "successCodes": [],
+  "label": "no_file_test",
+  "baseCommand": [
+    ""
+  ],
+  "sbg:image_url": null,
+  "arguments": [],
+  "id": "https://cgc-api.sbgenomics.com/v2/apps/mepstein/geneprioritization/no-file-test/1/raw/",
+  "sbg:job": {
+    "allocatedResources": {
+      "mem": 1000,
+      "cpu": 1
+    },
+    "inputs": {
+      "input_file": {
+        "secondaryFiles": [],
+        "size": 0,
+        "class": "File",
+        "path": "/path/to/input_file.ext"
+      }
+    }
+  },
+  "hints": [
+    {
+      "value": 1,
+      "class": "sbg:CPURequirement"
+    },
+    {
+      "value": 1000,
+      "class": "sbg:MemRequirement"
+    },
+    {
+      "dockerImageId": "",
+      "class": "DockerRequirement",
+      "dockerPull": ""
+    }
+  ],
+  "sbg:projectName": "GenePrioritization",
+  "sbg:appVersion": [
+    "sbg:draft-2"
+  ],
+  "sbg:createdOn": 1494608074,
+  "sbg:publisher": "sbg",
+  "sbg:createdBy": "mepstein",
+  "sbg:sbgMaintained": false,
+  "sbg:revisionsInfo": [
+    {
+      "sbg:modifiedBy": "mepstein",
+      "sbg:revision": 0,
+      "sbg:revisionNotes": null,
+      "sbg:modifiedOn": 1494608074
+    },
+    {
+      "sbg:modifiedBy": "mepstein",
+      "sbg:revision": 1,
+      "sbg:revisionNotes": null,
+      "sbg:modifiedOn": 1494608153
+    }
+  ],
+  "description": "",
+  "sbg:cmdPreview": "",
+  "sbg:validationErrors": [
+    "dockerPull not defined for DockerRequirements (app ids: ['unspecified_id']"
+  ],
+  "sbg:project": "mepstein/geneprioritization",
+  "outputs": [],
+  "cwlVersion": "sbg:draft-2",
+  "temporaryFailCodes": [],
+  "inputs": [
+    {
+      "id": "#input_file",
+      "type": [
+        "null",
+        "File"
+      ]
+    }
+  ],
+  "sbg:revision": 1,
+  "class": "CommandLineTool",
+  "stdout": "",
+  "sbg:modifiedBy": "mepstein",
+  "sbg:modifiedOn": 1494608153,
+  "sbg:contributors": [
+    "mepstein"
+  ],
+  "sbg:latestRevision": 1,
+  "stdin": "",
+  "requirements": []
+}
