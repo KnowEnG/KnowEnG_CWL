@@ -3,6 +3,18 @@
 
 In this post, we'll demonstrate the usage of a number of our [KnowEnG](https://knoweng.org/) tools on the [Cancer Genomics Cloud (CGC)](https://cgc.sbgenomics.com/).
 
+KnowEnG has several workflows on the CGC.  These include
+the [Spreadsheet Builder workflow](https://cgc.sbgenomics.com/public/apps#workflow/mepstein/knoweng-spreadsheetbuilder-public/spreadsheet-builder),
+the [Signature Analysis workflow](https://cgc.sbgenomics.com/public/apps#workflow/mepstein/knoweng-signature-analysis-public/signature-analysis-workflow),
+the [Gene Prioritization workflow](https://cgc.sbgenomics.com/public/apps#workflow/mepstein/knoweng-geneprioritization-public/gene-prioritization-workflow),
+and the [Gene Set Characterization workflow](https://cgc.sbgenomics.com/public/apps#workflow/mepstein/knoweng-genesetcharacterization-public/gene-set-characterization),
+
+In the first several sections of this document, we'll describe running these workflows individually.  We have also created a workflow on the CGC that combines the running of these workflows as described in this document.  That worklow is called
+the [KnowEnG Analysis of LUSC Subtypes (KALS) workflow](https://cgc.sbgenomics.com/public/apps#workflow/mepstein/lung/knoweng-analysis-of-lusc-subtypes).
+The last section of this document,
+[Running the KnowEnG Analysis of LUSC Subtypes (KALS) workflow](#running-the-knoweng-analysis-of-lusc-subtypes-kals-workflow),
+describes running this combined workflow.
+
 
 ### Contents
 
