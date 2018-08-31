@@ -135,4 +135,19 @@ The main output file of interest is the GSC Results (`gsc_results.txt`), and pos
 
 ### Running the KnowEnG Analysis of LUSC Subtypes (KALS) workflow
 
+To run this combined workflow, you will still need to [create the input files from the TCGA data](#gathering-the-tcga-input-files).  The other input file is the Signatures File, as described [above](#running-the-signature-analysis-workflow).
+
+expected_header_key 	Expected Header Key 	string 	No
+filter_min_percentage 	Filter Minimum Percentage 	float 	No
+filter_threshold 	Filter Threshold 	float 	No
+normalize 	Normalize Flag 	boolean 	No
+
+similarity_measure 	Similarity Measure 	enum 	No
+
+number_of_top_genes 	Number of Top Genes 	int 	No
+
+gg_edge_type 	Knowledge Network Edge Type 	string 	No
+network_smoothing_percent 	Amount of Network Influence 	int 	No
+pg_edge_type 	Gene Set Property Network Edge Type 	string 	Yes
+
 
