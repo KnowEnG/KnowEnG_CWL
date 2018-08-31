@@ -1,7 +1,16 @@
 
-## Main Title: KnowEnG Workflows on the Cancer Genomics Cloud
+## KnowEnG Workflows on the Cancer Genomics Cloud
 
 In this post, we'll demonstrate the usage of a number of our [KnowEnG](https://knoweng.org/) tools on the [Cancer Genomics Cloud (CGC)](https://cgc.sbgenomics.com/).
+
+
+### Contents
+
+* [Gathering the TCGA input files](#gathering-the-tcga-input-files)
+* [Running the Spreadsheet Builder workflow](#running-the-spreadsheet-builder-workflow)
+* [Running the Signature Analysis workflow](#running-the-signature-analysis-workflow)
+* [Running the Gene Prioritization workflow](#running-the-gene-prioritization-workflow)
+* [Running the Gene Set Characterization workflow](#running-the-gene-set-characterization-workflow)
 
 
 ### Gathering the TCGA input files
