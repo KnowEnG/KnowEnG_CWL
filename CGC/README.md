@@ -11,7 +11,7 @@ In this post, we'll demonstrate the usage of a number of our [KnowEnG](https://k
 * [Running the Signature Analysis workflow](#running-the-signature-analysis-workflow)
 * [Running the Gene Prioritization workflow](#running-the-gene-prioritization-workflow)
 * [Running the Gene Set Characterization workflow](#running-the-gene-set-characterization-workflow)
-* [Running the KnowEnG Analysis of LUSC Subtypes (KALS) workflow](#running-the-knoweng-analysis-of-lusc-subtypes-(kals)-workflow)
+* [Running the KnowEnG Analysis of LUSC Subtypes (KALS) workflow](#running-the-knoweng-analysis-of-lusc-subtypes-kals-workflow)
 
 
 ### Gathering the TCGA input files
