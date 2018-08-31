@@ -11,6 +11,7 @@ In this post, we'll demonstrate the usage of a number of our [KnowEnG](https://k
 * [Running the Signature Analysis workflow](#running-the-signature-analysis-workflow)
 * [Running the Gene Prioritization workflow](#running-the-gene-prioritization-workflow)
 * [Running the Gene Set Characterization workflow](#running-the-gene-set-characterization-workflow)
+* [Running the KnowEnG Analysis of LUSC Subtypes (KALS) workflow](#running-the-knoweng-analysis-of-lusc-subtypes-(kals)-workflow)
 
 
 ### Gathering the TCGA input files
@@ -116,5 +117,8 @@ Gene Set Property Network Edge Type: enrichr_pathway
 This should take under 5 minutes to run and cost under $.05 (using spot instances).
 
 The main output file of interest is the GSC Results (`gsc_results.txt`), and possibly the Raw Enrichment Scores (`DRaWR_sorted_by_property_score_....df`)
+
+
+### Running the KnowEnG Analysis of LUSC Subtypes (KALS) workflow
 
 
