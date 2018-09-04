@@ -15,7 +15,7 @@ The last section of this document,
 [Running the KnowEnG Analysis of LUSC Subtypes (KALS) workflow](#running-the-knoweng-analysis-of-lusc-subtypes-kals-workflow),
 describes running this combined workflow.
 
-This combined workflow allows running the overall process in a simpler fashion, albeit with fewer options, as a number of the input parameters available in the individual workflows have been pre-set with specific values.  It also demonstrates how workflows can be built up on the CGC.
+This combined workflow allows running the overall process in a simpler fashion, albeit with fewer options, as a number of the input parameters available in the individual workflows have been preset with specific values.  It also demonstrates how workflows can be built up on the CGC.
 
 
 ### Contents
@@ -137,17 +137,32 @@ The main output file of interest is the GSC Results (`gsc_results.txt`), and pos
 
 To run this combined workflow, you will still need to [create the input files from the TCGA data](#gathering-the-tcga-input-files).  The other input file is the Signatures File, as described [above](#running-the-signature-analysis-workflow).
 
+The following parameters match up with those for
+[the Spreadsheet Builder workflow](#running-the-spreadsheet-builder-workflow):
+
 expected_header_key 	Expected Header Key 	string 	No
 filter_min_percentage 	Filter Minimum Percentage 	float 	No
 filter_threshold 	Filter Threshold 	float 	No
 normalize 	Normalize Flag 	boolean 	No
 
+The following parameter matches up with one for
+[the Signature Analysis workflow](#running-the-signature-analysis-workflow):
+
 similarity_measure 	Similarity Measure 	enum 	No
 
+The following parameter is one for
+[the Gene Prioritization workflow](#running-the-gene-prioritization-workflow)
+(although it is not specified above, as the default value, 100, is used):
+
 number_of_top_genes 	Number of Top Genes 	int 	No
+
+The following parameters match up with those for
+[the Gene Set Characterization workflow](#running-the-gene-set-characterization-workflow)
+(similar to `Number of Top Genes`, `Amount of Network Influence` is not specified above, as its default value, `50%` has been used):
 
 gg_edge_type 	Knowledge Network Edge Type 	string 	No
 network_smoothing_percent 	Amount of Network Influence 	int 	No
 pg_edge_type 	Gene Set Property Network Edge Type 	string 	Yes
 
+Note that `Species Taxon ID` is not available as a parameter here; it has been hard-coded to be `9606` (`human`).
 
