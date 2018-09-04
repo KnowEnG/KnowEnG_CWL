@@ -143,17 +143,17 @@ The following parameters match up with those for
 [the Spreadsheet Builder workflow](#running-the-spreadsheet-builder-workflow):
 
 ```
-Metadata Sample ID Key
-Filter Minimum Percentage
-Filter Threshold
-Normalize Flag
+Metadata Sample ID Key: aliquot_id
+Filter Minimum Percentage: 0.1
+Filter Threshold: 1
+Normalize Flag: True
 ```
 
 The following parameter matches up with one for
 [the Signature Analysis workflow](#running-the-signature-analysis-workflow):
 
 ```
-Similarity Measure
+Similarity Measure: spearman
 ```
 
 The following parameter is one for
@@ -161,7 +161,7 @@ The following parameter is one for
 (although it is not specified above, as its default value, `100`, was used):
 
 ```
-Number of Top Genes
+Number of Top Genes: 100
 ```
 
 The following parameters match up with those for
@@ -169,9 +169,9 @@ The following parameters match up with those for
 (similar to `Number of Top Genes`, `Amount of Network Influence` is not specified above, as its default value, `50%` was used):
 
 ```
-Knowledge Network Edge Type
-Amount of Network Influence
-Gene Set Property Network Edge Type
+Knowledge Network Edge Type: hn_IntNet
+Amount of Network Influence: 50
+Gene Set Property Network Edge Type: enrichr_pathway
 ```
 
 Note that `Species Taxon ID` is not available as a parameter here; it has been hard-coded to `9606` (`human`).
