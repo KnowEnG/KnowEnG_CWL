@@ -64,7 +64,7 @@ The file names end in three patterns, `.htseq.counts.tz`, `.FPKM-UQ.txt`, and `.
 
 To get the data from the TCGA files into the format we need for our later pipelines, we'll use our [Spreadsheet Builder workflow](https://cgc.sbgenomics.com/public/apps#workflow/mepstein/knoweng-spreadsheetbuilder-public/spreadsheet-builder).
 
-Use the TCGA input files gathered earlier as the input files, and set the following parameter values:
+Use the TCGA input files gathered earlier as the input files, and set the following input parameter values:
 
 ```
 Metadata Sample ID Key: aliquot_id
@@ -86,7 +86,7 @@ Others that may be useful in certain situations are the phenotypic files -- the 
 
 Next comes running the [Signature Analysis workflow](https://cgc.sbgenomics.com/public/apps#workflow/mepstein/knoweng-signature-analysis-public/signature-analysis-workflow).  This requires two input files, a Samples File and a Signatures File.  The Samples File will be the Genomic Spreadsheet File output from the Spreadsheet Builder run (`genomic.tsv`).  The Signatures File will be the demo signatures file (`demo_SA.signatures.txt`).
 
-You should use the following parameter values:
+You should use the following input parameter values:
 
 ```
 Species Taxon ID (in three places): 9606
@@ -102,7 +102,7 @@ The main output file of interest is the Similarity Matrix File (`similarity_matr
 
 After this, you're ready to run the [Gene Prioritization workflow](https://cgc.sbgenomics.com/public/apps#workflow/mepstein/knoweng-geneprioritization-public/gene-prioritization-workflow).  This takes two input files, a Genomic Spreadsheet File and a Phenotypic Spreadsheet File.  For the Genomic Spreadsheet File, we need to again use the Genomic Spreadsheet File output from the Spreadsheet Builder run (`genomic.tsv`).  For the Phenotypic Spreadsheet File, use the Similarity Matrix Binary file from the Signature Analysis run (`similarity_matrix.binary.tsv`).
 
-You should use the following parameter values:
+You should use the following input parameter values:
 
 ```
 Species Taxon ID (in two places): 9606
@@ -120,7 +120,7 @@ The main output files of interest are the Ranked Genes File (`genes_ranked_per_p
 
 The last step is to run the [Gene Set Characterization workflow](https://cgc.sbgenomics.com/public/apps#workflow/mepstein/knoweng-genesetcharacterization-public/gene-set-characterization).  This takes one input file, a Genomic Spreadsheet File; for this we'll use the Top Genes File output from the Gene Prioritization run (`top_genes_per_phenotype_matrix.txt`).
 
-For the parameter values, we'll use:
+For the input parameter values, we'll use:
 
 ```
 Species Taxon ID (in three places): 9606
@@ -137,32 +137,42 @@ The main output file of interest is the GSC Results (`gsc_results.txt`), and pos
 
 To run this combined workflow, you will still need to [create the input files from the TCGA data](#gathering-the-tcga-input-files).  The other input file is the Signatures File, as described [above](#running-the-signature-analysis-workflow).
 
+There are several input parameters for this workflow, generally matching up with those from the individual workflows described above.
+
 The following parameters match up with those for
 [the Spreadsheet Builder workflow](#running-the-spreadsheet-builder-workflow):
 
-expected_header_key 	Expected Header Key 	string 	No
-filter_min_percentage 	Filter Minimum Percentage 	float 	No
-filter_threshold 	Filter Threshold 	float 	No
-normalize 	Normalize Flag 	boolean 	No
+```
+Metadata Sample ID Key
+Filter Minimum Percentage
+Filter Threshold
+Normalize Flag
+```
 
 The following parameter matches up with one for
 [the Signature Analysis workflow](#running-the-signature-analysis-workflow):
 
-similarity_measure 	Similarity Measure 	enum 	No
+```
+Similarity Measure
+```
 
 The following parameter is one for
 [the Gene Prioritization workflow](#running-the-gene-prioritization-workflow)
-(although it is not specified above, as the default value, 100, is used):
+(although it is not specified above, as its default value, `100`, was used):
 
-number_of_top_genes 	Number of Top Genes 	int 	No
+```
+Number of Top Genes
+```
 
 The following parameters match up with those for
 [the Gene Set Characterization workflow](#running-the-gene-set-characterization-workflow)
-(similar to `Number of Top Genes`, `Amount of Network Influence` is not specified above, as its default value, `50%` has been used):
+(similar to `Number of Top Genes`, `Amount of Network Influence` is not specified above, as its default value, `50%` was used):
 
-gg_edge_type 	Knowledge Network Edge Type 	string 	No
-network_smoothing_percent 	Amount of Network Influence 	int 	No
-pg_edge_type 	Gene Set Property Network Edge Type 	string 	Yes
+```
+Knowledge Network Edge Type
+Amount of Network Influence
+Gene Set Property Network Edge Type
+```
 
-Note that `Species Taxon ID` is not available as a parameter here; it has been hard-coded to be `9606` (`human`).
+Note that `Species Taxon ID` is not available as a parameter here; it has been hard-coded to `9606` (`human`).
 
