@@ -55,20 +55,10 @@ The following directories correspond to the like-named projects on the
 CGC and contain CWL files for the apps in the project:
 
 ```
-KnowEnG_GenePrioritization_Demo
-KnowEnG_GenePrioritization_Dev
 KnowEnG_GenePrioritization_Public
-KnowEnG_GeneSetCharacterization_Demo
-KnowEnG_GeneSetCharacterization_Dev
 KnowEnG_GeneSetCharacterization_Public
-KnowEnG_Samples_Clustering_Demo
-KnowEnG_Samples_Clustering_Dev
 KnowEnG_Samples_Clustering_Public
-KnowEnG_Signature_Analysis_Demo
-KnowEnG_Signature_Analysis_Dev
 KnowEnG_Signature_Analysis_Public
-KnowEnG_SpreadsheetBuilder_Demo
-KnowEnG_SpreadsheetBuilder_Dev
 KnowEnG_SpreadsheetBuilder_Public
 Lung_Signatures_Public
 ```
