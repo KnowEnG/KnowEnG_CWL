@@ -772,8 +772,7 @@ steps:
                   str += "results_directory: ./\n";
 
 
-                  if ($job.inputs.phenotypic_spreadsheet_file &&
-                  $job.inputs.phenotypic_spreadsheet_file.name != "sh") {
+                  if ($job.inputs.phenotypic_spreadsheet_file) {
                       str += "phenotype_name_full_path: " + $job.inputs.phenotypic_spreadsheet_file.path + "\n";
                   }
 
@@ -1012,10 +1011,7 @@ steps:
           required: true
           type:
             - string
-        - 'sbg:toolDefaultValue':
-            class: File
-            location: /bin/sh
-          label: Phenotypic Spreadsheet File (optional)
+        - label: Phenotypic Spreadsheet File (optional)
           description: The phenotypic spreadsheet file (optional)
           doc: 'the phenotypic spreadsheet input for the pipeline [may be optional]'
           type:
@@ -1023,9 +1019,6 @@ steps:
             - File
           id: '#phenotypic_spreadsheet_file'
           required: false
-          default:
-            class: File
-            location: /bin/sh
         - label: Genomic Spreadsheet File
           description: The genomic spreadsheet file
           doc: the genomic spreadsheet input for the pipeline
@@ -1684,6 +1677,10 @@ inputs:
     id: '#genomic_spreadsheet_file'
     type:
       - File
+    'sbg:suggestedValue':
+      class: File
+      name: demo_GSC.spreadsheet.txt
+      path: 5a6f94824f0cf42337c1d893
   - label: Knowledge Network Edge Type
     'sbg:x': 111.25000944733532
     description: >-
@@ -1840,8 +1837,7 @@ outputs:
     id: 'https://www.youtube.com/channel/UCjyIIolCaZIGtZC20XLBOyg'
 'sbg:projectName': KnowEnG_GeneSetCharacterization_Public
 'sbg:canvas_x': 137
-'sbg:image_url': >-
-  https://cgc.sbgenomics.com/ns/brood/images/mepstein/knoweng-genesetcharacterization-public/gene-set-characterization/5.png
+'sbg:image_url': null
 'sbg:toolkitVersion': v1.0
 'sbg:categories':
   - Analysis
@@ -1852,7 +1848,6 @@ outputs:
   Copyright (c) 2017, University of Illinois Board of Trustees; All rights
   reserved.
 'sbg:toolkit': KnowEnG_CGC
-'sbg:publisher': KnowEnG
 'sbg:revisionsInfo':
   - 'sbg:revision': 0
     'sbg:modifiedBy': nikola_jovanovic
@@ -1878,7 +1873,14 @@ outputs:
     'sbg:modifiedBy': mepstein
     'sbg:modifiedOn': 1542343938
     'sbg:revisionNotes': null
-'sbg:content_hash': a63760597759a5f74045cc5299baa800960d21fcab36fe8bb876efa035432d18d
+  - 'sbg:revision': 6
+    'sbg:modifiedBy': charles_blatti
+    'sbg:modifiedOn': 1560526509
+    'sbg:revisionNotes': Added suggested input file
+  - 'sbg:revision': 7
+    'sbg:modifiedBy': charles_blatti
+    'sbg:modifiedOn': 1560546794
+    'sbg:revisionNotes': remove dependence on sh file
 label: Gene Set Characterization Workflow
 description: >-
   This [KnowEnG](https://knoweng.org/) Gene Set Characterization workflow tests
@@ -2086,12 +2088,12 @@ $namespaces:
 'sbg:appVersion':
   - 'sbg:draft-2'
 id: >-
-  https://cgc-api.sbgenomics.com/v2/apps/mepstein/knoweng-genesetcharacterization-public/gene-set-characterization/5/raw/
-'sbg:id': mepstein/knoweng-genesetcharacterization-public/gene-set-characterization/5
-'sbg:revision': 5
-'sbg:revisionNotes': null
-'sbg:modifiedOn': 1542343938
-'sbg:modifiedBy': mepstein
+  https://cgc-api.sbgenomics.com/v2/apps/mepstein/knoweng-genesetcharacterization-public/gene-set-characterization/7/raw/
+'sbg:id': mepstein/knoweng-genesetcharacterization-public/gene-set-characterization/7
+'sbg:revision': 7
+'sbg:revisionNotes': remove dependence on sh file
+'sbg:modifiedOn': 1560546794
+'sbg:modifiedBy': charles_blatti
 'sbg:createdOn': 1512657193
 'sbg:createdBy': nikola_jovanovic
 'sbg:project': mepstein/knoweng-genesetcharacterization-public
@@ -2099,5 +2101,8 @@ id: >-
 'sbg:validationErrors': []
 'sbg:contributors':
   - mepstein
+  - charles_blatti
   - nikola_jovanovic
-'sbg:latestRevision': 5
+'sbg:latestRevision': 7
+'sbg:publisher': KnowEnG
+'sbg:content_hash': acf82a33c8ce058e36e523c490c41d542f136d2ac31b18f423bf4b1f28a6e41ac

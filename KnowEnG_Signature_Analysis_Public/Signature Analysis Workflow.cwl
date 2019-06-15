@@ -1,385 +1,186 @@
-'sbg:revisionsInfo':
-  - 'sbg:revision': 0
-    'sbg:modifiedBy': mepstein
-    'sbg:modifiedOn': 1529392936
-    'sbg:revisionNotes': null
-  - 'sbg:revision': 1
-    'sbg:modifiedBy': mepstein
-    'sbg:modifiedOn': 1529392994
-    'sbg:revisionNotes': Saving imported workflow.
-'sbg:projectName': KnowEnG_Signature_Analysis_Public
-'sbg:publisher': KnowEnG
-inputs:
-  - type:
-      - 'null'
-      - string
-    label: Species Taxon ID
-    'sbg:x': 63
-    'sbg:y': 237
-    description: >-
-      The species taxon ID (e.g., 9606 for human).See
-      https://knoweng.org/kn-data-references/ for possible values (KN Contents
-      by Species).
-    id: '#taxonid'
-    'sbg:includeInPorts': true
-  - type:
-      - File
-    label: Samples File
-    'sbg:x': 55
-    'sbg:y': 50
-    description: The samples file
-    id: '#samples_file'
-    'sbg:includeInPorts': true
-  - type:
-      - 'null'
-      - boolean
-    label: Dont Map Samples Flag
-    'sbg:x': 149
-    'sbg:y': 133
-    description: 'If set, the names will not be mapped'
-    id: '#dont_map_samples'
-    'sbg:includeInPorts': true
-  - type:
-      - 'null'
-      - File
-    label: Signatures File
-    'sbg:x': 66
-    'sbg:y': 368
-    description: The signatures file
-    id: '#signatures_file'
-    'sbg:includeInPorts': true
-  - type:
-      - 'null'
-      - boolean
-    label: Dont Map Signatures Flag
-    'sbg:x': 158
-    'sbg:y': 456
-    description: 'If set, the names will not be mapped'
-    id: '#dont_map_signatures'
-    'sbg:includeInPorts': true
-  - type:
-      - 'null'
-      - type: enum
-        name: similarity_measure
-        symbols:
-          - cosine
-          - pearson
-          - spearman
-    label: Similarity Measure
-    'sbg:x': 75
-    'sbg:y': 558
-    description: 'The similarity measure (e.g., cosine, pearson, or spearman)'
-    id: '#similarity_measure'
-    'sbg:includeInPorts': true
-'sbg:image_url': >-
-  https://cgc.sbgenomics.com/ns/brood/images/mepstein/knoweng-signature-analysis-public/signature-analysis-workflow/1.png
-'sbg:toolAuthor': KnowEnG
-'sbg:revisionNotes': Saving imported workflow.
-outputs:
-  - type:
-      - 'null'
-      - File
-    label: Clean Samples
-    'sbg:x': 1187.254997702206
-    source:
-      - '#Signature_Analysis.clean_samples_file'
-    'sbg:y': 204.5098338407629
-    description: The clean samples file
-    id: '#clean_samples_file'
-    'sbg:includeInPorts': true
-    required: false
-  - type:
-      - 'null'
-      - File
-    label: Clean Signatures
-    'sbg:x': 1272.0262235753678
-    source:
-      - '#Signature_Analysis.clean_signatures_file'
-    'sbg:y': 309.67317468979786
-    description: The clean signatures file
-    id: '#clean_signatures_file'
-    'sbg:includeInPorts': true
-    required: false
-  - type:
-      - 'null'
-      - File
-    label: Similarity Matrix File
-    'sbg:x': 1182.5684311810664
-    source:
-      - '#Signature_Analysis.similarity_matrix'
-    'sbg:y': 396.4510210822611
-    description: The signature similarity results
-    id: '#similarity_matrix'
-    'sbg:includeInPorts': true
-    required: false
-  - type:
-      - 'null'
-      - File
-    label: Similarity Matrix Binary
-    'sbg:x': 1278.8509593290441
-    source:
-      - '#Signature_Analysis.similarity_matrix_binary'
-    'sbg:y': 500.3956155215994
-    description: The signature similarity matrix (binary; one 1 per row/gene/feature)
-    id: '#similarity_matrix_binary'
-    'sbg:includeInPorts': true
-    required: false
-  - type:
-      - 'null'
-      - File
-    label: SA run_params_yml
-    'sbg:x': 1275.8431468290444
-    source:
-      - '#Signature_Analysis.run_params_yml'
-    'sbg:y': 677.8823673023899
-    description: The configuration parameters specified for the SA run
-    id: '#run_params_yml'
-    'sbg:includeInPorts': true
-    required: false
-  - type:
-      - 'null'
-      - File
-    label: README
-    'sbg:x': 1186.1437988281252
-    source:
-      - '#Signature_Analysis.readme'
-    'sbg:y': 578.627498851103
-    description: The README file that describes the output files
-    id: '#readme'
-    'sbg:includeInPorts': true
-    required: false
-  - type:
-      - 'null'
-      - File
-    label: Gene Map File
-    'sbg:x': 1185.8823529411768
-    source:
-      - '#Signature_Analysis_Renamer.gene_map_file_out'
-    'sbg:y': 57.64705882352942
-    description: The gene map file
-    id: '#gene_map_file_out'
-    'sbg:includeInPorts': true
-    required: false
-'sbg:canvas_y': 22
 class: Workflow
-hints: []
-requirements: []
 steps:
-  - 'sbg:x': 741
-    'sbg:y': 224
+  - id: '#Data_Cleaning_Preprocessing'
     run:
-      'sbg:id': mepstein/knoweng-signature-analysis-dev/data-cleaning-copy/2
-      arguments: []
-      'sbg:projectName': KnowEnG_Signature_Analysis_Dev
-      'sbg:contributors':
-        - mepstein
-      'sbg:createdOn': 1522093713
-      'sbg:job':
-        inputs:
-          geneset_characterization_impute: remove
-          gene_prioritization_corr_measure: pearson
-          pipeline_type: geneset_characterization_pipeline
-          genomic_spreadsheet_file:
-            class: File
-            size: 0
-            path: /path/to/file.tsv
-            secondaryFiles: []
-        allocatedResources:
-          cpu: 1
-          mem: 1000
-      'sbg:revisionsInfo':
-        - 'sbg:modifiedOn': 1522093713
-          'sbg:modifiedBy': mepstein
-          'sbg:revisionNotes': Copy of mepstein/genesetcharacterization/data-cleaning-copy/19
-          'sbg:revision': 0
-        - 'sbg:modifiedOn': 1522098998
-          'sbg:modifiedBy': mepstein
-          'sbg:revisionNotes': Copy of mepstein/genesetcharacterization/data-cleaning-copy/20
-          'sbg:revision': 1
-        - 'sbg:modifiedOn': 1524112841
-          'sbg:modifiedBy': mepstein
-          'sbg:revisionNotes': Copy of mepstein/genesetcharacterization/data-cleaning-copy/21
-          'sbg:revision': 2
+      cwlVersion: 'sbg:draft-2'
+      class: CommandLineTool
+      $namespaces:
+        sbg: 'https://sevenbridges.com'
+      id: mepstein/knoweng-signature-analysis-dev/data-cleaning-copy/2
+      label: Data Cleaning/Preprocessing
+      description: >-
+        Clean/preprocess input data (genomic and optionally phenotypic) for use
+        with other tools/pipelines.
+      baseCommand:
+        - sh
+        - run_dc.cmd
       inputs:
-        - label: Species Taxon ID
+        - 'sbg:toolDefaultValue': '9606'
+          doc: taxon id of species related to genomic spreadsheet
+          default: '9606'
+          required: false
+          'sbg:includeInPorts': true
           type:
             - 'null'
             - string
-          'sbg:toolDefaultValue': '9606'
-          doc: taxon id of species related to genomic spreadsheet
-          default: '9606'
+          label: Species Taxon ID
           description: 'The species taxon ID (e.g., 9606 for human)'
           id: '#taxonid'
-          required: false
-          'sbg:includeInPorts': true
-        - type:
-            - 'null'
-            - string
-          label: ID Source Hint
-          'sbg:toolDefaultValue': ''''''
+        - 'sbg:toolDefaultValue': ''''''
           doc: >-
             suggestion for ID source database used to resolve ambiguities in
             mapping
           default: \'\'
+          type:
+            - 'null'
+            - string
+          label: ID Source Hint
           description: The source hint for the redis queries (can be '')
           id: '#source_hint'
-        - type:
+        - 'sbg:toolDefaultValue': 6379
+          doc: port for Redis db
+          default: 6379
+          type:
             - 'null'
             - int
           label: RedisDB Port
-          'sbg:toolDefaultValue': 6379
-          doc: port for Redis db
-          default: 6379
           description: The redis DB port
           id: '#redis_port'
-        - type:
+        - 'sbg:toolDefaultValue': KnowEnG
+          doc: password for Redis db
+          default: KnowEnG
+          type:
             - 'null'
             - string
           label: RedisDB Password
-          'sbg:toolDefaultValue': KnowEnG
-          doc: password for Redis db
-          default: KnowEnG
           description: The redis DB password
           id: '#redis_pass'
-        - type:
+        - 'sbg:toolDefaultValue': knowredis.knoweng.org
+          doc: url of Redis db
+          default: knowredis.knoweng.org
+          type:
             - 'null'
             - string
           label: RedisDB Host
-          'sbg:toolDefaultValue': knowredis.knoweng.org
-          doc: url of Redis db
-          default: knowredis.knoweng.org
           description: The redis DB host name
           id: '#redis_host'
-        - type:
-            - string
-          id: '#pipeline_type'
-          description: >-
-            The name of the pipeline that will be run (i.e., data cleaning is
-            pipeline-specific)
-          doc: >-
+        - doc: >-
             keywork name of pipeline from following list
             ['gene_prioritization_pipeline', 'samples_clustering_pipeline',
             'geneset_characterization_pipeline']
+          type:
+            - string
           label: Name of Pipeline
-        - type:
-            - 'null'
-            - File
-          label: Phenotypic Spreadsheet File (optional)
-          'sbg:toolDefaultValue':
+          description: >-
+            The name of the pipeline that will be run (i.e., data cleaning is
+            pipeline-specific)
+          id: '#pipeline_type'
+        - 'sbg:toolDefaultValue':
             class: File
             location: /bin/sh
           doc: 'the phenotypic spreadsheet input for the pipeline [may be optional]'
           default:
             class: File
             location: /bin/sh
+          required: false
+          type:
+            - 'null'
+            - File
+          label: Phenotypic Spreadsheet File (optional)
           description: The phenotypic spreadsheet file (optional)
           id: '#phenotypic_spreadsheet_file'
-          required: false
-        - type:
+        - doc: the genomic spreadsheet input for the pipeline
+          required: true
+          type:
             - File
           label: Genomic Spreadsheet File
-          doc: the genomic spreadsheet input for the pipeline
           description: The genomic spreadsheet file
           id: '#genomic_spreadsheet_file'
-          required: true
         - type:
             - 'null'
             - type: enum
-              name: geneset_characterization_impute
               symbols:
                 - remove
                 - average
                 - reject
+              name: geneset_characterization_impute
           label: GSC Imputation Strategy
-          id: '#geneset_characterization_impute'
           description: >-
             How to handle missing values in the input data (e.g., remove rows,
             fill in with row average, reject)
-        - type:
-            - 'null'
-            - type: enum
-              name: gene_prioritization_corr_measure
-              symbols:
-                - pearson
-                - t_test
-          label: GP Correlation Measure
-          doc: >-
+          id: '#geneset_characterization_impute'
+        - doc: >-
             if pipeline_type=='gene_prioritization_pipeline', then must be one
             of either ['t_test', 'pearson']
           default: missing
           'sbg:stageInput': null
+          type:
+            - 'null'
+            - type: enum
+              symbols:
+                - pearson
+                - t_test
+              name: gene_prioritization_corr_measure
+          label: GP Correlation Measure
           description: 'The correlation measure to be used for GP (e.g., t_test or pearson)'
           id: '#gene_prioritization_corr_measure'
-      'sbg:cmdPreview': sh run_dc.cmd
-      'sbg:revision': 2
-      $namespaces:
-        sbg: 'https://sevenbridges.com'
-      'sbg:project': mepstein/knoweng-signature-analysis-dev
-      'sbg:modifiedBy': mepstein
-      successCodes: []
-      'sbg:appVersion':
-        - 'sbg:draft-2'
-      id: mepstein/knoweng-signature-analysis-dev/data-cleaning-copy/2
-      'sbg:latestRevision': 2
-      'sbg:revisionNotes': Copy of mepstein/genesetcharacterization/data-cleaning-copy/21
       outputs:
         - type:
             - 'null'
             - File
           label: Gene Unmapped File
-          doc: two columns for original gene ids and unmapped reason code
           description: The genes that were not mapped
           outputBinding:
             glob: '*_UNMAPPED.tsv'
           id: '#gene_unmap_file'
+          doc: two columns for original gene ids and unmapped reason code
         - type:
             - 'null'
             - File
           label: Gene Map File
-          doc: two columns for internal gene ids and original gene ids
           description: The gene map file
           outputBinding:
             glob: '*_MAP.tsv'
           id: '#gene_map_file'
+          doc: two columns for internal gene ids and original gene ids
         - type:
             - 'null'
             - File
-          id: '#gene_map_exceptions_file'
+          label: Gene Map Exceptions File
           description: The gene map exceptions file
           outputBinding:
             glob: '*_User_To_Ensembl.tsv'
-          label: Gene Map Exceptions File
+          id: '#gene_map_exceptions_file'
         - type:
             - 'null'
             - File
-          id: '#cmd_log_file'
+          label: Command Log File
           description: The log of the data cleaning command
           outputBinding:
             glob: run_dc.cmd
-          label: Command Log File
+          id: '#cmd_log_file'
         - type:
             - 'null'
             - File
           label: Cleaning Parameters File
-          doc: data cleaning parameters in yaml format
           description: The configuration parameters specified for the data cleaning run
           outputBinding:
             glob: run_cleanup.yml
           id: '#cleaning_parameters_yml'
+          doc: data cleaning parameters in yaml format
         - type:
             - 'null'
             - File
           label: Cleaning Log File
-          doc: information on souce of errors for cleaning pipeline
           description: The log of the data cleaning run
           outputBinding:
             glob: log_*_pipeline.yml
           id: '#cleaning_log_file'
+          doc: information on souce of errors for cleaning pipeline
         - type:
             - 'null'
             - File
           label: Clean Phenotypic Spreadsheet
-          doc: phenotype file prepared for pipeline
           description: The clean phenotypic spreadsheet
           outputBinding:
             glob:
@@ -412,11 +213,11 @@ steps:
                 }
               class: Expression
           id: '#clean_phenotypic_file'
+          doc: phenotype file prepared for pipeline
         - type:
             - 'null'
             - File
           label: Clean Genomic Spreadsheet
-          doc: matrix with gene names mapped and data cleaned
           description: The clean genomic spreadsheet
           outputBinding:
             glob:
@@ -446,32 +247,19 @@ steps:
                 "_ETL.tsv";
               class: Expression
           id: '#clean_genomic_file'
-      label: Data Cleaning/Preprocessing
-      stdin: ''
-      baseCommand:
-        - sh
-        - run_dc.cmd
-      hints:
-        - class: DockerRequirement
-          dockerPull: 'knowengdev/data_cleanup_pipeline:04_11_2018'
-        - coresMin: 1
-          class: ResourceRequirement
-          ramMin: 5000
-          outdirMin: 512000
-        - class: 'sbg:CPURequirement'
-          value: 1
-        - class: 'sbg:MemRequirement'
-          value: 1000
+          doc: matrix with gene names mapped and data cleaned
       requirements:
-        - id: '#cwl-js-engine'
-          class: ExpressionEngineRequirement
+        - class: ExpressionEngineRequirement
+          id: '#cwl-js-engine'
           requirements:
             - class: DockerRequirement
               dockerPull: rabix/js-engine
         - class: InlineJavascriptRequirement
         - class: ShellCommandRequirement
-        - fileDef:
-            - fileContent:
+        - class: CreateFileRequirement
+          fileDef:
+            - filename: run_dc.cmd
+              fileContent:
                 engine: '#cwl-js-engine'
                 script: >
                   str = ""
@@ -533,29 +321,69 @@ steps:
 
                   str2;
                 class: Expression
-              filename: run_dc.cmd
-          class: CreateFileRequirement
-      temporaryFailCodes: []
+      hints:
+        - class: ResourceRequirement
+          coresMin: 1
+          ramMin: 5000
+          outdirMin: 512000
+        - class: 'sbg:CPURequirement'
+          value: 1
+        - class: 'sbg:MemRequirement'
+          value: 1000
+        - class: DockerRequirement
+          dockerPull: 'knowengdev/data_cleanup_pipeline:04_11_2018'
+      'sbg:id': mepstein/knoweng-signature-analysis-dev/data-cleaning-copy/2
+      'sbg:projectName': KnowEnG_Signature_Analysis_Dev
+      'sbg:contributors':
+        - mepstein
+      'sbg:createdOn': 1522093713
+      'sbg:job':
+        inputs:
+          geneset_characterization_impute: remove
+          gene_prioritization_corr_measure: pearson
+          pipeline_type: geneset_characterization_pipeline
+          genomic_spreadsheet_file:
+            class: File
+            size: 0
+            path: /path/to/file.tsv
+            secondaryFiles: []
+        allocatedResources:
+          cpu: 1
+          mem: 1000
+      'sbg:revisionsInfo':
+        - 'sbg:modifiedOn': 1522093713
+          'sbg:modifiedBy': mepstein
+          'sbg:revisionNotes': Copy of mepstein/genesetcharacterization/data-cleaning-copy/19
+          'sbg:revision': 0
+        - 'sbg:modifiedOn': 1522098998
+          'sbg:modifiedBy': mepstein
+          'sbg:revisionNotes': Copy of mepstein/genesetcharacterization/data-cleaning-copy/20
+          'sbg:revision': 1
+        - 'sbg:modifiedOn': 1524112841
+          'sbg:modifiedBy': mepstein
+          'sbg:revisionNotes': Copy of mepstein/genesetcharacterization/data-cleaning-copy/21
+          'sbg:revision': 2
+      'sbg:cmdPreview': sh run_dc.cmd
+      'sbg:revision': 2
+      'sbg:project': mepstein/knoweng-signature-analysis-dev
+      'sbg:modifiedBy': mepstein
+      'sbg:appVersion':
+        - 'sbg:draft-2'
+      'sbg:latestRevision': 2
+      'sbg:revisionNotes': Copy of mepstein/genesetcharacterization/data-cleaning-copy/21
       'sbg:modifiedOn': 1524112841
       x: 741
       'sbg:publisher': sbg
-      cwlVersion: 'sbg:draft-2'
       'sbg:image_url': null
       'sbg:validationErrors': []
       'y': 224
-      description: >-
-        Clean/preprocess input data (genomic and optionally phenotypic) for use
-        with other tools/pipelines.
-      stdout: ''
       'sbg:copyOf': mepstein/genesetcharacterization/data-cleaning-copy/21
       doc: checks the inputs of a pipeline for potential sources of errors
       'sbg:createdBy': mepstein
-      class: CommandLineTool
       'sbg:sbgMaintained': false
     inputs:
       - id: '#Data_Cleaning_Preprocessing.taxonid'
-        source:
-          - '#taxonid'
+        source: '#taxonid'
       - id: '#Data_Cleaning_Preprocessing.source_hint'
         default: ''''''
       - id: '#Data_Cleaning_Preprocessing.redis_port'
@@ -567,14 +395,11 @@ steps:
       - id: '#Data_Cleaning_Preprocessing.pipeline_type'
         default: signature_analysis_pipeline
       - id: '#Data_Cleaning_Preprocessing.phenotypic_spreadsheet_file'
-        source:
-          - '#Mapper_Workflow_1.output_file'
+        source: '#Mapper_Workflow_1.output_file'
       - id: '#Data_Cleaning_Preprocessing.genomic_spreadsheet_file'
-        source:
-          - '#Mapper_Workflow.output_file'
+        source: '#Mapper_Workflow.output_file'
       - id: '#Data_Cleaning_Preprocessing.geneset_characterization_impute'
       - id: '#Data_Cleaning_Preprocessing.gene_prioritization_corr_measure'
-    id: '#Data_Cleaning_Preprocessing'
     outputs:
       - id: '#Data_Cleaning_Preprocessing.gene_unmap_file'
       - id: '#Data_Cleaning_Preprocessing.gene_map_file'
@@ -584,311 +409,233 @@ steps:
       - id: '#Data_Cleaning_Preprocessing.cleaning_log_file'
       - id: '#Data_Cleaning_Preprocessing.clean_phenotypic_file'
       - id: '#Data_Cleaning_Preprocessing.clean_genomic_file'
-  - 'sbg:x': 431
-    'sbg:y': 75.99999999999999
+    'sbg:x': 741
+    'sbg:y': 224
+  - id: '#Mapper_Workflow'
     run:
-      'sbg:id': mepstein/knoweng-signature-analysis-dev/mapper-workflow/2
-      'sbg:revisionsInfo':
-        - 'sbg:modifiedOn': 1524843132
-          'sbg:modifiedBy': mepstein
-          'sbg:revisionNotes': null
-          'sbg:revision': 0
-        - 'sbg:modifiedOn': 1524843462
-          'sbg:modifiedBy': mepstein
-          'sbg:revisionNotes': Initial version.
-          'sbg:revision': 1
-        - 'sbg:modifiedOn': 1526497729
-          'sbg:modifiedBy': mepstein
-          'sbg:revisionNotes': 'Added output (map_file, from KN Mapper).'
-          'sbg:revision': 2
-      'sbg:projectName': KnowEnG_Signature_Analysis_Dev
-      'sbg:contributors':
-        - mepstein
-      'sbg:createdOn': 1524843132
-      description: ''
+      class: Workflow
+      cwlVersion: 'sbg:draft-2'
+      id: mepstein/knoweng-signature-analysis-dev/mapper-workflow/2
+      label: Mapper Workflow
+      $namespaces:
+        sbg: 'https://sevenbridges.com'
       inputs:
         - type:
             - 'null'
             - string
           label: taxon
+          id: '#taxon'
           'sbg:x': 81
           'sbg:y': 326
-          id: '#taxon'
           required: false
           'sbg:includeInPorts': true
         - type:
             - 'null'
             - string
           label: source_hint
+          id: '#source_hint'
           'sbg:x': 86
           'sbg:y': 464
-          id: '#source_hint'
           required: false
           'sbg:includeInPorts': true
         - type:
             - string
           label: output_filename
+          id: '#output_filename'
           'sbg:x': 87
           'sbg:y': 596
-          id: '#output_filename'
           required: true
           'sbg:includeInPorts': true
         - type:
             - File
           label: input_file
+          id: '#input_file'
           'sbg:x': 80
           'sbg:y': 62
-          id: '#input_file'
           required: true
         - type:
             - 'null'
             - boolean
           label: dont_do_mapping
+          id: '#dont_do_mapping'
           'sbg:x': 83
           'sbg:y': 199
-          id: '#dont_do_mapping'
           required: false
           'sbg:includeInPorts': true
-      $namespaces:
-        sbg: 'https://sevenbridges.com'
-      'sbg:revision': 2
-      'sbg:project': mepstein/knoweng-signature-analysis-dev
-      'sbg:modifiedBy': mepstein
-      'sbg:appVersion':
-        - 'sbg:draft-2'
-      id: mepstein/knoweng-signature-analysis-dev/mapper-workflow/2
-      'sbg:latestRevision': 2
-      'sbg:revisionNotes': 'Added output (map_file, from KN Mapper).'
       outputs:
-        - type:
-            - 'null'
-            - File
+        - id: '#output_file_1'
           label: map_file
-          'sbg:x': 1145.2631578947369
-          'sbg:y': 170.52628366570724
           source:
             - '#KN_Mapper.output_file'
-          id: '#output_file_1'
-          'sbg:includeInPorts': true
-        - type:
+          type:
             - 'null'
             - File
+          'sbg:x': 1145.2631578947369
+          'sbg:y': 170.52628366570724
+          'sbg:includeInPorts': true
+        - id: '#output_file'
           label: output_file
-          'sbg:x': 1148.9473684210527
-          'sbg:y': 360.105269582648
           source:
             - '#Map_Names.output_file'
-          id: '#output_file'
+          type:
+            - 'null'
+            - File
+          'sbg:x': 1148.9473684210527
+          'sbg:y': 360.105269582648
           required: false
           'sbg:includeInPorts': true
-      'sbg:canvas_y': 0
-      class: Workflow
-      hints: []
-      requirements: []
       steps:
-        - 'sbg:x': 495
-          'sbg:y': 171
-          id: '#KN_Mapper'
+        - id: '#KN_Mapper'
           inputs:
             - id: '#KN_Mapper.taxon'
-              source:
-                - '#taxon'
+              source: '#taxon'
             - id: '#KN_Mapper.source_hint'
-              source:
-                - '#source_hint'
-            - id: '#KN_Mapper.redis_port'
-            - id: '#KN_Mapper.redis_pass'
-            - id: '#KN_Mapper.redis_host'
-            - id: '#KN_Mapper.output_name'
+              source: '#source_hint'
             - id: '#KN_Mapper.input_file'
-              source:
-                - '#input_file'
+              source: '#input_file'
             - id: '#KN_Mapper.dont_do_mapping'
-              source:
-                - '#dont_do_mapping'
-            - id: '#KN_Mapper.dont_cut_first_line'
+              source: '#dont_do_mapping'
+          outputs:
+            - id: '#KN_Mapper.output_file'
           run:
-            'sbg:id': mepstein/knoweng-signature-analysis-dev/kn-mapper/3
-            arguments: []
-            'sbg:projectName': KnowEnG_Signature_Analysis_Dev
-            'sbg:contributors':
-              - mepstein
-            'sbg:createdOn': 1524681212
-            'sbg:job':
-              inputs:
-                redis_host: redis_host-string-value
-                source_hint: source_hint-string-value
-                output_name: output_name-string-value
-                redis_pass: redis_pass-string-value
-                taxon: taxon-string-value
-                redis_port: redis_port-string-value
-                dont_do_mapping: true
-                input_file:
-                  class: File
-                  size: 0
-                  path: /path/to/input_file.ext
-                  secondaryFiles: []
-                dont_cut_first_line: true
-              allocatedResources:
-                cpu: 1
-                mem: 1000
-            'sbg:revisionsInfo':
-              - 'sbg:modifiedOn': 1524681212
-                'sbg:modifiedBy': mepstein
-                'sbg:revisionNotes': null
-                'sbg:revision': 0
-              - 'sbg:modifiedOn': 1524681994
-                'sbg:modifiedBy': mepstein
-                'sbg:revisionNotes': Initial version.
-                'sbg:revision': 1
-              - 'sbg:modifiedOn': 1524687186
-                'sbg:modifiedBy': mepstein
-                'sbg:revisionNotes': Fixed typo in tail command in kn_mapper.sh.
-                'sbg:revision': 2
-              - 'sbg:modifiedOn': 1524842883
-                'sbg:modifiedBy': mepstein
-                'sbg:revisionNotes': Added dont_do_mapping input/behavior.
-                'sbg:revision': 3
+            cwlVersion: 'sbg:draft-2'
+            class: CommandLineTool
+            $namespaces:
+              sbg: 'https://sevenbridges.com'
+            id: mepstein/knoweng-signature-analysis-dev/kn-mapper/3
+            label: KN Mapper
+            description: Map the genes in a spreadsheet/file.
+            baseCommand:
+              - sh
+              - kn_mapper.sh
             inputs:
-              - type:
+              - 'sbg:includeInPorts': true
+                required: false
+                type:
                   - 'null'
                   - string
+                inputBinding:
+                  position: 0
+                  prefix: '-t'
+                  separate: true
+                  'sbg:cmdInclude': true
                 label: Species Taxon ID
                 description: The species taxon id
                 id: '#taxon'
-                inputBinding:
-                  separate: true
-                  prefix: '-t'
-                  'sbg:cmdInclude': true
-                'sbg:includeInPorts': true
+              - 'sbg:includeInPorts': true
                 required: false
-              - type:
+                type:
                   - 'null'
                   - string
+                inputBinding:
+                  position: 0
+                  prefix: '-s'
+                  separate: true
+                  'sbg:cmdInclude': true
                 label: Source Hint
                 description: The source hint
                 id: '#source_hint'
-                inputBinding:
-                  separate: true
-                  prefix: '-s'
-                  'sbg:cmdInclude': true
-                'sbg:includeInPorts': true
-                required: false
               - type:
                   - 'null'
                   - string
-                id: '#redis_port'
                 inputBinding:
-                  separate: true
+                  position: 0
                   prefix: '-p'
+                  separate: true
                   'sbg:cmdInclude': true
-                description: The redis port
                 label: Redis Port
+                description: The redis port
+                id: '#redis_port'
               - type:
                   - 'null'
                   - string
-                id: '#redis_pass'
                 inputBinding:
-                  separate: true
+                  position: 0
                   prefix: '-P'
+                  separate: true
                   'sbg:cmdInclude': true
-                description: The redis password
                 label: Redis Password
+                description: The redis password
+                id: '#redis_pass'
               - type:
                   - 'null'
                   - string
-                id: '#redis_host'
                 inputBinding:
-                  separate: true
+                  position: 0
                   prefix: '-h'
+                  separate: true
                   'sbg:cmdInclude': true
-                description: The redis host
                 label: Redis Host
+                description: The redis host
+                id: '#redis_host'
               - type:
                   - 'null'
                   - string
-                id: '#output_name'
                 inputBinding:
-                  separate: true
+                  position: 0
                   prefix: '-o'
+                  separate: true
                   'sbg:cmdInclude': true
-                description: The output file name
                 label: Output Filename
-              - type:
+                description: The output file name
+                id: '#output_name'
+              - required: true
+                type:
                   - File
+                inputBinding:
+                  position: 0
+                  prefix: '-i'
+                  separate: true
+                  'sbg:cmdInclude': true
+                  secondaryFiles: []
                 label: Input File
                 description: The input file
                 id: '#input_file'
-                inputBinding:
-                  separate: true
-                  prefix: '-i'
-                  'sbg:cmdInclude': true
-                required: true
-              - type:
+              - 'sbg:stageInput': null
+                'sbg:includeInPorts': true
+                required: false
+                type:
                   - 'null'
                   - boolean
+                inputBinding:
+                  position: 0
+                  prefix: '-n'
+                  separate: true
+                  'sbg:cmdInclude': true
                 label: Dont Do Mapping Flag
-                'sbg:stageInput': null
                 description: >-
                   If present, the names won't be mapped, instead a dummy map
                   (with the two columns identical) will be created
                 id: '#dont_do_mapping'
-                inputBinding:
-                  separate: true
-                  prefix: '-n'
-                  'sbg:cmdInclude': true
-                'sbg:includeInPorts': true
-                required: false
-              - type:
+              - 'sbg:stageInput': null
+                type:
                   - 'null'
                   - boolean
+                inputBinding:
+                  position: 0
+                  prefix: '-F'
+                  separate: true
+                  'sbg:cmdInclude': true
                 label: Dont Cut First Line Flag
-                'sbg:stageInput': null
                 description: >-
                   If the input file is a list of gene names rather than a
                   genomic spreadsheet, you might want to use this (i.e., the
                   first line won't be column headers)
                 id: '#dont_cut_first_line'
-                inputBinding:
-                  separate: true
-                  prefix: '-F'
-                  'sbg:cmdInclude': true
-            'sbg:cmdPreview': sh kn_mapper.sh -i /path/to/input_file.ext
-            $namespaces:
-              sbg: 'https://sevenbridges.com'
-            'sbg:revision': 3
-            'sbg:project': mepstein/knoweng-signature-analysis-dev
-            'sbg:modifiedBy': mepstein
-            'sbg:appVersion':
-              - 'sbg:draft-2'
-            id: mepstein/knoweng-signature-analysis-dev/kn-mapper/3
-            'sbg:latestRevision': 3
-            'sbg:revisionNotes': Added dont_do_mapping input/behavior.
             outputs:
               - type:
                   - 'null'
                   - File
-                id: '#output_file'
+                label: The Output File
                 description: The output file (the gene name map)
                 outputBinding:
                   glob: names.node_map.txt
-                label: The Output File
-            label: KN Mapper
-            stdin: ''
-            baseCommand:
-              - sh
-              - kn_mapper.sh
-            hints:
-              - class: 'sbg:CPURequirement'
-                value: 1
-              - class: 'sbg:MemRequirement'
-                value: 1000
-              - dockerImageId: ''
-                class: DockerRequirement
-                dockerPull: 'knoweng/kn_mapper:latest'
+                id: '#output_file'
             requirements:
-              - fileDef:
-                  - fileContent: |-
+              - class: CreateFileRequirement
+                fileDef:
+                  - filename: kn_mapper.sh
+                    fileContent: |-
                       # Defaults
                       OUTNAME=names.node_map.txt
                       # This is actually how many initial lines to cut
@@ -1001,206 +748,197 @@ steps:
                       CMD="python3 /home/src/kn_mapper.py $TMPFILE$OPTS"
                       echo $CMD
                       eval $CMD
-                    filename: kn_mapper.sh
-                class: CreateFileRequirement
-            temporaryFailCodes: []
-            'sbg:modifiedOn': 1524842883
-            x: 495
-            'sbg:publisher': sbg
-            cwlVersion: 'sbg:draft-2'
-            'sbg:image_url': null
-            'sbg:validationErrors': []
-            'y': 171
-            description: Map the genes in a spreadsheet/file.
-            stdout: ''
-            successCodes: []
-            'sbg:createdBy': mepstein
-            class: CommandLineTool
-            'sbg:sbgMaintained': false
-          outputs:
-            - id: '#KN_Mapper.output_file'
-        - 'sbg:x': 782
-          'sbg:y': 361
-          id: '#Map_Names'
-          inputs:
-            - id: '#Map_Names.switch_mapped_order'
-              default: true
-            - id: '#Map_Names.output_filename'
-              source:
-                - '#output_filename'
-            - id: '#Map_Names.names_are_columns'
-            - id: '#Map_Names.map_file'
-              source:
-                - '#KN_Mapper.output_file'
-            - id: '#Map_Names.input_file'
-              source:
-                - '#input_file'
-            - id: '#Map_Names.drop_unmapped_names'
-              default: true
-          run:
-            'sbg:id': mepstein/knoweng-signature-analysis-dev/map-names/5
-            arguments: []
+            hints:
+              - class: 'sbg:CPURequirement'
+                value: 1
+              - class: 'sbg:MemRequirement'
+                value: 1000
+              - class: DockerRequirement
+                dockerPull: 'knoweng/kn_mapper:latest'
+            'sbg:id': mepstein/knoweng-signature-analysis-dev/kn-mapper/3
             'sbg:projectName': KnowEnG_Signature_Analysis_Dev
             'sbg:contributors':
               - mepstein
-            'sbg:createdOn': 1522285864
+            'sbg:createdOn': 1524681212
             'sbg:job':
               inputs:
-                output_filename: output_filename-string-value
+                redis_host: redis_host-string-value
+                source_hint: source_hint-string-value
+                output_name: output_name-string-value
+                redis_pass: redis_pass-string-value
+                taxon: taxon-string-value
+                redis_port: redis_port-string-value
+                dont_do_mapping: true
                 input_file:
                   class: File
                   size: 0
                   path: /path/to/input_file.ext
                   secondaryFiles: []
-                map_file:
-                  class: File
-                  size: 0
-                  path: /path/to/map_file.ext
-                  secondaryFiles: []
-                drop_unmapped_names: true
-                names_are_columns: true
-                switch_mapped_order: true
+                dont_cut_first_line: true
               allocatedResources:
                 cpu: 1
                 mem: 1000
             'sbg:revisionsInfo':
-              - 'sbg:modifiedOn': 1522285864
+              - 'sbg:modifiedOn': 1524681212
                 'sbg:modifiedBy': mepstein
                 'sbg:revisionNotes': null
                 'sbg:revision': 0
-              - 'sbg:modifiedOn': 1522286794
+              - 'sbg:modifiedOn': 1524681994
                 'sbg:modifiedBy': mepstein
                 'sbg:revisionNotes': Initial version.
                 'sbg:revision': 1
-              - 'sbg:modifiedOn': 1522286850
+              - 'sbg:modifiedOn': 1524687186
                 'sbg:modifiedBy': mepstein
-                'sbg:revisionNotes': Modified name.
+                'sbg:revisionNotes': Fixed typo in tail command in kn_mapper.sh.
                 'sbg:revision': 2
-              - 'sbg:modifiedOn': 1522288616
+              - 'sbg:modifiedOn': 1524842883
                 'sbg:modifiedBy': mepstein
-                'sbg:revisionNotes': Changed container.
+                'sbg:revisionNotes': Added dont_do_mapping input/behavior.
                 'sbg:revision': 3
-              - 'sbg:modifiedOn': 1524714160
-                'sbg:modifiedBy': mepstein
-                'sbg:revisionNotes': >-
-                  Modified map_names.py to add drop_unmapped_names option; added
-                  drop_unmapped_names input.
-                'sbg:revision': 4
-              - 'sbg:modifiedOn': 1524716022
-                'sbg:modifiedBy': mepstein
-                'sbg:revisionNotes': 'Changed docker container, to get newer version of pandas.'
-                'sbg:revision': 5
+            'sbg:cmdPreview': sh kn_mapper.sh -i /path/to/input_file.ext
+            'sbg:revision': 3
+            'sbg:project': mepstein/knoweng-signature-analysis-dev
+            'sbg:modifiedBy': mepstein
+            'sbg:appVersion':
+              - 'sbg:draft-2'
+            'sbg:latestRevision': 3
+            'sbg:revisionNotes': Added dont_do_mapping input/behavior.
+            'sbg:modifiedOn': 1524842883
+            x: 495
+            'sbg:publisher': sbg
+            'sbg:image_url': null
+            'sbg:validationErrors': []
+            'y': 171
+            'sbg:createdBy': mepstein
+            'sbg:sbgMaintained': false
+          label: KN Mapper
+          'sbg:x': 495
+          'sbg:y': 171
+        - id: '#Map_Names'
+          inputs:
+            - id: '#Map_Names.switch_mapped_order'
+              default: true
+            - id: '#Map_Names.output_filename'
+              source: '#output_filename'
+            - id: '#Map_Names.map_file'
+              source: '#KN_Mapper.output_file'
+            - id: '#Map_Names.input_file'
+              source: '#input_file'
+            - id: '#Map_Names.drop_unmapped_names'
+              default: true
+          outputs:
+            - id: '#Map_Names.output_file'
+          run:
+            cwlVersion: 'sbg:draft-2'
+            class: CommandLineTool
+            $namespaces:
+              sbg: 'https://sevenbridges.com'
+            id: mepstein/knoweng-signature-analysis-dev/map-names/5
+            label: Map Names
+            description: Map the names in the input file based on the map file.
+            baseCommand:
+              - python3
+              - map_names.py
             inputs:
-              - type:
+              - 'sbg:stageInput': null
+                type:
                   - 'null'
                   - boolean
+                inputBinding:
+                  position: 0
+                  prefix: '-s'
+                  separate: true
+                  'sbg:cmdInclude': true
                 label: Switch Mapped Order
-                'sbg:stageInput': null
                 description: >-
                   If present, the order in the map file is original name/mapped
                   name
                 id: '#switch_mapped_order'
-                inputBinding:
-                  separate: true
-                  prefix: '-s'
-                  'sbg:cmdInclude': true
-              - type:
+              - 'sbg:includeInPorts': true
+                required: true
+                type:
                   - string
+                inputBinding:
+                  position: 0
+                  prefix: '-o'
+                  separate: true
+                  'sbg:cmdInclude': true
                 label: Output Filename
                 description: Output Filename
                 id: '#output_filename'
-                inputBinding:
-                  separate: true
-                  prefix: '-o'
-                  'sbg:cmdInclude': true
-                'sbg:includeInPorts': true
-                required: true
-              - type:
+              - 'sbg:stageInput': null
+                type:
                   - 'null'
                   - boolean
+                inputBinding:
+                  position: 0
+                  prefix: '-c'
+                  separate: true
+                  'sbg:cmdInclude': true
                 label: Names are Columns
-                'sbg:stageInput': null
                 description: >-
                   If present, the names to be mapped in the input file are
                   columns, not rows
                 id: '#names_are_columns'
-                inputBinding:
-                  separate: true
-                  prefix: '-c'
-                  'sbg:cmdInclude': true
-              - type:
+              - required: true
+                type:
                   - File
+                inputBinding:
+                  position: 0
+                  prefix: '-m'
+                  separate: true
+                  'sbg:cmdInclude': true
+                  secondaryFiles: []
                 label: Map File
                 description: >-
                   Map files with orginal/mapped names in first two columns
                   (default is mapped in first, original in second)
                 id: '#map_file'
-                inputBinding:
-                  separate: true
-                  prefix: '-m'
-                  'sbg:cmdInclude': true
-                required: true
-              - type:
+              - required: true
+                type:
                   - File
+                inputBinding:
+                  position: 0
+                  prefix: '-i'
+                  separate: true
+                  'sbg:cmdInclude': true
+                  secondaryFiles: []
                 label: Input File
                 description: Input file to be mapped
                 id: '#input_file'
-                inputBinding:
-                  separate: true
-                  prefix: '-i'
-                  'sbg:cmdInclude': true
-                required: true
               - type:
                   - 'null'
                   - boolean
-                id: '#drop_unmapped_names'
                 inputBinding:
-                  separate: true
+                  position: 0
                   prefix: '-u'
+                  separate: true
                   'sbg:cmdInclude': true
-                description: 'If present, any names that are unmapped will be dropped'
                 label: Drop Unmapped Names Flag
-            'sbg:cmdPreview': >-
-              python3 map_names.py -i /path/to/input_file.ext -m
-              /path/to/map_file.ext -o output_filename-string-value
-            $namespaces:
-              sbg: 'https://sevenbridges.com'
-            'sbg:revision': 5
-            'sbg:project': mepstein/knoweng-signature-analysis-dev
-            'sbg:modifiedBy': mepstein
-            'sbg:appVersion':
-              - 'sbg:draft-2'
-            id: mepstein/knoweng-signature-analysis-dev/map-names/5
-            'sbg:latestRevision': 5
-            'sbg:revisionNotes': 'Changed docker container, to get newer version of pandas.'
+                description: 'If present, any names that are unmapped will be dropped'
+                id: '#drop_unmapped_names'
             outputs:
               - type:
                   - 'null'
                   - File
-                id: '#output_file'
+                label: Output File
                 description: Output File
                 outputBinding:
                   glob:
                     engine: '#cwl-js-engine'
                     script: $job.inputs.output_filename
                     class: Expression
-                label: Output File
-            label: Map Names
-            stdin: ''
-            baseCommand:
-              - python3
-              - map_names.py
-            hints:
-              - class: 'sbg:CPURequirement'
-                value: 1
-              - class: 'sbg:MemRequirement'
-                value: 1000
-              - dockerImageId: ''
-                class: DockerRequirement
-                dockerPull: 'clutteredcode/python3-alpine-pandas:latest'
+                id: '#output_file'
             requirements:
-              - fileDef:
-                  - fileContent: |-
+              - class: ExpressionEngineRequirement
+                id: '#cwl-js-engine'
+                requirements:
+                  - class: DockerRequirement
+                    dockerPull: rabix/js-engine
+              - class: CreateFileRequirement
+                fileDef:
+                  - filename: map_names.py
+                    fileContent: |-
                       #!/usr/bin/env python3
 
 
@@ -1279,364 +1017,363 @@ steps:
 
                       if __name__ == "__main__":
                           main()
-                    filename: map_names.py
-                class: CreateFileRequirement
-              - id: '#cwl-js-engine'
-                class: ExpressionEngineRequirement
-                requirements:
-                  - class: DockerRequirement
-                    dockerPull: rabix/js-engine
-            temporaryFailCodes: []
+            hints:
+              - class: 'sbg:CPURequirement'
+                value: 1
+              - class: 'sbg:MemRequirement'
+                value: 1000
+              - class: DockerRequirement
+                dockerPull: 'clutteredcode/python3-alpine-pandas:latest'
+            'sbg:id': mepstein/knoweng-signature-analysis-dev/map-names/5
+            'sbg:projectName': KnowEnG_Signature_Analysis_Dev
+            'sbg:contributors':
+              - mepstein
+            'sbg:createdOn': 1522285864
+            'sbg:job':
+              inputs:
+                output_filename: output_filename-string-value
+                input_file:
+                  class: File
+                  size: 0
+                  path: /path/to/input_file.ext
+                  secondaryFiles: []
+                map_file:
+                  class: File
+                  size: 0
+                  path: /path/to/map_file.ext
+                  secondaryFiles: []
+                drop_unmapped_names: true
+                names_are_columns: true
+                switch_mapped_order: true
+              allocatedResources:
+                cpu: 1
+                mem: 1000
+            'sbg:revisionsInfo':
+              - 'sbg:modifiedOn': 1522285864
+                'sbg:modifiedBy': mepstein
+                'sbg:revisionNotes': null
+                'sbg:revision': 0
+              - 'sbg:modifiedOn': 1522286794
+                'sbg:modifiedBy': mepstein
+                'sbg:revisionNotes': Initial version.
+                'sbg:revision': 1
+              - 'sbg:modifiedOn': 1522286850
+                'sbg:modifiedBy': mepstein
+                'sbg:revisionNotes': Modified name.
+                'sbg:revision': 2
+              - 'sbg:modifiedOn': 1522288616
+                'sbg:modifiedBy': mepstein
+                'sbg:revisionNotes': Changed container.
+                'sbg:revision': 3
+              - 'sbg:modifiedOn': 1524714160
+                'sbg:modifiedBy': mepstein
+                'sbg:revisionNotes': >-
+                  Modified map_names.py to add drop_unmapped_names option; added
+                  drop_unmapped_names input.
+                'sbg:revision': 4
+              - 'sbg:modifiedOn': 1524716022
+                'sbg:modifiedBy': mepstein
+                'sbg:revisionNotes': 'Changed docker container, to get newer version of pandas.'
+                'sbg:revision': 5
+            'sbg:cmdPreview': >-
+              python3 map_names.py -i /path/to/input_file.ext -m
+              /path/to/map_file.ext -o output_filename-string-value
+            'sbg:revision': 5
+            'sbg:project': mepstein/knoweng-signature-analysis-dev
+            'sbg:modifiedBy': mepstein
+            'sbg:appVersion':
+              - 'sbg:draft-2'
+            'sbg:latestRevision': 5
+            'sbg:revisionNotes': 'Changed docker container, to get newer version of pandas.'
             'sbg:modifiedOn': 1524716022
             x: 782
             'sbg:publisher': sbg
-            cwlVersion: 'sbg:draft-2'
             'sbg:image_url': null
             'sbg:validationErrors': []
             'y': 361
-            description: Map the names in the input file based on the map file.
-            stdout: ''
-            successCodes: []
             'sbg:createdBy': mepstein
-            class: CommandLineTool
             'sbg:sbgMaintained': false
-          outputs:
-            - id: '#Map_Names.output_file'
+          label: Map Names
+          'sbg:x': 782
+          'sbg:y': 361
+      'sbg:id': mepstein/knoweng-signature-analysis-dev/mapper-workflow/2
+      'sbg:revisionsInfo':
+        - 'sbg:modifiedOn': 1524843132
+          'sbg:modifiedBy': mepstein
+          'sbg:revisionNotes': null
+          'sbg:revision': 0
+        - 'sbg:modifiedOn': 1524843462
+          'sbg:modifiedBy': mepstein
+          'sbg:revisionNotes': Initial version.
+          'sbg:revision': 1
+        - 'sbg:modifiedOn': 1526497729
+          'sbg:modifiedBy': mepstein
+          'sbg:revisionNotes': 'Added output (map_file, from KN Mapper).'
+          'sbg:revision': 2
+      'sbg:projectName': KnowEnG_Signature_Analysis_Dev
+      'sbg:contributors':
+        - mepstein
+      'sbg:createdOn': 1524843132
+      'sbg:revision': 2
+      'sbg:project': mepstein/knoweng-signature-analysis-dev
+      'sbg:modifiedBy': mepstein
+      'sbg:appVersion':
+        - 'sbg:draft-2'
+      'sbg:latestRevision': 2
+      'sbg:revisionNotes': 'Added output (map_file, from KN Mapper).'
+      'sbg:canvas_y': 0
+      requirements: []
       'sbg:modifiedOn': 1526497729
       x: 431
       'sbg:publisher': sbg
-      cwlVersion: 'sbg:draft-2'
       'sbg:image_url': >-
         https://cgc.sbgenomics.com/ns/brood/images/mepstein/knoweng-signature-analysis-dev/mapper-workflow/2.png
       'sbg:validationErrors': []
       'y': 75.99999999999999
       'sbg:canvas_x': 0
       'sbg:canvas_zoom': 0.95
-      label: Mapper Workflow
       'sbg:sbgMaintained': false
       'sbg:createdBy': mepstein
     inputs:
       - id: '#Mapper_Workflow.taxon'
-        source:
-          - '#taxonid'
+        source: '#taxonid'
       - id: '#Mapper_Workflow.source_hint'
       - id: '#Mapper_Workflow.output_filename'
         default: samples_mapped.tsv
       - id: '#Mapper_Workflow.input_file'
-        source:
-          - '#samples_file'
+        source: '#samples_file'
       - id: '#Mapper_Workflow.dont_do_mapping'
-        source:
-          - '#dont_map_samples'
-    id: '#Mapper_Workflow'
+        source: '#dont_map_samples'
     outputs:
       - id: '#Mapper_Workflow.output_file_1'
       - id: '#Mapper_Workflow.output_file'
-  - 'sbg:x': 433.00000000000006
-    'sbg:y': 353.99999999999994
+    'sbg:x': 431
+    'sbg:y': 75.99999999999999
+  - id: '#Mapper_Workflow_1'
     run:
-      'sbg:id': mepstein/knoweng-signature-analysis-dev/mapper-workflow/2
-      'sbg:revisionsInfo':
-        - 'sbg:modifiedOn': 1524843132
-          'sbg:modifiedBy': mepstein
-          'sbg:revisionNotes': null
-          'sbg:revision': 0
-        - 'sbg:modifiedOn': 1524843462
-          'sbg:modifiedBy': mepstein
-          'sbg:revisionNotes': Initial version.
-          'sbg:revision': 1
-        - 'sbg:modifiedOn': 1526497729
-          'sbg:modifiedBy': mepstein
-          'sbg:revisionNotes': 'Added output (map_file, from KN Mapper).'
-          'sbg:revision': 2
-      'sbg:projectName': KnowEnG_Signature_Analysis_Dev
-      'sbg:contributors':
-        - mepstein
-      'sbg:createdOn': 1524843132
-      description: ''
+      class: Workflow
+      cwlVersion: 'sbg:draft-2'
+      id: mepstein/knoweng-signature-analysis-dev/mapper-workflow/2
+      label: Mapper Workflow
+      $namespaces:
+        sbg: 'https://sevenbridges.com'
       inputs:
         - type:
             - 'null'
             - string
           label: taxon
+          id: '#taxon'
           'sbg:x': 81
           'sbg:y': 326
-          id: '#taxon'
           required: false
           'sbg:includeInPorts': true
         - type:
             - 'null'
             - string
           label: source_hint
+          id: '#source_hint'
           'sbg:x': 86
           'sbg:y': 464
-          id: '#source_hint'
           required: false
           'sbg:includeInPorts': true
         - type:
             - string
           label: output_filename
+          id: '#output_filename'
           'sbg:x': 87
           'sbg:y': 596
-          id: '#output_filename'
           required: true
           'sbg:includeInPorts': true
         - type:
             - File
           label: input_file
+          id: '#input_file'
           'sbg:x': 80
           'sbg:y': 62
-          id: '#input_file'
           required: true
         - type:
             - 'null'
             - boolean
           label: dont_do_mapping
+          id: '#dont_do_mapping'
           'sbg:x': 83
           'sbg:y': 199
-          id: '#dont_do_mapping'
           required: false
           'sbg:includeInPorts': true
-      $namespaces:
-        sbg: 'https://sevenbridges.com'
-      'sbg:revision': 2
-      'sbg:project': mepstein/knoweng-signature-analysis-dev
-      'sbg:modifiedBy': mepstein
-      'sbg:appVersion':
-        - 'sbg:draft-2'
-      id: mepstein/knoweng-signature-analysis-dev/mapper-workflow/2
-      'sbg:latestRevision': 2
-      'sbg:revisionNotes': 'Added output (map_file, from KN Mapper).'
       outputs:
-        - type:
-            - 'null'
-            - File
+        - id: '#output_file_1'
           label: map_file
-          'sbg:x': 1145.2631578947369
-          'sbg:y': 170.52628366570724
           source:
             - '#KN_Mapper.output_file'
-          id: '#output_file_1'
-          'sbg:includeInPorts': true
-        - type:
+          type:
             - 'null'
             - File
+          'sbg:x': 1145.2631578947369
+          'sbg:y': 170.52628366570724
+          'sbg:includeInPorts': true
+        - id: '#output_file'
           label: output_file
-          'sbg:x': 1148.9473684210527
-          'sbg:y': 360.105269582648
           source:
             - '#Map_Names.output_file'
-          id: '#output_file'
+          type:
+            - 'null'
+            - File
+          'sbg:x': 1148.9473684210527
+          'sbg:y': 360.105269582648
           required: false
           'sbg:includeInPorts': true
-      'sbg:canvas_y': 0
-      class: Workflow
-      hints: []
-      requirements: []
       steps:
-        - 'sbg:x': 495
-          'sbg:y': 171
-          id: '#KN_Mapper'
+        - id: '#KN_Mapper'
           inputs:
             - id: '#KN_Mapper.taxon'
-              source:
-                - '#taxon'
+              source: '#taxon'
             - id: '#KN_Mapper.source_hint'
-              source:
-                - '#source_hint'
-            - id: '#KN_Mapper.redis_port'
-            - id: '#KN_Mapper.redis_pass'
-            - id: '#KN_Mapper.redis_host'
-            - id: '#KN_Mapper.output_name'
+              source: '#source_hint'
             - id: '#KN_Mapper.input_file'
-              source:
-                - '#input_file'
+              source: '#input_file'
             - id: '#KN_Mapper.dont_do_mapping'
-              source:
-                - '#dont_do_mapping'
-            - id: '#KN_Mapper.dont_cut_first_line'
+              source: '#dont_do_mapping'
+          outputs:
+            - id: '#KN_Mapper.output_file'
           run:
-            'sbg:id': mepstein/knoweng-signature-analysis-dev/kn-mapper/3
-            arguments: []
-            'sbg:projectName': KnowEnG_Signature_Analysis_Dev
-            'sbg:contributors':
-              - mepstein
-            'sbg:createdOn': 1524681212
-            'sbg:job':
-              inputs:
-                redis_host: redis_host-string-value
-                source_hint: source_hint-string-value
-                output_name: output_name-string-value
-                redis_pass: redis_pass-string-value
-                taxon: taxon-string-value
-                redis_port: redis_port-string-value
-                dont_do_mapping: true
-                input_file:
-                  class: File
-                  size: 0
-                  path: /path/to/input_file.ext
-                  secondaryFiles: []
-                dont_cut_first_line: true
-              allocatedResources:
-                cpu: 1
-                mem: 1000
-            'sbg:revisionsInfo':
-              - 'sbg:modifiedOn': 1524681212
-                'sbg:modifiedBy': mepstein
-                'sbg:revisionNotes': null
-                'sbg:revision': 0
-              - 'sbg:modifiedOn': 1524681994
-                'sbg:modifiedBy': mepstein
-                'sbg:revisionNotes': Initial version.
-                'sbg:revision': 1
-              - 'sbg:modifiedOn': 1524687186
-                'sbg:modifiedBy': mepstein
-                'sbg:revisionNotes': Fixed typo in tail command in kn_mapper.sh.
-                'sbg:revision': 2
-              - 'sbg:modifiedOn': 1524842883
-                'sbg:modifiedBy': mepstein
-                'sbg:revisionNotes': Added dont_do_mapping input/behavior.
-                'sbg:revision': 3
+            cwlVersion: 'sbg:draft-2'
+            class: CommandLineTool
+            $namespaces:
+              sbg: 'https://sevenbridges.com'
+            id: mepstein/knoweng-signature-analysis-dev/kn-mapper/3
+            label: KN Mapper
+            description: Map the genes in a spreadsheet/file.
+            baseCommand:
+              - sh
+              - kn_mapper.sh
             inputs:
-              - type:
+              - 'sbg:includeInPorts': true
+                required: false
+                type:
                   - 'null'
                   - string
+                inputBinding:
+                  position: 0
+                  prefix: '-t'
+                  separate: true
+                  'sbg:cmdInclude': true
                 label: Species Taxon ID
                 description: The species taxon id
                 id: '#taxon'
-                inputBinding:
-                  separate: true
-                  prefix: '-t'
-                  'sbg:cmdInclude': true
-                'sbg:includeInPorts': true
+              - 'sbg:includeInPorts': true
                 required: false
-              - type:
+                type:
                   - 'null'
                   - string
+                inputBinding:
+                  position: 0
+                  prefix: '-s'
+                  separate: true
+                  'sbg:cmdInclude': true
                 label: Source Hint
                 description: The source hint
                 id: '#source_hint'
-                inputBinding:
-                  separate: true
-                  prefix: '-s'
-                  'sbg:cmdInclude': true
-                'sbg:includeInPorts': true
-                required: false
               - type:
                   - 'null'
                   - string
-                id: '#redis_port'
                 inputBinding:
-                  separate: true
+                  position: 0
                   prefix: '-p'
+                  separate: true
                   'sbg:cmdInclude': true
-                description: The redis port
                 label: Redis Port
+                description: The redis port
+                id: '#redis_port'
               - type:
                   - 'null'
                   - string
-                id: '#redis_pass'
                 inputBinding:
-                  separate: true
+                  position: 0
                   prefix: '-P'
+                  separate: true
                   'sbg:cmdInclude': true
-                description: The redis password
                 label: Redis Password
+                description: The redis password
+                id: '#redis_pass'
               - type:
                   - 'null'
                   - string
-                id: '#redis_host'
                 inputBinding:
-                  separate: true
+                  position: 0
                   prefix: '-h'
+                  separate: true
                   'sbg:cmdInclude': true
-                description: The redis host
                 label: Redis Host
+                description: The redis host
+                id: '#redis_host'
               - type:
                   - 'null'
                   - string
-                id: '#output_name'
                 inputBinding:
-                  separate: true
+                  position: 0
                   prefix: '-o'
+                  separate: true
                   'sbg:cmdInclude': true
-                description: The output file name
                 label: Output Filename
-              - type:
+                description: The output file name
+                id: '#output_name'
+              - required: true
+                type:
                   - File
+                inputBinding:
+                  position: 0
+                  prefix: '-i'
+                  separate: true
+                  'sbg:cmdInclude': true
+                  secondaryFiles: []
                 label: Input File
                 description: The input file
                 id: '#input_file'
-                inputBinding:
-                  separate: true
-                  prefix: '-i'
-                  'sbg:cmdInclude': true
-                required: true
-              - type:
+              - 'sbg:stageInput': null
+                'sbg:includeInPorts': true
+                required: false
+                type:
                   - 'null'
                   - boolean
+                inputBinding:
+                  position: 0
+                  prefix: '-n'
+                  separate: true
+                  'sbg:cmdInclude': true
                 label: Dont Do Mapping Flag
-                'sbg:stageInput': null
                 description: >-
                   If present, the names won't be mapped, instead a dummy map
                   (with the two columns identical) will be created
                 id: '#dont_do_mapping'
-                inputBinding:
-                  separate: true
-                  prefix: '-n'
-                  'sbg:cmdInclude': true
-                'sbg:includeInPorts': true
-                required: false
-              - type:
+              - 'sbg:stageInput': null
+                type:
                   - 'null'
                   - boolean
+                inputBinding:
+                  position: 0
+                  prefix: '-F'
+                  separate: true
+                  'sbg:cmdInclude': true
                 label: Dont Cut First Line Flag
-                'sbg:stageInput': null
                 description: >-
                   If the input file is a list of gene names rather than a
                   genomic spreadsheet, you might want to use this (i.e., the
                   first line won't be column headers)
                 id: '#dont_cut_first_line'
-                inputBinding:
-                  separate: true
-                  prefix: '-F'
-                  'sbg:cmdInclude': true
-            'sbg:cmdPreview': sh kn_mapper.sh -i /path/to/input_file.ext
-            $namespaces:
-              sbg: 'https://sevenbridges.com'
-            'sbg:revision': 3
-            'sbg:project': mepstein/knoweng-signature-analysis-dev
-            'sbg:modifiedBy': mepstein
-            'sbg:appVersion':
-              - 'sbg:draft-2'
-            id: mepstein/knoweng-signature-analysis-dev/kn-mapper/3
-            'sbg:latestRevision': 3
-            'sbg:revisionNotes': Added dont_do_mapping input/behavior.
             outputs:
               - type:
                   - 'null'
                   - File
-                id: '#output_file'
+                label: The Output File
                 description: The output file (the gene name map)
                 outputBinding:
                   glob: names.node_map.txt
-                label: The Output File
-            label: KN Mapper
-            stdin: ''
-            baseCommand:
-              - sh
-              - kn_mapper.sh
-            hints:
-              - class: 'sbg:CPURequirement'
-                value: 1
-              - class: 'sbg:MemRequirement'
-                value: 1000
-              - dockerImageId: ''
-                class: DockerRequirement
-                dockerPull: 'knoweng/kn_mapper:latest'
+                id: '#output_file'
             requirements:
-              - fileDef:
-                  - fileContent: |-
+              - class: CreateFileRequirement
+                fileDef:
+                  - filename: kn_mapper.sh
+                    fileContent: |-
                       # Defaults
                       OUTNAME=names.node_map.txt
                       # This is actually how many initial lines to cut
@@ -1749,206 +1486,197 @@ steps:
                       CMD="python3 /home/src/kn_mapper.py $TMPFILE$OPTS"
                       echo $CMD
                       eval $CMD
-                    filename: kn_mapper.sh
-                class: CreateFileRequirement
-            temporaryFailCodes: []
-            'sbg:modifiedOn': 1524842883
-            x: 495
-            'sbg:publisher': sbg
-            cwlVersion: 'sbg:draft-2'
-            'sbg:image_url': null
-            'sbg:validationErrors': []
-            'y': 171
-            description: Map the genes in a spreadsheet/file.
-            stdout: ''
-            successCodes: []
-            'sbg:createdBy': mepstein
-            class: CommandLineTool
-            'sbg:sbgMaintained': false
-          outputs:
-            - id: '#KN_Mapper.output_file'
-        - 'sbg:x': 782
-          'sbg:y': 361
-          id: '#Map_Names'
-          inputs:
-            - id: '#Map_Names.switch_mapped_order'
-              default: true
-            - id: '#Map_Names.output_filename'
-              source:
-                - '#output_filename'
-            - id: '#Map_Names.names_are_columns'
-            - id: '#Map_Names.map_file'
-              source:
-                - '#KN_Mapper.output_file'
-            - id: '#Map_Names.input_file'
-              source:
-                - '#input_file'
-            - id: '#Map_Names.drop_unmapped_names'
-              default: true
-          run:
-            'sbg:id': mepstein/knoweng-signature-analysis-dev/map-names/5
-            arguments: []
+            hints:
+              - class: 'sbg:CPURequirement'
+                value: 1
+              - class: 'sbg:MemRequirement'
+                value: 1000
+              - class: DockerRequirement
+                dockerPull: 'knoweng/kn_mapper:latest'
+            'sbg:id': mepstein/knoweng-signature-analysis-dev/kn-mapper/3
             'sbg:projectName': KnowEnG_Signature_Analysis_Dev
             'sbg:contributors':
               - mepstein
-            'sbg:createdOn': 1522285864
+            'sbg:createdOn': 1524681212
             'sbg:job':
               inputs:
-                output_filename: output_filename-string-value
+                redis_host: redis_host-string-value
+                source_hint: source_hint-string-value
+                output_name: output_name-string-value
+                redis_pass: redis_pass-string-value
+                taxon: taxon-string-value
+                redis_port: redis_port-string-value
+                dont_do_mapping: true
                 input_file:
                   class: File
                   size: 0
                   path: /path/to/input_file.ext
                   secondaryFiles: []
-                map_file:
-                  class: File
-                  size: 0
-                  path: /path/to/map_file.ext
-                  secondaryFiles: []
-                drop_unmapped_names: true
-                names_are_columns: true
-                switch_mapped_order: true
+                dont_cut_first_line: true
               allocatedResources:
                 cpu: 1
                 mem: 1000
             'sbg:revisionsInfo':
-              - 'sbg:modifiedOn': 1522285864
+              - 'sbg:modifiedOn': 1524681212
                 'sbg:modifiedBy': mepstein
                 'sbg:revisionNotes': null
                 'sbg:revision': 0
-              - 'sbg:modifiedOn': 1522286794
+              - 'sbg:modifiedOn': 1524681994
                 'sbg:modifiedBy': mepstein
                 'sbg:revisionNotes': Initial version.
                 'sbg:revision': 1
-              - 'sbg:modifiedOn': 1522286850
+              - 'sbg:modifiedOn': 1524687186
                 'sbg:modifiedBy': mepstein
-                'sbg:revisionNotes': Modified name.
+                'sbg:revisionNotes': Fixed typo in tail command in kn_mapper.sh.
                 'sbg:revision': 2
-              - 'sbg:modifiedOn': 1522288616
+              - 'sbg:modifiedOn': 1524842883
                 'sbg:modifiedBy': mepstein
-                'sbg:revisionNotes': Changed container.
+                'sbg:revisionNotes': Added dont_do_mapping input/behavior.
                 'sbg:revision': 3
-              - 'sbg:modifiedOn': 1524714160
-                'sbg:modifiedBy': mepstein
-                'sbg:revisionNotes': >-
-                  Modified map_names.py to add drop_unmapped_names option; added
-                  drop_unmapped_names input.
-                'sbg:revision': 4
-              - 'sbg:modifiedOn': 1524716022
-                'sbg:modifiedBy': mepstein
-                'sbg:revisionNotes': 'Changed docker container, to get newer version of pandas.'
-                'sbg:revision': 5
+            'sbg:cmdPreview': sh kn_mapper.sh -i /path/to/input_file.ext
+            'sbg:revision': 3
+            'sbg:project': mepstein/knoweng-signature-analysis-dev
+            'sbg:modifiedBy': mepstein
+            'sbg:appVersion':
+              - 'sbg:draft-2'
+            'sbg:latestRevision': 3
+            'sbg:revisionNotes': Added dont_do_mapping input/behavior.
+            'sbg:modifiedOn': 1524842883
+            x: 495
+            'sbg:publisher': sbg
+            'sbg:image_url': null
+            'sbg:validationErrors': []
+            'y': 171
+            'sbg:createdBy': mepstein
+            'sbg:sbgMaintained': false
+          label: KN Mapper
+          'sbg:x': 495
+          'sbg:y': 171
+        - id: '#Map_Names'
+          inputs:
+            - id: '#Map_Names.switch_mapped_order'
+              default: true
+            - id: '#Map_Names.output_filename'
+              source: '#output_filename'
+            - id: '#Map_Names.map_file'
+              source: '#KN_Mapper.output_file'
+            - id: '#Map_Names.input_file'
+              source: '#input_file'
+            - id: '#Map_Names.drop_unmapped_names'
+              default: true
+          outputs:
+            - id: '#Map_Names.output_file'
+          run:
+            cwlVersion: 'sbg:draft-2'
+            class: CommandLineTool
+            $namespaces:
+              sbg: 'https://sevenbridges.com'
+            id: mepstein/knoweng-signature-analysis-dev/map-names/5
+            label: Map Names
+            description: Map the names in the input file based on the map file.
+            baseCommand:
+              - python3
+              - map_names.py
             inputs:
-              - type:
+              - 'sbg:stageInput': null
+                type:
                   - 'null'
                   - boolean
+                inputBinding:
+                  position: 0
+                  prefix: '-s'
+                  separate: true
+                  'sbg:cmdInclude': true
                 label: Switch Mapped Order
-                'sbg:stageInput': null
                 description: >-
                   If present, the order in the map file is original name/mapped
                   name
                 id: '#switch_mapped_order'
-                inputBinding:
-                  separate: true
-                  prefix: '-s'
-                  'sbg:cmdInclude': true
-              - type:
+              - 'sbg:includeInPorts': true
+                required: true
+                type:
                   - string
+                inputBinding:
+                  position: 0
+                  prefix: '-o'
+                  separate: true
+                  'sbg:cmdInclude': true
                 label: Output Filename
                 description: Output Filename
                 id: '#output_filename'
-                inputBinding:
-                  separate: true
-                  prefix: '-o'
-                  'sbg:cmdInclude': true
-                'sbg:includeInPorts': true
-                required: true
-              - type:
+              - 'sbg:stageInput': null
+                type:
                   - 'null'
                   - boolean
+                inputBinding:
+                  position: 0
+                  prefix: '-c'
+                  separate: true
+                  'sbg:cmdInclude': true
                 label: Names are Columns
-                'sbg:stageInput': null
                 description: >-
                   If present, the names to be mapped in the input file are
                   columns, not rows
                 id: '#names_are_columns'
-                inputBinding:
-                  separate: true
-                  prefix: '-c'
-                  'sbg:cmdInclude': true
-              - type:
+              - required: true
+                type:
                   - File
+                inputBinding:
+                  position: 0
+                  prefix: '-m'
+                  separate: true
+                  'sbg:cmdInclude': true
+                  secondaryFiles: []
                 label: Map File
                 description: >-
                   Map files with orginal/mapped names in first two columns
                   (default is mapped in first, original in second)
                 id: '#map_file'
-                inputBinding:
-                  separate: true
-                  prefix: '-m'
-                  'sbg:cmdInclude': true
-                required: true
-              - type:
+              - required: true
+                type:
                   - File
+                inputBinding:
+                  position: 0
+                  prefix: '-i'
+                  separate: true
+                  'sbg:cmdInclude': true
+                  secondaryFiles: []
                 label: Input File
                 description: Input file to be mapped
                 id: '#input_file'
-                inputBinding:
-                  separate: true
-                  prefix: '-i'
-                  'sbg:cmdInclude': true
-                required: true
               - type:
                   - 'null'
                   - boolean
-                id: '#drop_unmapped_names'
                 inputBinding:
-                  separate: true
+                  position: 0
                   prefix: '-u'
+                  separate: true
                   'sbg:cmdInclude': true
-                description: 'If present, any names that are unmapped will be dropped'
                 label: Drop Unmapped Names Flag
-            'sbg:cmdPreview': >-
-              python3 map_names.py -i /path/to/input_file.ext -m
-              /path/to/map_file.ext -o output_filename-string-value
-            $namespaces:
-              sbg: 'https://sevenbridges.com'
-            'sbg:revision': 5
-            'sbg:project': mepstein/knoweng-signature-analysis-dev
-            'sbg:modifiedBy': mepstein
-            'sbg:appVersion':
-              - 'sbg:draft-2'
-            id: mepstein/knoweng-signature-analysis-dev/map-names/5
-            'sbg:latestRevision': 5
-            'sbg:revisionNotes': 'Changed docker container, to get newer version of pandas.'
+                description: 'If present, any names that are unmapped will be dropped'
+                id: '#drop_unmapped_names'
             outputs:
               - type:
                   - 'null'
                   - File
-                id: '#output_file'
+                label: Output File
                 description: Output File
                 outputBinding:
                   glob:
                     engine: '#cwl-js-engine'
                     script: $job.inputs.output_filename
                     class: Expression
-                label: Output File
-            label: Map Names
-            stdin: ''
-            baseCommand:
-              - python3
-              - map_names.py
-            hints:
-              - class: 'sbg:CPURequirement'
-                value: 1
-              - class: 'sbg:MemRequirement'
-                value: 1000
-              - dockerImageId: ''
-                class: DockerRequirement
-                dockerPull: 'clutteredcode/python3-alpine-pandas:latest'
+                id: '#output_file'
             requirements:
-              - fileDef:
-                  - fileContent: |-
+              - class: ExpressionEngineRequirement
+                id: '#cwl-js-engine'
+                requirements:
+                  - class: DockerRequirement
+                    dockerPull: rabix/js-engine
+              - class: CreateFileRequirement
+                fileDef:
+                  - filename: map_names.py
+                    fileContent: |-
                       #!/usr/bin/env python3
 
 
@@ -2027,313 +1755,163 @@ steps:
 
                       if __name__ == "__main__":
                           main()
-                    filename: map_names.py
-                class: CreateFileRequirement
-              - id: '#cwl-js-engine'
-                class: ExpressionEngineRequirement
-                requirements:
-                  - class: DockerRequirement
-                    dockerPull: rabix/js-engine
-            temporaryFailCodes: []
+            hints:
+              - class: 'sbg:CPURequirement'
+                value: 1
+              - class: 'sbg:MemRequirement'
+                value: 1000
+              - class: DockerRequirement
+                dockerPull: 'clutteredcode/python3-alpine-pandas:latest'
+            'sbg:id': mepstein/knoweng-signature-analysis-dev/map-names/5
+            'sbg:projectName': KnowEnG_Signature_Analysis_Dev
+            'sbg:contributors':
+              - mepstein
+            'sbg:createdOn': 1522285864
+            'sbg:job':
+              inputs:
+                output_filename: output_filename-string-value
+                input_file:
+                  class: File
+                  size: 0
+                  path: /path/to/input_file.ext
+                  secondaryFiles: []
+                map_file:
+                  class: File
+                  size: 0
+                  path: /path/to/map_file.ext
+                  secondaryFiles: []
+                drop_unmapped_names: true
+                names_are_columns: true
+                switch_mapped_order: true
+              allocatedResources:
+                cpu: 1
+                mem: 1000
+            'sbg:revisionsInfo':
+              - 'sbg:modifiedOn': 1522285864
+                'sbg:modifiedBy': mepstein
+                'sbg:revisionNotes': null
+                'sbg:revision': 0
+              - 'sbg:modifiedOn': 1522286794
+                'sbg:modifiedBy': mepstein
+                'sbg:revisionNotes': Initial version.
+                'sbg:revision': 1
+              - 'sbg:modifiedOn': 1522286850
+                'sbg:modifiedBy': mepstein
+                'sbg:revisionNotes': Modified name.
+                'sbg:revision': 2
+              - 'sbg:modifiedOn': 1522288616
+                'sbg:modifiedBy': mepstein
+                'sbg:revisionNotes': Changed container.
+                'sbg:revision': 3
+              - 'sbg:modifiedOn': 1524714160
+                'sbg:modifiedBy': mepstein
+                'sbg:revisionNotes': >-
+                  Modified map_names.py to add drop_unmapped_names option; added
+                  drop_unmapped_names input.
+                'sbg:revision': 4
+              - 'sbg:modifiedOn': 1524716022
+                'sbg:modifiedBy': mepstein
+                'sbg:revisionNotes': 'Changed docker container, to get newer version of pandas.'
+                'sbg:revision': 5
+            'sbg:cmdPreview': >-
+              python3 map_names.py -i /path/to/input_file.ext -m
+              /path/to/map_file.ext -o output_filename-string-value
+            'sbg:revision': 5
+            'sbg:project': mepstein/knoweng-signature-analysis-dev
+            'sbg:modifiedBy': mepstein
+            'sbg:appVersion':
+              - 'sbg:draft-2'
+            'sbg:latestRevision': 5
+            'sbg:revisionNotes': 'Changed docker container, to get newer version of pandas.'
             'sbg:modifiedOn': 1524716022
             x: 782
             'sbg:publisher': sbg
-            cwlVersion: 'sbg:draft-2'
             'sbg:image_url': null
             'sbg:validationErrors': []
             'y': 361
-            description: Map the names in the input file based on the map file.
-            stdout: ''
-            successCodes: []
             'sbg:createdBy': mepstein
-            class: CommandLineTool
             'sbg:sbgMaintained': false
-          outputs:
-            - id: '#Map_Names.output_file'
+          label: Map Names
+          'sbg:x': 782
+          'sbg:y': 361
+      'sbg:id': mepstein/knoweng-signature-analysis-dev/mapper-workflow/2
+      'sbg:revisionsInfo':
+        - 'sbg:modifiedOn': 1524843132
+          'sbg:modifiedBy': mepstein
+          'sbg:revisionNotes': null
+          'sbg:revision': 0
+        - 'sbg:modifiedOn': 1524843462
+          'sbg:modifiedBy': mepstein
+          'sbg:revisionNotes': Initial version.
+          'sbg:revision': 1
+        - 'sbg:modifiedOn': 1526497729
+          'sbg:modifiedBy': mepstein
+          'sbg:revisionNotes': 'Added output (map_file, from KN Mapper).'
+          'sbg:revision': 2
+      'sbg:projectName': KnowEnG_Signature_Analysis_Dev
+      'sbg:contributors':
+        - mepstein
+      'sbg:createdOn': 1524843132
+      'sbg:revision': 2
+      'sbg:project': mepstein/knoweng-signature-analysis-dev
+      'sbg:modifiedBy': mepstein
+      'sbg:appVersion':
+        - 'sbg:draft-2'
+      'sbg:latestRevision': 2
+      'sbg:revisionNotes': 'Added output (map_file, from KN Mapper).'
+      'sbg:canvas_y': 0
+      requirements: []
       'sbg:modifiedOn': 1526497729
       x: 433.00000000000006
       'sbg:publisher': sbg
-      cwlVersion: 'sbg:draft-2'
       'sbg:image_url': >-
         https://cgc.sbgenomics.com/ns/brood/images/mepstein/knoweng-signature-analysis-dev/mapper-workflow/2.png
       'sbg:validationErrors': []
       'y': 353.99999999999994
       'sbg:canvas_x': 0
       'sbg:canvas_zoom': 0.95
-      label: Mapper Workflow
       'sbg:sbgMaintained': false
       'sbg:createdBy': mepstein
     inputs:
       - id: '#Mapper_Workflow_1.taxon'
-        source:
-          - '#taxonid'
+        source: '#taxonid'
       - id: '#Mapper_Workflow_1.source_hint'
       - id: '#Mapper_Workflow_1.output_filename'
         default: signatures_mapped.tsv
       - id: '#Mapper_Workflow_1.input_file'
-        source:
-          - '#signatures_file'
+        source: '#signatures_file'
       - id: '#Mapper_Workflow_1.dont_do_mapping'
-        source:
-          - '#dont_map_signatures'
-    id: '#Mapper_Workflow_1'
+        source: '#dont_map_signatures'
     outputs:
       - id: '#Mapper_Workflow_1.output_file_1'
       - id: '#Mapper_Workflow_1.output_file'
-  - 'sbg:x': 940.9999999999999
-    'sbg:y': 427
+    'sbg:x': 433.00000000000006
+    'sbg:y': 353.99999999999994
+  - id: '#Signature_Analysis'
     run:
-      'sbg:id': mepstein/knoweng-signature-analysis-dev/signature-analysis/13
-      arguments: []
-      'sbg:projectName': KnowEnG_Signature_Analysis_Dev
-      'sbg:contributors':
-        - mepstein
-      'sbg:createdOn': 1520542501
-      'sbg:job':
-        inputs:
-          bootstrap_sample_percent: 80
-          parallelism: 4
-          network_file:
-            class: File
-            size: 0
-            path: /path/to/network_file.ext
-            secondaryFiles: []
-          network_influence_percent: 50
-          spreadsheet_file:
-            class: File
-            size: 0
-            path: /path/to/spreadsheet_file.ext
-            secondaryFiles: []
-          signature_file:
-            class: File
-            size: 0
-            path: /path/to/signature_file.ext
-            secondaryFiles: []
-          num_bootstraps: 0
-          use_network: false
-          processing_method: serial
-          similarity_measure: spearman
-        allocatedResources:
-          cpu: 1
-          mem: 1000
-      'sbg:revisionsInfo':
-        - 'sbg:modifiedOn': 1520542501
-          'sbg:modifiedBy': mepstein
-          'sbg:revisionNotes': null
-          'sbg:revision': 0
-        - 'sbg:modifiedOn': 1520544005
-          'sbg:modifiedBy': mepstein
-          'sbg:revisionNotes': Initial version.
-          'sbg:revision': 1
-        - 'sbg:modifiedOn': 1520544423
-          'sbg:modifiedBy': mepstein
-          'sbg:revisionNotes': Fixed glob value on results file.
-          'sbg:revision': 2
-        - 'sbg:modifiedOn': 1520577053
-          'sbg:modifiedBy': mepstein
-          'sbg:revisionNotes': Modified the default behavior (with regard to certain inputs).
-          'sbg:revision': 3
-        - 'sbg:modifiedOn': 1521661999
-          'sbg:modifiedBy': mepstein
-          'sbg:revisionNotes': >-
-            Modified run_sa.cmd javascript to run SA in only one mode
-            (non-network, non-bootstrapping); added similarity map binary matrix
-            output.
-          'sbg:revision': 4
-        - 'sbg:modifiedOn': 1522291013
-          'sbg:modifiedBy': mepstein
-          'sbg:revisionNotes': Modified mbm.py to handle empty spreadsheets.
-          'sbg:revision': 5
-        - 'sbg:modifiedOn': 1524106105
-          'sbg:modifiedBy': mepstein
-          'sbg:revisionNotes': Updated version of SAP container.
-          'sbg:revision': 6
-        - 'sbg:modifiedOn': 1526407664
-          'sbg:modifiedBy': mepstein
-          'sbg:revisionNotes': >-
-            Updated a few things (docker container, output for binary similarity
-            matrix, ...).
-          'sbg:revision': 7
-        - 'sbg:modifiedOn': 1526482172
-          'sbg:modifiedBy': mepstein
-          'sbg:revisionNotes': Added outputs for clean samples and signatures files.
-          'sbg:revision': 8
-        - 'sbg:modifiedOn': 1526484932
-          'sbg:modifiedBy': mepstein
-          'sbg:revisionNotes': Modified documentation to include new similar measure (pearson).
-          'sbg:revision': 9
-        - 'sbg:modifiedOn': 1526486122
-          'sbg:modifiedBy': mepstein
-          'sbg:revisionNotes': Fixed js syntax error (missing +).
-          'sbg:revision': 10
-        - 'sbg:modifiedOn': 1526540717
-          'sbg:modifiedBy': mepstein
-          'sbg:revisionNotes': Added call to wget.py.
-          'sbg:revision': 11
-        - 'sbg:modifiedOn': 1526540795
-          'sbg:modifiedBy': mepstein
-          'sbg:revisionNotes': Added readme output file.
-          'sbg:revision': 12
-        - 'sbg:modifiedOn': 1526542156
-          'sbg:modifiedBy': mepstein
-          'sbg:revisionNotes': Changed how wget.py called on command line.
-          'sbg:revision': 13
-      inputs:
-        - type:
-            - 'null'
-            - boolean
-          id: '#use_network'
-          description: Whether to use the network
-          'sbg:stageInput': null
-          label: Use Network Flag
-        - type:
-            - 'null'
-            - File
-          label: Spreadsheet File
-          description: The input spreadsheet file
-          id: '#spreadsheet_file'
-          required: false
-        - type:
-            - 'null'
-            - type: enum
-              name: similarity_measure
-              symbols:
-                - cosine
-                - pearson
-                - spearman
-          label: Similarity Measure
-          description: 'The similarity measure (e.g., cosine, pearson, or spearman)'
-          id: '#similarity_measure'
-          'sbg:includeInPorts': true
-          required: false
-        - type:
-            - 'null'
-            - File
-          label: Signature File
-          description: The input signature file
-          id: '#signature_file'
-          required: false
-        - type:
-            - 'null'
-            - type: enum
-              name: processing_method
-              symbols:
-                - serial
-                - parallel
-          label: The processing method
-          'sbg:toolDefaultValue': serial
-          'sbg:stageInput': null
-          description: 'The processing method (e.g., serial or parallel, default: serial)'
-          id: '#processing_method'
-        - type:
-            - 'null'
-            - int
-          label: parallelism
-          'sbg:toolDefaultValue': '4'
-          'sbg:stageInput': null
-          description: 'The parallelism (if the processing method is parallel; default: 4)'
-          id: '#parallelism'
-        - type:
-            - 'null'
-            - int
-          label: Number of Bootstraps
-          'sbg:toolDefaultValue': '0'
-          'sbg:stageInput': null
-          description: 'The number of bootstraps (default: 0)'
-          id: '#num_bootstraps'
-        - type:
-            - 'null'
-            - int
-          label: Amount of Network Influence
-          'sbg:toolDefaultValue': '50'
-          'sbg:stageInput': null
-          description: >-
-            The amount of network influence (as a percent; default 50%); a
-            greater value means greater contribution from the network
-            interactions
-          id: '#network_influence_percent'
-        - type:
-            - 'null'
-            - File
-          label: Knowledge Network File
-          description: The knowledge network file
-          id: '#network_file'
-          required: false
-        - type:
-            - 'null'
-            - int
-          label: Bootstrap Sample Percent
-          'sbg:toolDefaultValue': '80'
-          'sbg:stageInput': null
-          description: 'The bootstrap sample percent (default: 80%)'
-          id: '#bootstrap_sample_percent'
-      'sbg:cmdPreview': >-
-        sh run_sa.cmd && cp -pr result*.tsv similarity_matrix.tsv && cp -pr
-        Gene_to_TF_Association*.tsv similarity_matrix.binary.tsv && python3
-        wget.py
-        https://raw.githubusercontent.com/KnowEnG/quickstart-demos/master/pipeline_readmes/README-SA.md
-        README-SA.md
+      cwlVersion: 'sbg:draft-2'
+      class: CommandLineTool
       $namespaces:
         sbg: 'https://sevenbridges.com'
-      'sbg:revision': 13
-      'sbg:project': mepstein/knoweng-signature-analysis-dev
-      'sbg:modifiedBy': mepstein
-      'sbg:appVersion':
-        - 'sbg:draft-2'
       id: mepstein/knoweng-signature-analysis-dev/signature-analysis/13
-      'sbg:latestRevision': 13
-      'sbg:revisionNotes': Changed how wget.py called on command line.
-      outputs:
-        - type:
-            - 'null'
-            - File
-          id: '#similarity_matrix_binary'
-          description: The signature similarity matrix (binary; one 1 per row/gene/feature)
-          outputBinding:
-            glob: similarity_matrix.binary.tsv
-          label: Similarity Matrix Binary
-        - type:
-            - 'null'
-            - File
-          id: '#similarity_matrix'
-          description: The signature similarity results
-          outputBinding:
-            glob: similarity_matrix.tsv
-          label: Similarity Matrix
-        - type:
-            - 'null'
-            - File
-          id: '#run_params_yml'
-          description: The Signature Analysis parameters
-          outputBinding:
-            glob: run_params.yml
-          label: SA Parameters File
-        - type:
-            - 'null'
-            - File
-          id: '#readme'
-          description: The README file that describes the output files
-          outputBinding:
-            glob: README-SA.md
-          label: The README file
-        - type:
-            - 'null'
-            - File
-          id: '#clean_signatures_file'
-          description: The clean signatures file
-          outputBinding:
-            glob: clean_signatures_matrix.tsv
-          label: Clean Signatures File
-        - type:
-            - 'null'
-            - File
-          id: '#clean_samples_file'
-          description: The clean samples file
-          outputBinding:
-            glob: clean_samples_matrix.tsv
-          label: Clean Samples File
       label: Signature Analysis
-      stdin: ''
+      description: >-
+        Calls the KnowEnG Signature Analysis pipeline.
+
+
+        Note: In the current implementation of Signature Analysis, the only mode
+        available is non-network, non-bootstrapping.  That means that the tool
+        behaves as if the input parameters use_network is false and
+        num_bootstraps is 0, and the input file network_file and the input
+        parameters network_influence_percent, bootstrap_sample_percent,
+        processing_method, and parallelism are ignored.  (These inputs are still
+        present; this behavior is set in the javascript that generates
+        run_sa.cmd.)
+
+
+        In summary, the only inputs that are used are the input files
+        spreadsheet_file and signature_file and the input parameter
+        similarity_measure.
       baseCommand:
         - sh
         - run_sa.cmd
@@ -2353,17 +1931,154 @@ steps:
         - >-
           https://raw.githubusercontent.com/KnowEnG/quickstart-demos/master/pipeline_readmes/README-SA.md
         - README-SA.md
-      hints:
-        - class: 'sbg:CPURequirement'
-          value: 1
-        - class: 'sbg:MemRequirement'
-          value: 1000
-        - dockerImageId: ''
-          class: DockerRequirement
-          dockerPull: 'knowengdev/signature_analysis_pipeline:05_10_2018'
+      inputs:
+        - 'sbg:stageInput': null
+          type:
+            - 'null'
+            - boolean
+          label: Use Network Flag
+          description: Whether to use the network
+          id: '#use_network'
+        - required: false
+          type:
+            - 'null'
+            - File
+          label: Spreadsheet File
+          description: The input spreadsheet file
+          id: '#spreadsheet_file'
+        - 'sbg:includeInPorts': true
+          required: false
+          type:
+            - 'null'
+            - type: enum
+              symbols:
+                - cosine
+                - pearson
+                - spearman
+              name: similarity_measure
+          label: Similarity Measure
+          description: 'The similarity measure (e.g., cosine, pearson, or spearman)'
+          id: '#similarity_measure'
+        - required: false
+          type:
+            - 'null'
+            - File
+          label: Signature File
+          description: The input signature file
+          id: '#signature_file'
+        - 'sbg:toolDefaultValue': serial
+          'sbg:stageInput': null
+          type:
+            - 'null'
+            - type: enum
+              symbols:
+                - serial
+                - parallel
+              name: processing_method
+          label: The processing method
+          description: 'The processing method (e.g., serial or parallel, default: serial)'
+          id: '#processing_method'
+        - 'sbg:toolDefaultValue': '4'
+          'sbg:stageInput': null
+          type:
+            - 'null'
+            - int
+          label: parallelism
+          description: 'The parallelism (if the processing method is parallel; default: 4)'
+          id: '#parallelism'
+        - 'sbg:toolDefaultValue': '0'
+          'sbg:stageInput': null
+          type:
+            - 'null'
+            - int
+          label: Number of Bootstraps
+          description: 'The number of bootstraps (default: 0)'
+          id: '#num_bootstraps'
+        - 'sbg:toolDefaultValue': '50'
+          'sbg:stageInput': null
+          type:
+            - 'null'
+            - int
+          label: Amount of Network Influence
+          description: >-
+            The amount of network influence (as a percent; default 50%); a
+            greater value means greater contribution from the network
+            interactions
+          id: '#network_influence_percent'
+        - required: false
+          type:
+            - 'null'
+            - File
+          label: Knowledge Network File
+          description: The knowledge network file
+          id: '#network_file'
+        - 'sbg:toolDefaultValue': '80'
+          'sbg:stageInput': null
+          type:
+            - 'null'
+            - int
+          label: Bootstrap Sample Percent
+          description: 'The bootstrap sample percent (default: 80%)'
+          id: '#bootstrap_sample_percent'
+      outputs:
+        - type:
+            - 'null'
+            - File
+          label: Similarity Matrix Binary
+          description: The signature similarity matrix (binary; one 1 per row/gene/feature)
+          outputBinding:
+            glob: similarity_matrix.binary.tsv
+          id: '#similarity_matrix_binary'
+        - type:
+            - 'null'
+            - File
+          label: Similarity Matrix
+          description: The signature similarity results
+          outputBinding:
+            glob: similarity_matrix.tsv
+          id: '#similarity_matrix'
+        - type:
+            - 'null'
+            - File
+          label: SA Parameters File
+          description: The Signature Analysis parameters
+          outputBinding:
+            glob: run_params.yml
+          id: '#run_params_yml'
+        - type:
+            - 'null'
+            - File
+          label: The README file
+          description: The README file that describes the output files
+          outputBinding:
+            glob: README-SA.md
+          id: '#readme'
+        - type:
+            - 'null'
+            - File
+          label: Clean Signatures File
+          description: The clean signatures file
+          outputBinding:
+            glob: clean_signatures_matrix.tsv
+          id: '#clean_signatures_file'
+        - type:
+            - 'null'
+            - File
+          label: Clean Samples File
+          description: The clean samples file
+          outputBinding:
+            glob: clean_samples_matrix.tsv
+          id: '#clean_samples_file'
       requirements:
-        - fileDef:
-            - fileContent:
+        - class: ExpressionEngineRequirement
+          id: '#cwl-js-engine'
+          requirements:
+            - class: DockerRequirement
+              dockerPull: rabix/js-engine
+        - class: CreateFileRequirement
+          fileDef:
+            - filename: run_sa.cmd
+              fileContent:
                 engine: '#cwl-js-engine'
                 script: >+
 
@@ -2511,8 +2226,8 @@ steps:
                   str3;
 
                 class: Expression
-              filename: run_sa.cmd
-            - fileContent: |-
+            - filename: mbm.py
+              fileContent: |-
                 #!/usr/bin/env python3
 
 
@@ -2582,8 +2297,8 @@ steps:
 
                 if __name__ == "__main__":
                     main()
-              filename: mbm.py
-            - fileContent: >-
+            - filename: wget.py
+              fileContent: >-
                 #!/usr/bin/env python3
 
 
@@ -2620,55 +2335,137 @@ steps:
 
                 filename, headers = urllib.request.urlretrieve(url,
                 filename=output_file)
-              filename: wget.py
-          class: CreateFileRequirement
-        - id: '#cwl-js-engine'
-          class: ExpressionEngineRequirement
-          requirements:
-            - class: DockerRequirement
-              dockerPull: rabix/js-engine
-      temporaryFailCodes: []
+      hints:
+        - class: 'sbg:CPURequirement'
+          value: 1
+        - class: 'sbg:MemRequirement'
+          value: 1000
+        - class: DockerRequirement
+          dockerPull: 'knowengdev/signature_analysis_pipeline:05_10_2018'
+      'sbg:id': mepstein/knoweng-signature-analysis-dev/signature-analysis/13
+      'sbg:projectName': KnowEnG_Signature_Analysis_Dev
+      'sbg:contributors':
+        - mepstein
+      'sbg:createdOn': 1520542501
+      'sbg:job':
+        inputs:
+          bootstrap_sample_percent: 80
+          parallelism: 4
+          network_file:
+            class: File
+            size: 0
+            path: /path/to/network_file.ext
+            secondaryFiles: []
+          network_influence_percent: 50
+          spreadsheet_file:
+            class: File
+            size: 0
+            path: /path/to/spreadsheet_file.ext
+            secondaryFiles: []
+          signature_file:
+            class: File
+            size: 0
+            path: /path/to/signature_file.ext
+            secondaryFiles: []
+          num_bootstraps: 0
+          use_network: false
+          processing_method: serial
+          similarity_measure: spearman
+        allocatedResources:
+          cpu: 1
+          mem: 1000
+      'sbg:revisionsInfo':
+        - 'sbg:modifiedOn': 1520542501
+          'sbg:modifiedBy': mepstein
+          'sbg:revisionNotes': null
+          'sbg:revision': 0
+        - 'sbg:modifiedOn': 1520544005
+          'sbg:modifiedBy': mepstein
+          'sbg:revisionNotes': Initial version.
+          'sbg:revision': 1
+        - 'sbg:modifiedOn': 1520544423
+          'sbg:modifiedBy': mepstein
+          'sbg:revisionNotes': Fixed glob value on results file.
+          'sbg:revision': 2
+        - 'sbg:modifiedOn': 1520577053
+          'sbg:modifiedBy': mepstein
+          'sbg:revisionNotes': Modified the default behavior (with regard to certain inputs).
+          'sbg:revision': 3
+        - 'sbg:modifiedOn': 1521661999
+          'sbg:modifiedBy': mepstein
+          'sbg:revisionNotes': >-
+            Modified run_sa.cmd javascript to run SA in only one mode
+            (non-network, non-bootstrapping); added similarity map binary matrix
+            output.
+          'sbg:revision': 4
+        - 'sbg:modifiedOn': 1522291013
+          'sbg:modifiedBy': mepstein
+          'sbg:revisionNotes': Modified mbm.py to handle empty spreadsheets.
+          'sbg:revision': 5
+        - 'sbg:modifiedOn': 1524106105
+          'sbg:modifiedBy': mepstein
+          'sbg:revisionNotes': Updated version of SAP container.
+          'sbg:revision': 6
+        - 'sbg:modifiedOn': 1526407664
+          'sbg:modifiedBy': mepstein
+          'sbg:revisionNotes': >-
+            Updated a few things (docker container, output for binary similarity
+            matrix, ...).
+          'sbg:revision': 7
+        - 'sbg:modifiedOn': 1526482172
+          'sbg:modifiedBy': mepstein
+          'sbg:revisionNotes': Added outputs for clean samples and signatures files.
+          'sbg:revision': 8
+        - 'sbg:modifiedOn': 1526484932
+          'sbg:modifiedBy': mepstein
+          'sbg:revisionNotes': Modified documentation to include new similar measure (pearson).
+          'sbg:revision': 9
+        - 'sbg:modifiedOn': 1526486122
+          'sbg:modifiedBy': mepstein
+          'sbg:revisionNotes': Fixed js syntax error (missing +).
+          'sbg:revision': 10
+        - 'sbg:modifiedOn': 1526540717
+          'sbg:modifiedBy': mepstein
+          'sbg:revisionNotes': Added call to wget.py.
+          'sbg:revision': 11
+        - 'sbg:modifiedOn': 1526540795
+          'sbg:modifiedBy': mepstein
+          'sbg:revisionNotes': Added readme output file.
+          'sbg:revision': 12
+        - 'sbg:modifiedOn': 1526542156
+          'sbg:modifiedBy': mepstein
+          'sbg:revisionNotes': Changed how wget.py called on command line.
+          'sbg:revision': 13
+      'sbg:cmdPreview': >-
+        sh run_sa.cmd && cp -pr result*.tsv similarity_matrix.tsv && cp -pr
+        Gene_to_TF_Association*.tsv similarity_matrix.binary.tsv && python3
+        wget.py
+        https://raw.githubusercontent.com/KnowEnG/quickstart-demos/master/pipeline_readmes/README-SA.md
+        README-SA.md
+      'sbg:revision': 13
+      'sbg:project': mepstein/knoweng-signature-analysis-dev
+      'sbg:modifiedBy': mepstein
+      'sbg:appVersion':
+        - 'sbg:draft-2'
+      'sbg:latestRevision': 13
+      'sbg:revisionNotes': Changed how wget.py called on command line.
       'sbg:modifiedOn': 1526542156
       x: 940.9999999999999
       'sbg:publisher': sbg
-      cwlVersion: 'sbg:draft-2'
       'sbg:image_url': null
       'sbg:validationErrors': []
       'y': 427
-      description: >-
-        Calls the KnowEnG Signature Analysis pipeline.
-
-
-        Note: In the current implementation of Signature Analysis, the only mode
-        available is non-network, non-bootstrapping.  That means that the tool
-        behaves as if the input parameters use_network is false and
-        num_bootstraps is 0, and the input file network_file and the input
-        parameters network_influence_percent, bootstrap_sample_percent,
-        processing_method, and parallelism are ignored.  (These inputs are still
-        present; this behavior is set in the javascript that generates
-        run_sa.cmd.)
-
-
-        In summary, the only inputs that are used are the input files
-        spreadsheet_file and signature_file and the input parameter
-        similarity_measure.
-      stdout: ''
-      successCodes: []
       'sbg:createdBy': mepstein
-      class: CommandLineTool
       'sbg:sbgMaintained': false
     inputs:
       - id: '#Signature_Analysis.use_network'
         default: false
       - id: '#Signature_Analysis.spreadsheet_file'
-        source:
-          - '#Data_Cleaning_Preprocessing.clean_genomic_file'
+        source: '#Data_Cleaning_Preprocessing.clean_genomic_file'
       - id: '#Signature_Analysis.similarity_measure'
-        source:
-          - '#similarity_measure'
+        source: '#similarity_measure'
       - id: '#Signature_Analysis.signature_file'
-        source:
-          - '#Data_Cleaning_Preprocessing.clean_phenotypic_file'
+        source: '#Data_Cleaning_Preprocessing.clean_phenotypic_file'
       - id: '#Signature_Analysis.processing_method'
       - id: '#Signature_Analysis.parallelism'
       - id: '#Signature_Analysis.num_bootstraps'
@@ -2676,7 +2473,6 @@ steps:
       - id: '#Signature_Analysis.network_influence_percent'
       - id: '#Signature_Analysis.network_file'
       - id: '#Signature_Analysis.bootstrap_sample_percent'
-    id: '#Signature_Analysis'
     outputs:
       - id: '#Signature_Analysis.similarity_matrix_binary'
       - id: '#Signature_Analysis.similarity_matrix'
@@ -2684,11 +2480,113 @@ steps:
       - id: '#Signature_Analysis.readme'
       - id: '#Signature_Analysis.clean_signatures_file'
       - id: '#Signature_Analysis.clean_samples_file'
-  - 'sbg:x': 867.0588235294119
-    'sbg:y': 71.76470588235296
+    'sbg:x': 940.9999999999999
+    'sbg:y': 427
+  - id: '#Signature_Analysis_Renamer'
     run:
+      cwlVersion: 'sbg:draft-2'
+      class: CommandLineTool
+      $namespaces:
+        sbg: 'https://sevenbridges.com'
+      id: mepstein/knoweng-signature-analysis-dev/signature-analysis-renamer/3
+      label: Signature Analysis Renamer
+      baseCommand:
+        - sh
+        - renamer.sh
+      inputs:
+        - required: false
+          type:
+            - 'null'
+            - File
+          label: Gene Map File 2 Input
+          description: Gene Map File 2 Input
+          id: '#gene_map2_in'
+        - required: false
+          type:
+            - 'null'
+            - File
+          label: Gene Map File 1 Input
+          description: Gene Map File 1 Input
+          id: '#gene_map1_in'
+      outputs:
+        - type:
+            - 'null'
+            - File
+          label: Gene Map File
+          description: The gene map file
+          outputBinding:
+            glob: gene_map.txt
+          id: '#gene_map_file_out'
+      requirements:
+        - class: ExpressionEngineRequirement
+          id: '#cwl-js-engine'
+          requirements:
+            - class: DockerRequirement
+              dockerPull: rabix/js-engine
+        - class: CreateFileRequirement
+          fileDef:
+            - filename: rem_dups.sh
+              fileContent: >-
+                #!/usr/bin/bash
+
+
+                INPUT=$1
+
+                OUTPUT=$2
+
+
+                # As seen on:
+
+                #
+                https://unix.stackexchange.com/questions/30173/how-to-remove-duplicate-lines-inside-a-text-file
+
+                <$INPUT nl -b a -s : |          # number the lines
+
+                sort -t : -k 2 -u |             # sort and uniquify ignoring the
+                line numbers
+
+                sort -t : -k 1n |               # sort according to the line
+                numbers
+
+                cut -d : -f 2- >$OUTPUT         # remove the line numbers
+
+
+                # Using awk:
+
+                # <input awk '!seen[$0]++'
+            - filename: renamer.sh
+              fileContent:
+                engine: '#cwl-js-engine'
+                script: |
+                  var str = "";
+
+                  var files = "";
+
+                  if ($job.inputs.gene_map1_in) {
+                      files += " " + $job.inputs.gene_map1_in.path;
+                  }
+                  if ($job.inputs.gene_map2_in) {
+                      files += " " + $job.inputs.gene_map2_in.path;
+                  }
+
+                  if (files) {
+                      //str += "cat " + files + " > tmp1 && ./rem_dups.sh tmp1 gene_map.txt";
+                      str += "echo 'user_supplied_gene_name\\tstatus' > tmp1 && cat " + files + " >> tmp1 && sh rem_dups.sh tmp1 gene_map.txt";
+                  }
+                  else {
+                      str += "touch gene_map.txt";
+                  }
+
+                  str;
+                class: Expression
+      hints:
+        - class: 'sbg:CPURequirement'
+          value: 1
+        - class: 'sbg:MemRequirement'
+          value: 1000
+        - class: DockerRequirement
+          dockerPull: ubuntu
       'sbg:id': mepstein/knoweng-signature-analysis-dev/signature-analysis-renamer/3
-      arguments: []
       'sbg:projectName': KnowEnG_Signature_Analysis_Dev
       'sbg:contributors':
         - mepstein
@@ -2725,141 +2623,219 @@ steps:
           'sbg:modifiedBy': mepstein
           'sbg:revisionNotes': Removed "-e" from echo call in renamer.sh.
           'sbg:revision': 3
-      inputs:
-        - label: Gene Map File 2 Input
-          type:
-            - 'null'
-            - File
-          description: Gene Map File 2 Input
-          id: '#gene_map2_in'
-          required: false
-        - label: Gene Map File 1 Input
-          type:
-            - 'null'
-            - File
-          description: Gene Map File 1 Input
-          id: '#gene_map1_in'
-          required: false
       'sbg:cmdPreview': sh renamer.sh
-      $namespaces:
-        sbg: 'https://sevenbridges.com'
       'sbg:revision': 3
       'sbg:project': mepstein/knoweng-signature-analysis-dev
       'sbg:modifiedBy': mepstein
       'sbg:appVersion':
         - 'sbg:draft-2'
-      id: mepstein/knoweng-signature-analysis-dev/signature-analysis-renamer/3
       'sbg:latestRevision': 3
       'sbg:revisionNotes': Removed "-e" from echo call in renamer.sh.
-      outputs:
-        - type:
-            - 'null'
-            - File
-          id: '#gene_map_file_out'
-          description: The gene map file
-          outputBinding:
-            glob: gene_map.txt
-          label: Gene Map File
-      label: Signature Analysis Renamer
-      stdin: ''
-      baseCommand:
-        - sh
-        - renamer.sh
-      hints:
-        - class: 'sbg:CPURequirement'
-          value: 1
-        - class: 'sbg:MemRequirement'
-          value: 1000
-        - dockerImageId: ''
-          class: DockerRequirement
-          dockerPull: ubuntu
-      requirements:
-        - fileDef:
-            - fileContent: >-
-                #!/usr/bin/bash
-
-
-                INPUT=$1
-
-                OUTPUT=$2
-
-
-                # As seen on:
-
-                #
-                https://unix.stackexchange.com/questions/30173/how-to-remove-duplicate-lines-inside-a-text-file
-
-                <$INPUT nl -b a -s : |          # number the lines
-
-                sort -t : -k 2 -u |             # sort and uniquify ignoring the
-                line numbers
-
-                sort -t : -k 1n |               # sort according to the line
-                numbers
-
-                cut -d : -f 2- >$OUTPUT         # remove the line numbers
-
-
-                # Using awk:
-
-                # <input awk '!seen[$0]++'
-              filename: rem_dups.sh
-            - fileContent:
-                engine: '#cwl-js-engine'
-                script: |
-                  var str = "";
-
-                  var files = "";
-
-                  if ($job.inputs.gene_map1_in) {
-                      files += " " + $job.inputs.gene_map1_in.path;
-                  }
-                  if ($job.inputs.gene_map2_in) {
-                      files += " " + $job.inputs.gene_map2_in.path;
-                  }
-
-                  if (files) {
-                      //str += "cat " + files + " > tmp1 && ./rem_dups.sh tmp1 gene_map.txt";
-                      str += "echo 'user_supplied_gene_name\\tstatus' > tmp1 && cat " + files + " >> tmp1 && sh rem_dups.sh tmp1 gene_map.txt";
-                  }
-                  else {
-                      str += "touch gene_map.txt";
-                  }
-
-                  str;
-                class: Expression
-              filename: renamer.sh
-          class: CreateFileRequirement
-        - id: '#cwl-js-engine'
-          class: ExpressionEngineRequirement
-          requirements:
-            - class: DockerRequirement
-              dockerPull: rabix/js-engine
-      temporaryFailCodes: []
       'sbg:modifiedOn': 1526570997
       x: 867.0588235294119
       'sbg:publisher': sbg
-      cwlVersion: 'sbg:draft-2'
       'sbg:image_url': null
       'sbg:validationErrors': []
       'y': 71.76470588235296
-      description: ''
-      stdout: ''
-      successCodes: []
       'sbg:createdBy': mepstein
-      class: CommandLineTool
       'sbg:sbgMaintained': false
     inputs:
       - id: '#Signature_Analysis_Renamer.gene_map2_in'
-        source:
-          - '#Mapper_Workflow_1.output_file_1'
+        source: '#Mapper_Workflow_1.output_file_1'
       - id: '#Signature_Analysis_Renamer.gene_map1_in'
-        source:
-          - '#Mapper_Workflow.output_file_1'
-    id: '#Signature_Analysis_Renamer'
+        source: '#Mapper_Workflow.output_file_1'
     outputs:
       - id: '#Signature_Analysis_Renamer.gene_map_file_out'
+    'sbg:x': 867.0588235294119
+    'sbg:y': 71.76470588235296
+requirements: []
+inputs:
+  - type:
+      - 'null'
+      - string
+    label: Species Taxon ID
+    description: >-
+      The species taxon ID (e.g., 9606 for human).See
+      https://knoweng.org/kn-data-references/ for possible values (KN Contents
+      by Species).
+    id: '#taxonid'
+    'sbg:x': 63
+    'sbg:y': 237
+    'sbg:includeInPorts': true
+  - type:
+      - File
+    label: Samples File
+    description: The samples file
+    id: '#samples_file'
+    'sbg:x': 55.00000154270846
+    'sbg:y': 50.00000140246224
+    'sbg:includeInPorts': true
+    'sbg:suggestedValue':
+      class: File
+      name: demo_SA.samples.txt
+      path: 5b227b248950ff8a0673d004
+  - type:
+      - 'null'
+      - boolean
+    label: Dont Map Samples Flag
+    description: 'If set, the names will not be mapped'
+    id: '#dont_map_samples'
+    'sbg:x': 149
+    'sbg:y': 133
+    'sbg:includeInPorts': true
+  - type:
+      - 'null'
+      - File
+    label: Signatures File
+    description: The signatures file
+    id: '#signatures_file'
+    'sbg:x': 66.00000185125015
+    'sbg:y': 368.0000103221221
+    'sbg:includeInPorts': true
+    'sbg:suggestedValue':
+      class: File
+      name: demo_SA.signatures.mapped.txt
+      path: 5b227b248950ff8a0673d003
+  - type:
+      - 'null'
+      - boolean
+    label: Dont Map Signatures Flag
+    description: 'If set, the names will not be mapped'
+    id: '#dont_map_signatures'
+    'sbg:x': 158
+    'sbg:y': 456
+    'sbg:includeInPorts': true
+  - type:
+      - 'null'
+      - type: enum
+        symbols:
+          - cosine
+          - pearson
+          - spearman
+        name: similarity_measure
+    label: Similarity Measure
+    description: 'The similarity measure (e.g., cosine, pearson, or spearman)'
+    id: '#similarity_measure'
+    'sbg:x': 75
+    'sbg:y': 558
+    'sbg:includeInPorts': true
+outputs:
+  - id: '#clean_samples_file'
+    label: Clean Samples
+    description: The clean samples file
+    type:
+      - 'null'
+      - File
+    'sbg:x': 1187.254997702206
+    'sbg:y': 204.5098338407629
+    'sbg:includeInPorts': true
+    required: false
+    source:
+      - '#Signature_Analysis.clean_samples_file'
+  - id: '#clean_signatures_file'
+    label: Clean Signatures
+    description: The clean signatures file
+    type:
+      - 'null'
+      - File
+    'sbg:x': 1272.0262235753678
+    'sbg:y': 309.67317468979786
+    'sbg:includeInPorts': true
+    required: false
+    source:
+      - '#Signature_Analysis.clean_signatures_file'
+  - id: '#similarity_matrix'
+    label: Similarity Matrix File
+    description: The signature similarity results
+    type:
+      - 'null'
+      - File
+    'sbg:x': 1182.5684311810664
+    'sbg:y': 396.4510210822611
+    'sbg:includeInPorts': true
+    required: false
+    source:
+      - '#Signature_Analysis.similarity_matrix'
+  - id: '#similarity_matrix_binary'
+    label: Similarity Matrix Binary
+    description: The signature similarity matrix (binary; one 1 per row/gene/feature)
+    type:
+      - 'null'
+      - File
+    'sbg:x': 1278.8509593290441
+    'sbg:y': 500.3956155215994
+    'sbg:includeInPorts': true
+    required: false
+    source:
+      - '#Signature_Analysis.similarity_matrix_binary'
+  - id: '#run_params_yml'
+    label: SA run_params_yml
+    description: The configuration parameters specified for the SA run
+    type:
+      - 'null'
+      - File
+    'sbg:x': 1275.8431468290444
+    'sbg:y': 677.8823673023899
+    'sbg:includeInPorts': true
+    required: false
+    source:
+      - '#Signature_Analysis.run_params_yml'
+  - id: '#readme'
+    label: README
+    description: The README file that describes the output files
+    type:
+      - 'null'
+      - File
+    'sbg:x': 1186.1437988281252
+    'sbg:y': 578.627498851103
+    'sbg:includeInPorts': true
+    required: false
+    source:
+      - '#Signature_Analysis.readme'
+  - id: '#gene_map_file_out'
+    label: Gene Map File
+    description: The gene map file
+    type:
+      - 'null'
+      - File
+    'sbg:x': 1185.8823529411768
+    'sbg:y': 57.64705882352942
+    'sbg:includeInPorts': true
+    required: false
+    source:
+      - '#Signature_Analysis_Renamer.gene_map_file_out'
+'sbg:revisionsInfo':
+  - 'sbg:revision': 0
+    'sbg:modifiedBy': mepstein
+    'sbg:modifiedOn': 1529392936
+    'sbg:revisionNotes': null
+  - 'sbg:revision': 1
+    'sbg:modifiedBy': mepstein
+    'sbg:modifiedOn': 1529392994
+    'sbg:revisionNotes': Saving imported workflow.
+  - 'sbg:revision': 2
+    'sbg:modifiedBy': charles_blatti
+    'sbg:modifiedOn': 1560523848
+    'sbg:revisionNotes': Updated URLs
+  - 'sbg:revision': 3
+    'sbg:modifiedBy': charles_blatti
+    'sbg:modifiedOn': 1560525514
+    'sbg:revisionNotes': Added suggested input file
+'sbg:projectName': KnowEnG_Signature_Analysis_Public
+'sbg:image_url': >-
+  https://cgc.sbgenomics.com/ns/brood/images/mepstein/knoweng-signature-analysis-public/signature-analysis-workflow/3.png
+'sbg:toolAuthor': KnowEnG
+'sbg:canvas_y': 22
 'sbg:toolkitVersion': v1.0
+'sbg:canvas_x': 14
+'sbg:license': >-
+  Copyright (c) 2017, University of Illinois Board of Trustees; All rights
+  reserved.
+'sbg:categories':
+  - Analysis
+'sbg:canvas_zoom': 0.8499999999999999
+'sbg:toolkit': KnowEnG_CGC
+label: Signature Analysis Workflow
 description: >-
   This [KnowEnG](https://knoweng.org/) workflow matches genomic profiles from a
   user-supplied query spreadsheet to a library of genomic signatures determined
@@ -2975,7 +2951,7 @@ description: >-
 
 
   [Quickstart
-  Guide](https://knoweng.org/wp-content/uploads/2018/02/GP_CGC_Quickstart.pdf)
+  Guide](https://knoweng.org/wp-content/uploads/2018/07/SA_CGC_Quickstart.pdf)
   for this workflow
 
 
@@ -2983,8 +2959,8 @@ description: >-
   knowledge-guided analysis
 
 
-  [YouTube Tutorial](https://youtu.be/Vp76-Oz-Yuc) for this workflow in KnowEnG
-  Platform
+  [YouTube Tutorial](https://www.youtube.com/channel/UCjyIIolCaZIGtZC20XLBOyg)
+  for workflows in KnowEnG Platform
 
 
   [Additional Pipelines](https://knoweng.org/pipelines/) supported by KnowEnG
@@ -3054,7 +3030,7 @@ description: >-
 
 
   3. Run the [Spreadsheet
-  Builder](https://cgc.sbgenomics.com/u/mepstein/geneprioritization/apps/#mepstein/geneprioritization/spreadsheet-builder/25)
+  Builder](https://cgc.sbgenomics.com/public/apps#mepstein/knoweng-spreadsheetbuilder-public/spreadsheet-builder/)
   (SB) with these files as the input files.  (Leave all of the parameters blank,
   i.e., use the default settings.  In particular this means that a z-score
   normalization will have been done on the output that is generated.)
@@ -3069,7 +3045,7 @@ description: >-
   like the following: `df.to_csv(output_file , sep="\t", float_format="%g")`.
 
 
-  2. Compress the file using `bzip2`.
+  2. Remove genes that are not mapped to a KnowEnG Knowledge Network.
 
 
   #### Demo signatures file: name: `demo_SA.signatures.txt`
@@ -3093,26 +3069,19 @@ description: >-
   containing these files includes a version named
   `demo_SA.signatures.mapped.txt`, in which the gene names have already been
   mapped.)
+hints: []
 cwlVersion: 'sbg:draft-2'
-'sbg:canvas_x': 14
-'sbg:license': >-
-  Copyright (c) 2017, University of Illinois Board of Trustees; All rights
-  reserved.
-'sbg:categories':
-  - Analysis
-'sbg:canvas_zoom': 0.8499999999999999
-label: Signature Analysis Workflow
-'sbg:toolkit': KnowEnG_CGC
 $namespaces:
   sbg: 'https://sevenbridges.com'
 'sbg:appVersion':
   - 'sbg:draft-2'
 id: >-
-  https://cgc-api.sbgenomics.com/v2/apps/mepstein/knoweng-signature-analysis-public/signature-analysis-workflow/1/raw/
-'sbg:id': mepstein/knoweng-signature-analysis-public/signature-analysis-workflow/1
-'sbg:revision': 1
-'sbg:modifiedOn': 1529392994
-'sbg:modifiedBy': mepstein
+  https://cgc-api.sbgenomics.com/v2/apps/mepstein/knoweng-signature-analysis-public/signature-analysis-workflow/3/raw/
+'sbg:id': mepstein/knoweng-signature-analysis-public/signature-analysis-workflow/3
+'sbg:revision': 3
+'sbg:revisionNotes': Added suggested input file
+'sbg:modifiedOn': 1560525514
+'sbg:modifiedBy': charles_blatti
 'sbg:createdOn': 1529392936
 'sbg:createdBy': mepstein
 'sbg:project': mepstein/knoweng-signature-analysis-public
@@ -3120,5 +3089,7 @@ id: >-
 'sbg:validationErrors': []
 'sbg:contributors':
   - mepstein
-'sbg:latestRevision': 1
-'sbg:content_hash': null
+  - charles_blatti
+'sbg:latestRevision': 3
+'sbg:publisher': KnowEnG
+'sbg:content_hash': afde438b1e1340166c7c08740b959bccd949e4b726d5dccb20f9a057634a0dd17
